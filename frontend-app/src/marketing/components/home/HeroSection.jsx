@@ -66,7 +66,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-3 mb-8"
             >
-              <CTAButton href="https://app.worklynx.io/signup" external variant="primary" size="lg">
+              <CTAButton href="/signup" variant="primary" size="lg">
                 Start 30-Day Free Trial
                 <ArrowRight className="w-4 h-4" />
               </CTAButton>

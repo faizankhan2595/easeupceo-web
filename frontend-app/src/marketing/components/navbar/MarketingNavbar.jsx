@@ -91,7 +91,7 @@ export default function MarketingNavbar() {
             >
               Sign In
             </a>
-            <CTAButton href="https://app.worklynx.io/signup" external variant="primary" size="sm">
+            <CTAButton href="/signup" variant="primary" size="sm">
               Start Free Trial
             </CTAButton>
           </div>
@@ -136,7 +136,7 @@ export default function MarketingNavbar() {
                 >
                   Sign In
                 </a>
-                <CTAButton href="https://app.worklynx.io/signup" external variant="primary" size="md" className="w-full justify-center">
+                <CTAButton href="/signup" variant="primary" size="md" className="w-full justify-center">
                   Start Free Trial
                 </CTAButton>
               </div>

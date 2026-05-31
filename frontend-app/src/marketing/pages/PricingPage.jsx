@@ -158,9 +158,7 @@ export default function PricingPage() {
               </div>
               <div className="text-center mt-8">
                 <a
-                  href="https://app.worklynx.io/signup"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/signup"
                   className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors shadow-lg"
                 >
                   Start 30-Day Free Trial

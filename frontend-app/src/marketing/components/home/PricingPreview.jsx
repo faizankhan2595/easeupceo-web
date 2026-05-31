@@ -57,7 +57,7 @@ export default function PricingPreview() {
                   </li>
                 ))}
               </ul>
-              <CTAButton href="https://app.worklynx.io/signup" external variant="outline" size="md" className="w-full justify-center">
+              <CTAButton href="/signup" variant="outline" size="md" className="w-full justify-center">
                 Start 30-Day Free Trial
               </CTAButton>
             </div>

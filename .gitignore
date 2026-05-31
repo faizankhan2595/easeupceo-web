@@ -21,4 +21,3 @@ Thumbs.db
 
 # Frontend build & deps (also covered by frontend-app/.gitignore)
 frontend-app/node_modules/
-frontend-app/dist/

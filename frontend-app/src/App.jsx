@@ -25,6 +25,7 @@ const SearchPage = lazy(() => import("./live-order/pages/SearchPage"));
 const ThankYouPage = lazy(() => import("./live-order/pages/ThankYouPage"));
 
 const StartOnboardingPage = lazy(() => import("./pages/StartOnboardingPage"));
+const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 
 const Fallback = () => <div className="h-screen" />;
 
@@ -65,6 +66,16 @@ const App = () => {
           <Route path="thank-you" element={<Suspense fallback={<Fallback />}><ThankYouPage /></Suspense>} />
           <Route path="*" element={<Navigate to="/live-order" replace />} />
         </Route>
+
+        {/* Sign up — standalone, no marketing chrome */}
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<Fallback />}>
+              <SignUpPage />
+            </Suspense>
+          }
+        />
 
         {/* Worklynx Business Onboarding (LynxChat) — standalone, no marketing layout */}
         <Route
