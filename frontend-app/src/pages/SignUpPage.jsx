@@ -30,6 +30,22 @@ const PRICING_BY_COUNTRY = {
   "United Kingdom": { base: 29,  payroll_per_emp: 2,  attendance_per_emp: 1,  leave_per_emp: 1,  restaurant: 15 },
 };
 
+// HR modules included free with every plan and enabled by default at signup.
+// Their keys map 1:1 to `selected_modules` on /api/signup, which sets the
+// matching `enabled_features` flag (assets → asset_management; the rest share
+// their key) and seeds sample data. Toggling these off sends `false`, which the
+// backend honours (`modules.X != false`). They add nothing to monthlyTotal.
+const HR_MODULES = [
+  { k: "recruitment",   label: "Recruitment",        desc: "Jobs, applicants, interviews, hiring requests" },
+  { k: "performance",   label: "Performance",        desc: "Appraisal cycles & performance dashboard" },
+  { k: "assets",        label: "Asset Management",   desc: "Assets & asset types with assignment" },
+  { k: "disciplinary",  label: "Disciplinary",       desc: "Disciplinary actions, types & rules" },
+  { k: "letters",       label: "Letter Sending",     desc: "Generate & send HR letters" },
+  { k: "announcements", label: "Announcements",      desc: "Company-wide announcements" },
+  { k: "help_desk",     label: "Help Desk",          desc: "Tickets, workflows & categories" },
+  { k: "healthcare",    label: "Doctors / Healthcare", desc: "Appointments & healthcare management" },
+];
+
 const slugify = (name) =>
   (name || "").toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
@@ -56,7 +72,12 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country,        setCountry]        = useState("India");
   const [employeeCount,  setEmployeeCount]  = useState(10);
-  const [modules,        setModules]        = useState({ payroll: false, attendance: false, leave: false, restaurant: false });
+  const [modules,        setModules]        = useState({
+    payroll: false, attendance: false, leave: false, restaurant: false,
+    // HR modules included free and on by default (see HR_MODULES).
+    recruitment: true, performance: true, assets: true, disciplinary: true,
+    letters: true, announcements: true, help_desk: true, healthcare: true,
+  });
 
   // Availability state
   const [hostnameAvailable, setHostnameAvailable] = useState(null);
@@ -349,6 +370,31 @@ export default function SignUpPage() {
                   <span className="text-xs text-slate-500">{price}</span>
                 </label>
               ))}
+            </div>
+
+            {/* HR modules — included free, enabled by default */}
+            <div className="mt-4 pt-3 border-t border-slate-200">
+              <div className="flex items-baseline justify-between mb-2">
+                <span className="text-sm font-medium text-slate-700">HR modules</span>
+                <span className="text-xs font-medium text-emerald-600">Included free</span>
+              </div>
+              <div className="space-y-2">
+                {HR_MODULES.map(({ k, label, desc }) => (
+                  <label key={k} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-slate-200 hover:border-indigo-300 cursor-pointer transition">
+                    <span className="flex items-center gap-3">
+                      <input
+                        type="checkbox" className="w-4 h-4 text-indigo-600"
+                        checked={!!modules[k]} onChange={(e) => setModules(prev => ({ ...prev, [k]: e.target.checked }))}
+                      />
+                      <span className="flex flex-col">
+                        <span className="text-sm font-medium text-slate-800">{label}</span>
+                        <span className="text-xs text-slate-500">{desc}</span>
+                      </span>
+                    </span>
+                    <span className="text-xs text-emerald-600">Included</span>
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
 
