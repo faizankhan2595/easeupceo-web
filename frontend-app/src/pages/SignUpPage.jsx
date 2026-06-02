@@ -26,8 +26,8 @@ const COUNTRY_OPTIONS = [
 ];
 
 const PRICING_BY_COUNTRY = {
-  "India":          { base: 999, payroll_per_emp: 35, attendance_per_emp: 18, leave_per_emp: 12, restaurant: 399 },
-  "United Kingdom": { base: 29,  payroll_per_emp: 2,  attendance_per_emp: 1,  leave_per_emp: 1,  restaurant: 15 },
+  "India":          { base: 999, payroll_per_emp: 35, attendance_per_emp: 18, leave_per_emp: 12, restaurant: 399, healthcare: 399 },
+  "United Kingdom": { base: 29,  payroll_per_emp: 2,  attendance_per_emp: 1,  leave_per_emp: 1,  restaurant: 15, healthcare: 15 },
 };
 
 // HR modules included free with every plan and enabled by default at signup.
@@ -43,7 +43,6 @@ const HR_MODULES = [
   { k: "letters",       label: "Letter Sending",     desc: "Generate & send HR letters" },
   { k: "announcements", label: "Announcements",      desc: "Company-wide announcements" },
   { k: "help_desk",     label: "Help Desk",          desc: "Tickets, workflows & categories" },
-  { k: "healthcare",    label: "Doctors / Healthcare", desc: "Appointments & healthcare management" },
 ];
 
 const slugify = (name) =>
@@ -73,10 +72,10 @@ export default function SignUpPage() {
   const [country,        setCountry]        = useState("India");
   const [employeeCount,  setEmployeeCount]  = useState(10);
   const [modules,        setModules]        = useState({
-    payroll: false, attendance: false, leave: false, restaurant: false,
+    payroll: false, attendance: false, leave: false, restaurant: false, healthcare: false,
     // HR modules included free and on by default (see HR_MODULES).
     recruitment: true, performance: true, assets: true, disciplinary: true,
-    letters: true, announcements: true, help_desk: true, healthcare: true,
+    letters: true, announcements: true, help_desk: true,
   });
 
   // Availability state
@@ -102,6 +101,7 @@ export default function SignUpPage() {
     if (modules.attendance) total += (employeeCount || 0) * pricing.attendance_per_emp;
     if (modules.leave)      total += (employeeCount || 0) * pricing.leave_per_emp;
     if (modules.restaurant) total += pricing.restaurant;
+    if (modules.healthcare) total += pricing.healthcare;
     return total;
   }, [employeeCount, modules, pricing]);
 
@@ -363,6 +363,7 @@ export default function SignUpPage() {
                 { k: "attendance", label: "Attendance",         price: `${currencySymbol}${pricing.attendance_per_emp}/emp` },
                 { k: "leave",     label: "Leave Management",    price: `${currencySymbol}${pricing.leave_per_emp}/emp` },
                 { k: "restaurant", label: "Restaurant (flat)",  price: `${currencySymbol}${pricing.restaurant}/mo` },
+                { k: "healthcare", label: "Doctors / Healthcare", price: `${currencySymbol}${pricing.healthcare}/mo` },
               ].map(({ k, label, price }) => (
                 <label key={k} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-slate-200 hover:border-indigo-300 cursor-pointer transition">
                   <span className="flex items-center gap-3">

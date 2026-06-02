@@ -140,6 +140,7 @@ export default function ContactPage() {
                           <SelectItem value="attendance">Attendance Add-On</SelectItem>
                           <SelectItem value="leave">Leave Management Add-On</SelectItem>
                           <SelectItem value="restaurant">Restaurant Management Add-On</SelectItem>
+                          <SelectItem value="healthcare">Doctors / Healthcare Add-On</SelectItem>
                           <SelectItem value="all">Full Platform</SelectItem>
                         </SelectContent>
                       </Select>

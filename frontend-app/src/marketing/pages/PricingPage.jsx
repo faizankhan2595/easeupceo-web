@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, HelpCircle, Users, CreditCard, Clock, CalendarDays, ShoppingCart, Calculator } from "lucide-react";
+import { Check, HelpCircle, Users, CreditCard, Clock, CalendarDays, ShoppingCart, Calculator, Stethoscope } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SectionHeader from "../components/shared/SectionHeader";
 import ComparisonTable from "../components/pricing/ComparisonTable";
@@ -12,6 +12,7 @@ const PRICING = {
   attendance_per_emp: 18,
   leave_per_emp: 12,
   restaurant: 399,
+  healthcare: 399,
 };
 
 const BASE_FEATURES = [
@@ -64,12 +65,26 @@ const addons = [
     name: "Restaurant Management",
     price: `₹${PRICING.restaurant}`,
     period: "/month (flat)",
+    flat: true,
     icon: ShoppingCart,
     bgClass: "bg-orange-50",
     borderClass: "border-orange-100",
     textClass: "text-orange-600",
     iconBg: "bg-white",
     features: ["Point of Sale (POS)", "Table & area management", "Reservations", "Kitchen display (KOT)"],
+  },
+  {
+    key: "healthcare",
+    name: "Doctors / Healthcare",
+    price: `₹${PRICING.healthcare}`,
+    period: "/month (flat)",
+    flat: true,
+    icon: Stethoscope,
+    bgClass: "bg-rose-50",
+    borderClass: "border-rose-100",
+    textClass: "text-rose-600",
+    iconBg: "bg-white",
+    features: ["Patient appointments", "Doctor scheduling", "Health records", "Consultation management"],
   },
 ];
 
@@ -89,6 +104,7 @@ export default function PricingPage() {
     attendance: true,
     leave: false,
     restaurant: false,
+    healthcare: false,
   });
 
   useEffect(() => {
@@ -101,6 +117,7 @@ export default function PricingPage() {
     if (selectedModules.attendance) total += employeeCount * PRICING.attendance_per_emp;
     if (selectedModules.leave) total += employeeCount * PRICING.leave_per_emp;
     if (selectedModules.restaurant) total += PRICING.restaurant;
+    if (selectedModules.healthcare) total += PRICING.healthcare;
     return total;
   })();
 
@@ -271,8 +288,8 @@ export default function PricingPage() {
                       <span className="text-sm font-medium text-slate-700">{addon.name}</span>
                     </div>
                     <span className="text-xs text-slate-500">
-                      {addon.key === "restaurant"
-                        ? `₹${PRICING.restaurant}/mo`
+                      {addon.flat
+                        ? `₹${PRICING[addon.key]}/mo`
                         : `₹${PRICING[`${addon.key}_per_emp`]} × ${employeeCount} = ₹${(PRICING[`${addon.key}_per_emp`] * employeeCount).toLocaleString("en-IN")}`}
                     </span>
                   </label>
