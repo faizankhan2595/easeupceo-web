@@ -52,6 +52,7 @@ export default function LynxChat({ onComplete }) {
     const map = {
       welcome:           5,
       company:           10,
+      industry:          18,
       branding_choice:   25,
       theme_picker:      40,
       employee_choice:   55,
