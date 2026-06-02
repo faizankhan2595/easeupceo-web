@@ -226,7 +226,9 @@ export default function SignUpPage() {
       // Carry an explicit return_url so onboarding redirects back to the app
       // after finalize (the onboarding /start + /finalize both read this).
       const returnUrl = encodeURIComponent("https://app.worklynx.io/");
-      navigate(`/start-onboarding?token=${encodeURIComponent(res.token)}&org=${encodeURIComponent(String(orgId))}&return_url=${returnUrl}`);
+      // Pass the company name so the onboarding chat never re-asks it (the
+      // backend also auto-fills it from the Organizations record as a fallback).
+      navigate(`/start-onboarding?token=${encodeURIComponent(res.token)}&org=${encodeURIComponent(String(orgId))}&company=${encodeURIComponent(orgName.trim())}&return_url=${returnUrl}`);
     } catch (err) {
       toast.dismiss(t);
       toast.error(err?.message || "Something went wrong. Please try again.");

@@ -5,11 +5,15 @@ import logo from '../assets/worklynx-logo.png';
 import useLynxChat from '../hooks/useLynxChat';
 
 import ChatActionButtons from './chat/ChatActionButtons';
+import ChatAddressComposer from './chat/ChatAddressComposer';
+import ChatAddressUpload from './chat/ChatAddressUpload';
 import ChatComplete from './chat/ChatComplete';
 import ChatEmployeePreview from './chat/ChatEmployeePreview';
 import ChatExcelUpload from './chat/ChatExcelUpload';
 import ChatLogoUpload from './chat/ChatLogoUpload';
 import ChatMessage from './chat/ChatMessage';
+import ChatOtpInput from './chat/ChatOtpInput';
+import ChatSignaturePad from './chat/ChatSignaturePad';
 import ChatTextComposer from './chat/ChatTextComposer';
 import ChatThemePicker from './chat/ChatThemePicker';
 import TypingIndicator from './chat/TypingIndicator';
@@ -52,13 +56,16 @@ export default function LynxChat({ onComplete }) {
     const map = {
       welcome:           5,
       company:           10,
-      industry:          18,
-      branding_choice:   25,
-      theme_picker:      40,
-      employee_choice:   55,
-      employee_upload:   65,
-      employee_preview:  78,
-      finalize:          90,
+      email_verify:      15,
+      industry:          22,
+      branding_choice:   30,
+      theme_picker:      42,
+      address:           52,
+      signature:         60,
+      employee_choice:   68,
+      employee_upload:   74,
+      employee_preview:  82,
+      finalize:          92,
       complete:          100,
     };
     return map[chat.phase] ?? 5;
@@ -218,6 +225,38 @@ export default function LynxChat({ onComplete }) {
     });
   };
 
+  // ── Email OTP, address & signature handlers ──────────────────────────────
+  const handleOtpVerify = (code) => chat.fireIntent('otp_verify', {
+    text: code,
+    userBubble: 'Entered my verification code',
+  });
+
+  const handleAddressSubmit = (address) => {
+    const parts = [address.address_line_1, address.city, address.state].filter(Boolean);
+    chat.fireIntent('address_text', {
+      text: JSON.stringify(address),
+      userBubble: parts.length ? `My address: ${parts.join(', ')}` : 'Saved my address',
+    });
+  };
+
+  const handleAddressDoc = async (file) => {
+    await chat.fireIntent('address_doc', {
+      file,
+      userBubble: file?.name ? `Uploaded ${file.name}` : 'Uploaded a document',
+      attachment: file?.name,
+    });
+  };
+
+  const handleSignatureFile = async (file) => {
+    const dataUrl = await readFileAsDataURL(file).catch(() => null);
+    await chat.fireIntent('signature_submit', {
+      file,
+      userBubble: 'Here’s my signature',
+      attachment: file?.name,
+      media: dataUrl ? { kind: 'image', src: dataUrl } : null,
+    });
+  };
+
   const handleEnter = () => {
     const final = chat.activeData?.final;
     if (final && onComplete && !finalSentRef.current) {
@@ -266,6 +305,47 @@ export default function LynxChat({ onComplete }) {
           <ChatThemePicker
             data={chat.activeData}
             onSelect={handleThemeSelect}
+            disabled={chat.busy}
+          />
+        );
+
+      case 'otp_input':
+        return (
+          <ChatOtpInput
+            options={ui.options}
+            onVerify={handleOtpVerify}
+            onAction={handleActionPick}
+            disabled={chat.busy}
+          />
+        );
+
+      case 'address_input':
+        return (
+          <ChatAddressComposer
+            initial={chat.state?.company?.address || {}}
+            options={ui.options}
+            onSubmit={handleAddressSubmit}
+            onAction={handleActionPick}
+            disabled={chat.busy}
+          />
+        );
+
+      case 'address_upload':
+        return (
+          <ChatAddressUpload
+            options={ui.options}
+            onPickFile={handleAddressDoc}
+            onAction={handleActionPick}
+            disabled={chat.busy}
+          />
+        );
+
+      case 'signature_pad':
+        return (
+          <ChatSignaturePad
+            options={ui.options}
+            onPickFile={handleSignatureFile}
+            onAction={handleActionPick}
             disabled={chat.busy}
           />
         );

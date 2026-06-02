@@ -220,6 +220,7 @@ export function useLynxChat() {
   const fireIntent = useCallback((intent, opts = {}) => {
     return send({
       intent,
+      text: opts.text,
       userBubble: opts.userBubble,
       attachment: opts.attachment,
       file: opts.file,
