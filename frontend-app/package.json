@@ -6,7 +6,7 @@
   "homepage": "https://arsalan-affy.github.io/easeupceo-web",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && git add . && git commit -m 'New' && git push",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
