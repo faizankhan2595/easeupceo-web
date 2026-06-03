@@ -96,6 +96,10 @@ export default function SignUpPage() {
     recruitment: true, performance: true, assets: true, disciplinary: true,
     letters: true, announcements: true, help_desk: true,
   });
+  // Opt-in demo data. When ON we seed sample employees, invoices, contacts &
+  // items so the workspace isn't empty. Leave categories, statutory rules and
+  // payroll config are ALWAYS seeded server-side regardless of this toggle.
+  const [seedSampleData, setSeedSampleData] = useState(true);
 
   // Availability state
   const [hostnameAvailable, setHostnameAvailable] = useState(null);
@@ -233,6 +237,7 @@ export default function SignUpPage() {
         confirm_password:  confirmPassword,
         employee_count:    employeeCount || 1,
         selected_modules:  modules,
+        seed_sample_data:  seedSampleData,
         hostname:          slugify(orgName),
         country,
       });
@@ -394,8 +399,9 @@ export default function SignUpPage() {
                 { k: "payroll",    label: "Payroll",            price: `${currencySymbol}${pricing.payroll_per_emp}/emp` },
                 { k: "attendance", label: "Attendance",         price: `${currencySymbol}${pricing.attendance_per_emp}/emp` },
                 { k: "leave",     label: "Leave Management",    price: `${currencySymbol}${pricing.leave_per_emp}/emp` },
-                { k: "restaurant", label: "Restaurant (flat)",  price: `${currencySymbol}${pricing.restaurant}/mo` },
-                { k: "healthcare", label: "Doctors / Healthcare", price: `${currencySymbol}${pricing.healthcare}/mo` },
+                // Hidden for now — disabled by default (see `modules` state). Uncomment to re-enable.
+                // { k: "restaurant", label: "Restaurant (flat)",  price: `${currencySymbol}${pricing.restaurant}/mo` },
+                // { k: "healthcare", label: "Doctors / Healthcare", price: `${currencySymbol}${pricing.healthcare}/mo` },
               ].map(({ k, label, price }) => (
                 <label key={k} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-slate-200 hover:border-indigo-300 cursor-pointer transition">
                   <span className="flex items-center gap-3">
@@ -434,6 +440,18 @@ export default function SignUpPage() {
                 ))}
               </div>
             </div>
+
+            {/* Sample data — opt in to a pre-populated demo workspace */}
+            <label className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between gap-3 cursor-pointer">
+              <span className="flex flex-col">
+                <span className="text-sm font-medium text-slate-700">Load sample data</span>
+                <span className="text-xs text-slate-500">Demo employees, invoices, contacts &amp; items so you can explore right away. Leave setup, statutory rules &amp; payroll config are always created.</span>
+              </span>
+              <input
+                type="checkbox" className="w-4 h-4 text-indigo-600"
+                checked={seedSampleData} onChange={(e) => setSeedSampleData(e.target.checked)}
+              />
+            </label>
           </div>
 
           {/* Submit */}
