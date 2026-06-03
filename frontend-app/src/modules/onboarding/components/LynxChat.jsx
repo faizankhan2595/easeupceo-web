@@ -6,6 +6,7 @@ import useLynxChat from '../hooks/useLynxChat';
 
 import ChatActionButtons from './chat/ChatActionButtons';
 import ChatAddressComposer from './chat/ChatAddressComposer';
+import ChatLocationName from './chat/ChatLocationName';
 import ChatAddressUpload from './chat/ChatAddressUpload';
 import ChatComplete from './chat/ChatComplete';
 import ChatEmployeePreview from './chat/ChatEmployeePreview';
@@ -247,6 +248,13 @@ export default function LynxChat({ onComplete }) {
     });
   };
 
+  const handleLocationNameSubmit = (name) => {
+    chat.fireIntent('location_name_submit', {
+      text: name,
+      userBubble: name,
+    });
+  };
+
   const handleSignatureFile = async (file) => {
     const dataUrl = await readFileAsDataURL(file).catch(() => null);
     await chat.fireIntent('signature_submit', {
@@ -335,6 +343,16 @@ export default function LynxChat({ onComplete }) {
           <ChatAddressUpload
             options={ui.options}
             onPickFile={handleAddressDoc}
+            onAction={handleActionPick}
+            disabled={chat.busy}
+          />
+        );
+
+      case 'location_name':
+        return (
+          <ChatLocationName
+            options={ui.options}
+            onSubmit={handleLocationNameSubmit}
             onAction={handleActionPick}
             disabled={chat.busy}
           />

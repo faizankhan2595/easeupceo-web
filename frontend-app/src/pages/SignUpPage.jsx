@@ -21,13 +21,32 @@ import toast from "react-hot-toast";
 const API_BASE = "https://alfabackend.inkapps.io";
 
 const COUNTRY_OPTIONS = [
-  { label: "🇮🇳  India",          value: "India",          currency: "₹", currencyCode: "INR" },
-  { label: "🇬🇧  United Kingdom", value: "United Kingdom", currency: "£", currencyCode: "GBP" },
+  { label: "🇮🇳  India",                value: "India",                currency: "₹",   currencyCode: "INR" },
+  { label: "🇬🇧  United Kingdom",       value: "United Kingdom",       currency: "£",   currencyCode: "GBP" },
+  { label: "🇸🇦  Saudi Arabia",         value: "Saudi Arabia",         currency: "SR",  currencyCode: "SAR" },
+  { label: "🇦🇪  United Arab Emirates", value: "United Arab Emirates", currency: "AED", currencyCode: "AED" },
+  { label: "🇴🇲  Oman",                 value: "Oman",                 currency: "OMR", currencyCode: "OMR" },
+  { label: "🇶🇦  Qatar",                value: "Qatar",                currency: "QR",  currencyCode: "QAR" },
+  { label: "🇧🇭  Bahrain",              value: "Bahrain",              currency: "BD",  currencyCode: "BHD" },
+  { label: "🇯🇴  Jordan",               value: "Jordan",               currency: "JD",  currencyCode: "JOD" },
+  { label: "🇪🇬  Egypt",                value: "Egypt",                currency: "E£",  currencyCode: "EGP" },
+  { label: "🇸🇬  Singapore",            value: "Singapore",            currency: "S$",  currencyCode: "SGD" },
 ];
 
-const PRICING_BY_COUNTRY = {
-  "India":          { base: 999, payroll_per_emp: 35, attendance_per_emp: 18, leave_per_emp: 12, restaurant: 399, healthcare: 399 },
-  "United Kingdom": { base: 29,  payroll_per_emp: 2,  attendance_per_emp: 1,  leave_per_emp: 1,  restaurant: 15, healthcare: 15 },
+// Display-only fallback shown until GET /api/get-pricing resolves. The backend
+// (SubscriptionService.PRICING_BY_COUNTRY) is the single source of truth and is
+// authoritative on what we actually charge — these values just avoid a flash of empty UI.
+const PRICING_FALLBACK = {
+  "India":                { base: 999, payroll_per_emp: 35,  attendance_per_emp: 18,  leave_per_emp: 12,  restaurant: 399, healthcare: 399 },
+  "United Kingdom":       { base: 10,  payroll_per_emp: 1,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 10,  healthcare: 10 },
+  "Saudi Arabia":         { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
+  "United Arab Emirates": { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
+  "Oman":                 { base: 4,   payroll_per_emp: 0.2, attendance_per_emp: 0.1, leave_per_emp: 0.1, restaurant: 4,   healthcare: 4 },
+  "Qatar":                { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
+  "Bahrain":              { base: 4,   payroll_per_emp: 0.2, attendance_per_emp: 0.1, leave_per_emp: 0.1, restaurant: 4,   healthcare: 4 },
+  "Jordan":               { base: 7,   payroll_per_emp: 0.5, attendance_per_emp: 0.3, leave_per_emp: 0.2, restaurant: 7,   healthcare: 7 },
+  "Egypt":                { base: 499, payroll_per_emp: 20,  attendance_per_emp: 10,  leave_per_emp: 7,   restaurant: 199, healthcare: 199 },
+  "Singapore":            { base: 14,  payroll_per_emp: 1,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 14,  healthcare: 14 },
 };
 
 // HR modules included free with every plan and enabled by default at signup.
@@ -92,7 +111,20 @@ export default function SignUpPage() {
 
   const [submitting, setSubmitting] = useState(false);
 
-  const pricing = PRICING_BY_COUNTRY[country] || PRICING_BY_COUNTRY["India"];
+  // Pricing comes from the backend (single source of truth); fall back to the local table until it loads.
+  const [pricingMap, setPricingMap] = useState(PRICING_FALLBACK);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await postJSON("/api/get-pricing", {});
+        if (!cancelled && res && res.success && res.pricing) setPricingMap(res.pricing);
+      } catch (_) { /* keep fallback */ }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const pricing = pricingMap[country] || pricingMap["India"] || PRICING_FALLBACK["India"];
   const currencySymbol = (COUNTRY_OPTIONS.find(c => c.value == country) || COUNTRY_OPTIONS[0]).currency;
 
   const monthlyTotal = useMemo(() => {
