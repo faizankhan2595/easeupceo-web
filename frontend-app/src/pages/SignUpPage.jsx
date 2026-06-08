@@ -1,7 +1,7 @@
 /**
  * Worklynx sign-up page.
  *
- * Mirrors `frontend/app/screens/MainScreens/Custom/Internal_Pages/main/SignUpScreen.js`
+ * Mirrors `worklynx-app/app/screens/MainScreens/Custom/Internal_Pages/main/SignUpScreen.js`
  * (the Expo flow), but in a single-page Tailwind form with no email-OTP step.
  * On success, redirects to `/start-onboarding?token=<jwt>&org=<id>` so the
  * chat onboarding picks the user up. After onboarding finalizes, the backend
