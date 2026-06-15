@@ -1,0 +1,30 @@
+import Hero from "@/uk-components/Hero";
+import LogoCloud from "@/uk-components/LogoCloud";
+import FeatureShowcase from "@/uk-components/FeatureShowcase";
+import StatsBand from "@/uk-components/StatsBand";
+import WhyChooseUs from "@/uk-components/WhyChooseUs";
+import HowItWorks from "@/uk-components/HowItWorks";
+import Testimonials from "@/uk-components/Testimonials";
+import Pricing from "@/uk-components/Pricing";
+import Chatbot from "@/uk-components/Chatbot";
+import { useEffect } from "react";
+
+export default function HomePageUK() {
+  useEffect(() => {
+    document.title = "Worklynx UK — Business Management Platform for UK teams";
+  }, []);
+
+  return (
+    <>
+      <Hero />
+      <LogoCloud />
+      <FeatureShowcase />
+      <StatsBand />
+      <WhyChooseUs />
+      <HowItWorks />
+      <Testimonials />
+      <Pricing />
+      <Chatbot />
+    </>
+  );
+}

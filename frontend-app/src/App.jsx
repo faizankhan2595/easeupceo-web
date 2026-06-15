@@ -8,7 +8,7 @@ import {
 import { Toaster } from "react-hot-toast";
 import MarketingLayout from "./marketing/layouts/MarketingLayout";
 
-const HomePage = lazy(() => import("./marketing/pages/HomePage"));
+const LocationAwareHomePage = lazy(() => import("./marketing/pages/LocationAwareHomePage"));
 const FeaturesPage = lazy(() => import("./marketing/pages/FeaturesPage"));
 const PricingPage = lazy(() => import("./marketing/pages/PricingPage"));
 const AboutPage = lazy(() => import("./marketing/pages/AboutPage"));
@@ -45,9 +45,11 @@ const App = () => {
         }}
       />
       <Routes>
+        {/* Home — location aware, brings its own navbar/footer per locale */}
+        <Route path="/" element={<Suspense fallback={<Fallback />}><LocationAwareHomePage /></Suspense>} />
+
         {/* Marketing Routes */}
         <Route element={<MarketingLayout />}>
-          <Route path="/" element={<Suspense fallback={<Fallback />}><HomePage /></Suspense>} />
           <Route path="/features" element={<Suspense fallback={<Fallback />}><FeaturesPage /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<Fallback />}><PricingPage /></Suspense>} />
           <Route path="/about" element={<Suspense fallback={<Fallback />}><AboutPage /></Suspense>} />
