@@ -52,32 +52,32 @@ const addons = [
     iconBg: "bg-white",
     features: ["Leave categories", "Request & approval workflows", "Balance tracking", "Leave policies"],
   },
-  {
-    key: "restaurant",
-    name: "Restaurant Management",
-    price: `£${ADDON_PRICING.restaurant}`,
-    period: "/month (flat)",
-    flat: true,
-    icon: ShoppingCart,
-    bgClass: "bg-orange-50",
-    borderClass: "border-orange-100",
-    textClass: "text-orange-600",
-    iconBg: "bg-white",
-    features: ["Point of Sale (POS)", "Table & area management", "Reservations", "Kitchen display (KOT)"],
-  },
-  {
-    key: "healthcare",
-    name: "Doctors / Healthcare",
-    price: `£${ADDON_PRICING.healthcare}`,
-    period: "/month (flat)",
-    flat: true,
-    icon: Stethoscope,
-    bgClass: "bg-rose-50",
-    borderClass: "border-rose-100",
-    textClass: "text-rose-600",
-    iconBg: "bg-white",
-    features: ["Patient appointments", "Doctor scheduling", "Health records", "Consultation management"],
-  },
+  // {
+  //   key: "restaurant",
+  //   name: "Restaurant Management",
+  //   price: `£${ADDON_PRICING.restaurant}`,
+  //   period: "/month (flat)",
+  //   flat: true,
+  //   icon: ShoppingCart,
+  //   bgClass: "bg-orange-50",
+  //   borderClass: "border-orange-100",
+  //   textClass: "text-orange-600",
+  //   iconBg: "bg-white",
+  //   features: ["Point of Sale (POS)", "Table & area management", "Reservations", "Kitchen display (KOT)"],
+  // },
+  // {
+  //   key: "healthcare",
+  //   name: "Doctors / Healthcare",
+  //   price: `£${ADDON_PRICING.healthcare}`,
+  //   period: "/month (flat)",
+  //   flat: true,
+  //   icon: Stethoscope,
+  //   bgClass: "bg-rose-50",
+  //   borderClass: "border-rose-100",
+  //   textClass: "text-rose-600",
+  //   iconBg: "bg-white",
+  //   features: ["Patient appointments", "Doctor scheduling", "Health records", "Consultation management"],
+  // },
 ];
 
 const tiers = [
@@ -309,7 +309,7 @@ export default function Pricing() {
           </div>
         </FadeIn>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {addons.map((addon, index) => {
             const Icon = addon.icon;
             return (
@@ -347,23 +347,23 @@ export default function Pricing() {
         <FadeIn delay={0.2}>
           <div
             id="contact"
-            className="relative mt-20 flex scroll-mt-24 flex-col items-center justify-between gap-6 overflow-hidden rounded-2xl bg-slate-900 px-8 py-10 text-center sm:flex-row sm:text-left"
+            className="relative mt-20 flex scroll-mt-24 flex-col items-center justify-between gap-6 overflow-hidden rounded-2xl bg-slate-900 px-8 py-20 text-center sm:flex-row sm:text-left"
           >
             <div className="absolute -left-16 -top-16 h-48 w-48 rounded-full bg-brand-600/30 blur-3xl" />
             <div className="absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-accent-500/20 blur-3xl" />
             <div className="relative">
-              <h3 className="text-xl font-semibold text-white">Ready to simplify your HR?</h3>
+              <h3 className="text-3xl font-semibold text-white">Ready to simplify your HR?</h3>
               <p className="mt-2 text-sm text-slate-300">
                 Book a free 30-minute demo with our UK-based team — no commitment required.
               </p>
             </div>
             <motion.a
-              href="mailto:hello@worklynx.io"
+              href="/signUp"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               className="relative inline-flex shrink-0 items-center gap-1.5 rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-colors hover:bg-accent-600"
             >
-              Book a free demo
+              Start 30-Day Free Trial
               <ArrowRight className="h-4 w-4" />
             </motion.a>
           </div>

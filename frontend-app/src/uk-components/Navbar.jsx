@@ -50,20 +50,22 @@ export default function Navbar() {
           ))}
         </div>
 
+           
+
         <div className="hidden items-center gap-4 lg:flex">
           <a
-            href="#contact"
+                      href="https://app.worklynx.io"
             className="text-sm font-semibold text-slate-700 transition-colors hover:text-brand-600"
           >
-            Log in
+                      Sign In
           </a>
           <motion.a
-            href="#contact"
+            href="/signup"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-600/25 transition-shadow hover:shadow-lg hover:shadow-brand-600/30"
           >
-            Book a demo
+            Start 30-Day Free Trial
           </motion.a>
         </div>
 
@@ -99,15 +101,15 @@ export default function Navbar() {
                 </a>
               ))}
               <hr className="border-slate-200" />
-              <a href="#contact" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-700">
-                Log in
+              <a href="https://app.worklynx.io" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-700">
+                Sign in
               </a>
               <a
-                href="#contact"
+                href="/signUp"
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md"
               >
-                Book a demo
+                Start 30-Day Free Trial
               </a>
             </div>
           </motion.div>

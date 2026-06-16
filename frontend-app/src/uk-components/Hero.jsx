@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import { ShieldCheck, BadgeCheck, MapPin, Building2, ArrowRight, Star, Sparkle, Play } from "lucide-react";
-import { BrowserFrame } from "@/uk-components/feature-mockups/BrowserFrame";
+import { ArrowRight, Star, Sparkle, Play, TrendingUp, CheckCircle } from "lucide-react";
+import DashboardPreview from "@/marketing/components/mockups/DashboardPreview";
 import DemoModal from "@/uk-components/DemoModal";
 
 export default function Hero() {
@@ -23,13 +23,13 @@ export default function Hero() {
         className="absolute top-1/2 -left-32 -z-10 h-80 w-80 rounded-full bg-accent-100/60 blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-20 lg:flex lg:items-center lg:gap-x-12 lg:px-8 lg:pt-24 lg:pb-28">
+      <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-20 lg:flex lg:items-center lg:gap-x-12 lg:px-8 lg:pt-20 lg:pb-28">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-4 py-1.5 text-sm font-medium text-brand-700 shadow-sm"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-4 py-1.5 text-xs font-medium text-brand-700 shadow-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
@@ -71,12 +71,12 @@ export default function Hero() {
             className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
             <motion.a
-              href="#contact"
+              href="/signUp"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-6 py-3.5 text-center text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-shadow hover:shadow-xl hover:shadow-brand-600/30"
             >
-              Book a free demo
+              Start 30-Day Free Trial
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </motion.a>
             <motion.button
@@ -129,108 +129,44 @@ export default function Hero() {
           
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto mt-16 max-w-2xl lg:mx-0 lg:mt-0 lg:max-w-none lg:shrink-0 lg:grow lg:basis-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <BrowserFrame title="worklynx.io/dashboard">
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm font-semibold text-slate-900">Team overview</p>
-                <span className="rounded-full bg-accent-100 px-3 py-1 text-xs font-medium text-accent-700">
-                  This week
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <StatCard label="Present today" value="42 / 46" tone="brand" delay={0.5} />
-                <StatCard label="On leave" value="4 employees" tone="accent" delay={0.6} />
-                <StatCard label="Payroll run" value="3 days left" tone="slate" delay={0.7} />
-                <StatCard label="Pending reviews" value="6 due" tone="slate" delay={0.8} />
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
-                className="mt-6 rounded-lg border border-slate-100 bg-slate-50/60 p-4"
-              >
-                <p className="text-xs font-medium text-slate-500">Upcoming bank holiday</p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
-                  Summer Bank Holiday — Mon, 31 Aug
-                </p>
-              </motion.div>
-            </BrowserFrame>
-          </motion.div>
+        <div className="relative mx-auto mt-16 w-full min-w-0 lg:mx-0 lg:mt-0 lg:shrink-0 lg:grow lg:basis-1/2">
+          <div className="overflow-hidden rounded-2xl">
+            <DashboardPreview variant="attendance" height={420} />
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, x: 10 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1.1 }}
-            className="absolute -top-6 -right-4 hidden items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-xl sm:flex lg:-right-6"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="absolute -left-12 top-1/3 glass-card rounded-xl px-3 py-2 shadow-lg hidden xl:flex items-center gap-2"
           >
-            <div className="flex -space-x-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-brand-500 text-xs font-semibold text-white">
-                SM
-              </span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-accent-500 text-xs font-semibold text-white">
-                JO
-              </span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-brand-700 text-xs font-semibold text-white">
-                PA
-              </span>
+            <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+              <TrendingUp className="w-3 h-3 text-emerald-600" />
             </div>
             <div>
-              <p className="text-xs font-medium text-slate-500">12 new teams</p>
-              <p className="text-sm font-semibold text-slate-900">joined this week</p>
+              <p className="text-[10px] text-slate-500">Efficiency</p>
+              <p className="text-xs font-bold text-slate-800">+24% YoY</p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, x: -10 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="absolute -bottom-6 -left-6 hidden rounded-xl border border-slate-200 bg-white p-4 shadow-xl sm:block"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="absolute -right-10 bottom-1/4 glass-card rounded-xl px-3 py-2 shadow-lg hidden xl:flex items-center gap-2"
           >
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-100 text-accent-700">
-                <ShieldCheck className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-xs font-medium text-slate-500">Payroll status</p>
-                <p className="text-sm font-semibold text-slate-900">RTI submitted ✓</p>
-              </div>
+            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+              <CheckCircle className="w-3 h-3 text-blue-600" />
+            </div>
+            <div>
+              <p className="text-[10px] text-slate-500">Payroll accuracy</p>
+              <p className="text-xs font-bold text-slate-800">99.8%</p>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
       <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
-  );
-}
-
-function StatCard({ label, value, tone, delay }) {
-  const toneClasses = {
-    brand: "text-brand-700 bg-brand-50",
-    accent: "text-accent-700 bg-accent-50",
-    slate: "text-slate-700 bg-slate-100",
-  }[tone];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      className={`rounded-lg p-4 ${toneClasses}`}
-    >
-      <p className="text-xs font-medium opacity-80">{label}</p>
-      <p className="mt-1 text-base font-bold">{value}</p>
-    </motion.div>
   );
 }
