@@ -22,7 +22,7 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+export default function Footer({ onContactClick }) {
   return (
     <footer className="bg-slate-900 text-slate-300">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -69,13 +69,25 @@ export default function Footer() {
             <div key={heading}>
               <h3 className="text-sm font-semibold text-white">{heading}</h3>
               <ul className="mt-4 space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-sm text-slate-400 transition-colors hover:text-white">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isContact = link.href === "#contact";
+                  return (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          if (isContact && onContactClick) {
+                            e.preventDefault();
+                            onContactClick();
+                          }
+                        }}
+                        className="text-sm text-slate-400 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -94,7 +106,9 @@ export default function Footer() {
             </a>
             . Registered in England &amp; Wales. All rights reserved.
           </p>
-          <p className="text-xs text-slate-500">123 High Street, London, EC1A 1AA, United Kingdom</p>
+          <p className="text-xs text-slate-500 text-right">
+            Birmingham | Email: <a href="mailto:sales@techtradeitsolutions.com" className="text-slate-300 hover:text-white underline">sales@techtradeitsolutions.com</a> | Tel: <a href="tel:+447776839310" className="text-slate-300 hover:text-white underline">+44 7776839310</a>
+          </p>
         </div>
       </div>
     </footer>

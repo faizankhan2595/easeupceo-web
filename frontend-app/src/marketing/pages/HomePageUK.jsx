@@ -9,7 +9,7 @@ import Pricing from "@/uk-components/Pricing";
 import Chatbot from "@/uk-components/Chatbot";
 import { useEffect } from "react";
 
-export default function HomePageUK() {
+export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, setChatUserData }) {
   useEffect(() => {
     document.title = "Worklynx UK — Business Management Platform for UK teams";
   }, []);
@@ -24,7 +24,7 @@ export default function HomePageUK() {
       <HowItWorks />
       <Testimonials />
       <Pricing />
-      <Chatbot />
+      <Chatbot open={chatbotOpen} setOpen={setChatbotOpen} userData={chatUserData} setUserData={setChatUserData} />
     </>
   );
 }

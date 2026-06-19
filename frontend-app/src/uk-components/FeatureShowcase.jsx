@@ -119,7 +119,7 @@ function StackCard({ tab, index, progress }) {
   const scale = useTransform(progress, [index / tabs.length, 1], [1, targetScale]);
 
   return (
-    <div className="sticky top-[8vh] flex h-screen items-center justify-center">
+    <div className="sticky top-[8vh] flex h-[90vh] items-center justify-center">
       <motion.div
         style={{ scale, zIndex: index }}
         className="relative w-full origin-top overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/15 lg:h-[44rem]"

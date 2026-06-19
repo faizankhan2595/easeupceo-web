@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { MessageCircle, X, Send, Sparkles, Bot } from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, Bot, User, Mail, Phone } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 const QUICK_PROMPTS = ["Pricing & plans", "UK payroll & RTI", "Book a demo", "Leave management"];
 
@@ -47,16 +48,54 @@ function getBotReply(input) {
   return "Thanks for the message! For a detailed answer tailored to your business, the best next step is to book a free demo with our UK-based team — just hit \"Book a free demo\" above.";
 }
 
-export default function Chatbot() {
-  const [open, setOpen] = useState(false);
+export default function Chatbot({
+  open: controlledOpen,
+  setOpen: controlledSetOpen,
+  userData,
+  setUserData,
+}) {
+  const [localOpen, setLocalOpen] = useState(false);
+  const open = controlledOpen !== undefined ? controlledOpen : localOpen;
+  const setOpen = controlledSetOpen !== undefined ? controlledSetOpen : setLocalOpen;
+
+  const [localUserData, setLocalUserData] = useState(null);
+  const currentUserData = userData !== undefined ? userData : localUserData;
+  const setCurrentUserData = setUserData !== undefined ? setUserData : setLocalUserData;
+
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const scrollRef = useRef(null);
 
+  const [preChatForm, setPreChatForm] = useState({ name: "", email: "", mobile: "" });
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, typing]);
+
+  // Sync state if userData is populated (e.g., from ContactSalesModal)
+  useEffect(() => {
+    if (currentUserData && messages.length === 1) {
+      const greeting = `Hi ${currentUserData.name}, thanks for connecting! How can I help you today?`;
+      setMessages([
+        INITIAL_MESSAGE,
+        {
+          id: 1,
+          from: "bot",
+          text: greeting,
+        },
+      ]);
+    }
+  }, [currentUserData, messages.length]);
+
+  const handlePreChatSubmit = (e) => {
+    e.preventDefault();
+    if (!preChatForm.name || !preChatForm.email || !preChatForm.mobile) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+    setCurrentUserData(preChatForm);
+  };
 
   const sendMessage = (text) => {
     const trimmed = text.trim();
@@ -83,6 +122,7 @@ export default function Chatbot() {
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="flex h-[28rem] w-[22rem] max-w-[calc(100vw-2.5rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/15"
           >
+            {/* Chatbot Header */}
             <div className="flex items-center justify-between bg-linear-to-r from-brand-600 to-brand-500 px-4 py-3.5 text-white">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
@@ -105,82 +145,162 @@ export default function Chatbot() {
               </button>
             </div>
 
-            <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-slate-50 px-4 py-4">
-              {messages.map((message) => (
-                <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`flex ${message.from === "user" ? "justify-end" : "justify-start"}`}
-                >
-                  <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed shadow-sm ${
-                      message.from === "user"
-                        ? "bg-linear-to-r from-brand-600 to-brand-500 text-white"
-                        : "border border-slate-200 bg-white text-slate-700"
-                    }`}
-                  >
-                    {message.text}
-                  </div>
-                </motion.div>
-              ))}
-
-              {typing && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                  <div className="flex items-center gap-1 rounded-2xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-sm">
-                    {[0, 1, 2].map((i) => (
-                      <motion.span
-                        key={i}
-                        animate={{ opacity: [0.3, 1, 0.3] }}
-                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
-                        className="h-1.5 w-1.5 rounded-full bg-slate-400"
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {messages.length === 1 && !typing && (
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {QUICK_PROMPTS.map((prompt) => (
-                    <button
-                      key={prompt}
-                      type="button"
-                      onClick={() => sendMessage(prompt)}
-                      className="rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-medium text-brand-700 transition-colors hover:border-brand-300 hover:bg-brand-50"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                sendMessage(input);
-              }}
-              className="flex items-center gap-2 border-t border-slate-200 bg-white p-3"
-            >
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about payroll, leave, pricing..."
-                className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100"
-              />
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Send message"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-r from-brand-600 to-brand-500 text-white shadow-md shadow-brand-600/25 transition-shadow hover:shadow-lg"
+            {/* Content Body: Pre-chat form OR messages */}
+            {!currentUserData ? (
+              <form
+                onSubmit={handlePreChatSubmit}
+                className="flex-1 flex flex-col justify-between bg-slate-50 p-5 overflow-y-auto"
               >
-                <Send className="h-4 w-4" />
-              </motion.button>
-            </form>
+                <div className="space-y-4">
+                  <div className="text-center pb-2 border-b border-slate-200/60">
+                    <p className="text-sm font-bold text-slate-800">Welcome to Worklynx Chat 👋</p>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                      Please enter your details to start chatting with our team immediately.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label htmlFor="prechat-name" className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                      Your Name *
+                    </label>
+                    <div className="relative mt-1">
+                      <User className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                      <input
+                        id="prechat-name"
+                        type="text"
+                        required
+                        value={preChatForm.name}
+                        onChange={(e) => setPreChatForm({ ...preChatForm, name: e.target.value })}
+                        placeholder="John Doe"
+                        className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="prechat-email" className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                      Email Address *
+                    </label>
+                    <div className="relative mt-1">
+                      <Mail className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                      <input
+                        id="prechat-email"
+                        type="email"
+                        required
+                        value={preChatForm.email}
+                        onChange={(e) => setPreChatForm({ ...preChatForm, email: e.target.value })}
+                        placeholder="john@company.co.uk"
+                        className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="prechat-mobile" className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                      Mobile Number *
+                    </label>
+                    <div className="relative mt-1">
+                      <Phone className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+                      <input
+                        id="prechat-mobile"
+                        type="tel"
+                        required
+                        value={preChatForm.mobile}
+                        onChange={(e) => setPreChatForm({ ...preChatForm, mobile: e.target.value })}
+                        placeholder="+44 7123 456789"
+                        className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-6 w-full flex items-center justify-center gap-1.5 rounded-xl bg-brand-600 py-2.5 text-xs font-semibold text-white shadow-md shadow-brand-600/25 transition-all hover:bg-brand-700 active:scale-[0.98]"
+                >
+                  Start Chatting
+                </button>
+              </form>
+            ) : (
+              <>
+                <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-slate-50 px-4 py-4">
+                  {messages.map((message) => (
+                    <motion.div
+                      key={message.id}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className={`flex ${message.from === "user" ? "justify-end" : "justify-start"}`}
+                    >
+                      <div
+                        className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed shadow-sm ${
+                          message.from === "user"
+                            ? "bg-linear-to-r from-brand-600 to-brand-500 text-white"
+                            : "border border-slate-200 bg-white text-slate-700"
+                        }`}
+                      >
+                        {message.text}
+                      </div>
+                    </motion.div>
+                  ))}
+
+                  {typing && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+                      <div className="flex items-center gap-1 rounded-2xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-sm">
+                        {[0, 1, 2].map((i) => (
+                          <motion.span
+                            key={i}
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
+                            className="h-1.5 w-1.5 rounded-full bg-slate-400"
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {messages.length === 1 && !typing && (
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {QUICK_PROMPTS.map((prompt) => (
+                        <button
+                          key={prompt}
+                          type="button"
+                          onClick={() => sendMessage(prompt)}
+                          className="rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-medium text-brand-700 transition-colors hover:border-brand-300 hover:bg-brand-50"
+                        >
+                          {prompt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    sendMessage(input);
+                  }}
+                  className="flex items-center gap-2 border-t border-slate-200 bg-white p-3"
+                >
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Ask about payroll, leave, pricing..."
+                    className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100"
+                  />
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="Send message"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-r from-brand-600 to-brand-500 text-white shadow-md shadow-brand-600/25 transition-shadow hover:shadow-lg"
+                  >
+                    <Send className="h-4 w-4" />
+                  </motion.button>
+                </form>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

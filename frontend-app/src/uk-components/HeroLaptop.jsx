@@ -115,7 +115,7 @@ export default function HeroLaptop({ onWatchDemo }) {
 
                 <p className="mx-auto mt-1.5 hidden max-w-md text-[11px] leading-5 text-slate-600 sm:mt-4 sm:block sm:text-sm sm:leading-7">
                   Worklynx brings attendance, leave, payroll, employee records
-                  and performance reviews into one AI-powered platform, with
+                  and performance reviews into one cost-efficient, AI-powered platform, with
                   HMRC compliance ready from day one.
                 </p>
 

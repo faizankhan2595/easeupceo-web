@@ -11,9 +11,10 @@ const navLinks = [
   { href: "#why-us", label: "Why Worklynx" },
   { href: "#how-it-works", label: "How It Works" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#contact-sales", label: "Contact Sales" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onContactClick }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -39,15 +40,24 @@ export default function Navbar() {
           </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="relative text-sm font-medium text-slate-600 transition-colors hover:text-brand-600"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isContact = link.href === "#contact-sales";
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => {
+                  if (isContact && onContactClick) {
+                    e.preventDefault();
+                    onContactClick();
+                  }
+                }}
+                className="relative text-sm font-medium text-slate-600 transition-colors hover:text-brand-600"
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </div>
 
            
@@ -90,16 +100,25 @@ export default function Navbar() {
             className="overflow-hidden border-t border-slate-200 bg-white lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-slate-600 hover:text-brand-600"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isContact = link.href === "#contact-sales";
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => {
+                      setOpen(false);
+                      if (isContact && onContactClick) {
+                        e.preventDefault();
+                        onContactClick();
+                      }
+                    }}
+                    className="text-sm font-medium text-slate-600 hover:text-brand-600"
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
               <hr className="border-slate-200" />
               <a href="https://app.worklynx.io" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-700">
                 Sign in
