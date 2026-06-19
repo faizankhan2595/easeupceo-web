@@ -8,7 +8,7 @@ const steps = [
     step: "01",
     title: "Set up your workspace",
     description:
-      "Import your employee records, contracts and leave balances in minutes with guided onboarding and UK-ready templates.",
+      "Import your employee records, contracts and leave balances in minutes with guided onboarding and ready-to-use templates.",
   },
   {
     step: "02",
@@ -40,8 +40,8 @@ export default function HowItWorks() {
             Up and running in days, not months
           </p>
           <p className="mt-4 text-lg text-slate-600">
-            Worklynx is designed for fast onboarding — most UK businesses
-            are fully set up and running their first payroll within a week.
+            Worklynx is designed for fast onboarding — most teams are fully set
+            up and running their first payroll within a week.
           </p>
         </FadeIn>
 

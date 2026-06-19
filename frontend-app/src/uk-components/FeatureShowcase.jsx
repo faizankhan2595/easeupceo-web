@@ -31,7 +31,7 @@ const tabs = [
     icon: CalendarCheck,
     heading: "Holiday requests, approved in one tap",
     description:
-      "Employees request leave from their phone, managers approve instantly, and UK statutory entitlements are tracked automatically — including bank holidays across England, Scotland, Wales and NI.",
+      "Employees request leave from their phone, managers approve instantly, and statutory entitlements are tracked automatically — including bank holidays across England, Scotland, Wales and NI.",
     points: [
       "28-day statutory holiday tracking",
       "SSP, maternity & shared parental leave rules built in",
@@ -179,7 +179,7 @@ export default function FeatureShowcase() {
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-brand-600">Core platform</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            The 5 tools every UK HR team needs
+            The 5 tools every HR team needs
           </p>
           <p className="mt-4 text-lg text-slate-600">
             Worklynx replaces a patchwork of spreadsheets and point tools with

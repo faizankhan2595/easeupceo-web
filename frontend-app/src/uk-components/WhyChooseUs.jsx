@@ -6,9 +6,9 @@ import { FadeIn } from "@/uk-components/motion/FadeIn";
 
 const benefits = [
   {
-    title: "Built for UK compliance",
+    title: "Compliance built in",
     description:
-      "Stay aligned with HMRC, ICO and UK employment law — from RTI payroll submissions to statutory leave entitlements — without spreadsheets or guesswork.",
+      "Stay aligned with HMRC, ICO and employment law — from RTI payroll submissions to statutory leave entitlements — without spreadsheets or guesswork.",
     icon: ShieldCheck,
   },
   {
@@ -26,7 +26,7 @@ const benefits = [
   {
     title: "GDPR-first security",
     description:
-      "Employee data is encrypted, access-controlled and hosted in the UK, giving you confidence in every audit and data subject request.",
+      "Employee data is encrypted, access-controlled and securely hosted, giving you confidence in every audit and data subject request.",
     icon: Lock,
   },
 ];
@@ -39,13 +39,12 @@ export default function WhyChooseUs() {
           <FadeIn>
             <h2 className="text-base font-semibold text-brand-600">Why Worklynx</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              The HR platform built around how UK businesses actually work
+              The HR platform built around how modern teams actually work
             </p>
             <p className="mt-4 text-lg text-slate-600">
-              Most HR tools are built for the US market and bolt on UK
-              compliance as an afterthought. Worklynx starts with UK payroll,
-              employment law and statutory leave — so you&apos;re covered from
-              day one.
+              Most HR tools bolt compliance on later. Worklynx starts with
+              payroll, employment rules and statutory leave, so your team is
+              covered from day one.
             </p>
 
             <a
