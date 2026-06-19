@@ -17,10 +17,10 @@ function getBotReply(input) {
   const text = input.toLowerCase();
 
   if (/(price|pricing|cost|plan|trial)/.test(text)) {
-    return "Worklynx starts from £3 per employee/month on the Starter plan, with Growth (£6) adding UK payroll, RTI and performance management. Enterprise pricing is custom — see the Pricing section for full details.";
+    return "Worklynx has three per-employee plans: Essentials at £6, Professional at £9, and Advanced at £12 per employee/month. See the Pricing section for the included modules in each plan.";
   }
   if (/(payroll|rti|hmrc|paye|ni\b|pension)/.test(text)) {
-    return "Our Growth and Enterprise plans include HMRC-recognised payroll with automatic RTI submissions, PAYE/NI calculations and NEST/NOW pension auto-enrolment — all built for UK compliance.";
+    return "Payroll is included from the Essentials plan, alongside employee management, leave management, sales and purchase, inventory management, and accounting.";
   }
   if (/(leave|holiday|absence|sick)/.test(text)) {
     return "Leave Management lets staff request annual leave, sick leave and statutory leave (maternity, paternity, shared parental) in one click, with automatic accrual tracking and manager approvals on mobile.";
