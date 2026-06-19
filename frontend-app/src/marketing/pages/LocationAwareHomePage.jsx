@@ -90,7 +90,7 @@ export default function LocationAwareHomePage() {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <UKNavbar />
-        <main className="flex-1 overflow-x-hidden">
+        <main className="flex-1 overflow-x-clip">
           <HomePageUK />
         </main>
         <UKFooter />

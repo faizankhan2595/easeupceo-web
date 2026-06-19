@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useRef } from "react";
+import { motion, useMotionValue, useScroll, useTransform } from "motion/react";
 import { Clock, CalendarCheck, Banknote, Users, LineChart, Check, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/uk-components/motion/FadeIn";
 import AttendanceMockup from "@/uk-components/feature-mockups/AttendanceMockup";
@@ -83,14 +83,99 @@ const tabs = [
   },
 ];
 
+function FeatureMockupCard({ tab }) {
+  const Mockup = tab.mockup;
+  const cardX = useMotionValue(0);
+  const cardY = useMotionValue(0);
+  const tiltX = useTransform(cardY, [-150, 150], [6, -6]);
+  const tiltY = useTransform(cardX, [-150, 150], [-6, 6]);
+
+  const handleCardMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    cardX.set(event.clientX - rect.left - rect.width / 2);
+    cardY.set(event.clientY - rect.top - rect.height / 2);
+  };
+
+  const handleCardLeave = () => {
+    cardX.set(0);
+    cardY.set(0);
+  };
+
+  return (
+    <div className="relative" style={{ perspective: 1000 }}>
+      <motion.div
+        onMouseMove={handleCardMove}
+        onMouseLeave={handleCardLeave}
+        style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: "preserve-3d" }}
+      >
+        <Mockup />
+      </motion.div>
+    </div>
+  );
+}
+
+function StackCard({ tab, index, progress }) {
+  const targetScale = 1 - (tabs.length - 1 - index) * 0.06;
+  const scale = useTransform(progress, [index / tabs.length, 1], [1, targetScale]);
+
+  return (
+    <div className="sticky top-[8vh] flex h-screen items-center justify-center">
+      <motion.div
+        style={{ scale, zIndex: index }}
+        className="relative w-full origin-top overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/15 lg:h-[44rem]"
+      >
+        <div className="flex items-center justify-center gap-2 pt-8 lg:pt-10">
+          <tab.icon className="h-5 w-5 text-brand-500" strokeWidth={2} />
+          <span className="text-xl font-semibold uppercase tracking-[0.2em] text-slate-400">{tab.label}</span>
+        </div>
+        <div className="grid grid-cols-1 gap-8 p-8 lg:h-full lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-14 lg:py-0">
+          <div className="flex flex-col justify-center">
+            <h3 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+              {tab.heading}
+            </h3>
+            <p className="mt-4 text-base leading-7 text-slate-600">{tab.description}</p>
+            <ul className="mt-6 space-y-2.5">
+              {tab.points.map((point) => (
+                <li
+                  key={point}
+                  className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-3 text-sm font-medium text-slate-700"
+                >
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-accent-400 to-accent-600 text-white shadow-sm shadow-accent-500/30">
+                    <Check className="h-3 w-3" strokeWidth={3} />
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contact"
+              className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700"
+            >
+              See {tab.label.toLowerCase()} in action
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </div>
+
+          <FeatureMockupCard tab={tab} />
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function FeatureShowcase() {
-  const [active, setActive] = useState(0);
-  const activeTab = tabs[active];
-  const Mockup = activeTab.mockup;
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
   return (
     <section id="features" className="scroll-mt-24 bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <motion.div
+          className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 overflow-hidden rounded-full bg-brand-200/30 blur-3xl"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-brand-600">Core platform</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
@@ -102,82 +187,10 @@ export default function FeatureShowcase() {
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.1} className="mt-12 flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div ref={containerRef} className="mt-16">
           {tabs.map((tab, index) => (
-            <button
-              key={tab.id}
-              onClick={() => setActive(index)}
-              className={`relative flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors sm:px-5 ${
-                active === index ? "text-white" : "text-slate-600 hover:text-brand-700"
-              }`}
-            >
-              {active === index && (
-                <motion.span
-                  layoutId="active-feature-tab"
-                  transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-                  className="absolute inset-0 rounded-full bg-linear-to-r from-brand-600 to-brand-500 shadow-md shadow-brand-600/25"
-                />
-              )}
-              <tab.icon className="relative z-10 h-4 w-4" strokeWidth={2} />
-              <span className="relative z-10">{tab.label}</span>
-            </button>
+            <StackCard key={tab.id} tab={tab} index={index} progress={scrollYProgress} />
           ))}
-        </FadeIn>
-
-        <div className="mt-12 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="order-2 lg:order-1"
-            >
-              <div className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-brand-50 to-accent-50 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-100">
-                <activeTab.icon className="h-3.5 w-3.5" />
-                {activeTab.label}
-              </div>
-              <h3 className="mt-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                {activeTab.heading}
-              </h3>
-              <p className="mt-4 text-base leading-7 text-slate-600">{activeTab.description}</p>
-              <ul className="mt-6 space-y-2.5">
-                {activeTab.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:border-accent-100 hover:bg-accent-50/40"
-                  >
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-accent-400 to-accent-600 text-white shadow-sm shadow-accent-500/30">
-                      <Check className="h-3 w-3" strokeWidth={3} />
-                    </span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href="#contact"
-                className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700"
-              >
-                See {activeTab.label.toLowerCase()} in action
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-            </motion.div>
-          </AnimatePresence>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab.id}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative order-1 lg:order-2"
-            >
-              <div className="absolute -inset-x-6 -inset-y-6 -z-10 rounded-4xl bg-linear-to-br from-brand-100/60 via-transparent to-accent-100/50 blur-2xl" />
-              <Mockup />
-            </motion.div>
-          </AnimatePresence>
         </div>
       </div>
     </section>
