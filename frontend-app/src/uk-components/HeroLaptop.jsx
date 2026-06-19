@@ -2,40 +2,50 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, Play, Sparkle } from "lucide-react";
+import { ArrowRight, Play, Sparkle, Clock, CalendarCheck, Banknote, Users, LineChart } from "lucide-react";
 
 const FEATURES = [
   {
     label: "Attendance",
-    image: "/attendance.png",
+    // image: "/attendance.png",
+    icon: Clock,
+    iconGradient: "from-amber-500 to-orange-600",
     position: "top-[18%] left-[1%] sm:left-[2%]",
     entranceX: -56,
     box: { top: 4, left: 4, width: 92, height: 56 },
   },
   {
     label: "Leave Management",
-    image: "/leave.png",
+    // image: "/leave.png",
+    icon: CalendarCheck,
+    iconGradient: "from-sky-500 to-blue-600",
     position: "top-[18%] right-[1%] sm:right-[2%]",
     entranceX: 56,
     box: { top: 2, left: 4, width: 110, height: 56 },
   },
   {
     label: "Payroll",
-    image: "/payroll.png",
+    // image: "/payroll.png",
+    icon: Banknote,
+    iconGradient: "from-emerald-500 to-teal-600",
     position: "top-[55%] right-[1%] sm:right-[3%]",
     entranceX: 64,
     box: { top: 0, left: 0, width: 132, height: 52 },
   },
   {
     label: "Employee Management",
-    image: "/employemanagement.png",
+    // image: "/employemanagement.png",
+    icon: Users,
+    iconGradient: "from-violet-500 to-purple-600",
     position: "top-[55%] left-[1%] sm:left-[2%]",
     entranceX: -64,
     box: { top: 0, left: 0, width: 132, height: 52 },
   },
   {
     label: "Performance Management",
-    image: "/performance.png",
+    // image: "/performance.png",
+    icon: LineChart,
+    iconGradient: "from-rose-500 to-pink-600",
     position: "bottom-[3%] right-[31%] -translate-x-1/2",
     entranceX: -48,
     box: { top: 0, left: 0, width: 150, height: 52 },
@@ -70,10 +80,10 @@ export default function HeroLaptop({ onWatchDemo }) {
 
   return (
     <>
-      {/* Mobile Hero: Clean, highly-readable layout for small screens */}
-      <div className="block sm:hidden bg-slate-50/50 pt-28 pb-16 px-6">
-        <div className="flex flex-col items-center text-center">
-          {/* Mobile Badge */}
+      {/* Mobile/Tablet Hero: Clean, highly-readable layout for small & medium screens */}
+      <div className="block lg:hidden bg-slate-50/50 pt-28 pb-16 px-6 sm:px-12 sm:pt-36 sm:pb-24">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {/* Badge */}
           <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
@@ -83,8 +93,8 @@ export default function HeroLaptop({ onWatchDemo }) {
             <Sparkle className="h-3.5 w-3.5 text-brand-400" />
           </div>
 
-          {/* Mobile Heading */}
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 leading-tight">
+          {/* Heading */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
             Cost-efficient &amp; AI-powered attendance, payroll &amp;{" "}
             <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
               HR
@@ -92,18 +102,18 @@ export default function HeroLaptop({ onWatchDemo }) {
             — built for growing UK teams
           </h1>
 
-          {/* Mobile Subtext */}
-          <p className="mt-4 text-sm leading-relaxed text-slate-600">
+          {/* Subtext */}
+          <p className="mt-4 text-sm sm:text-base md:text-lg leading-relaxed text-slate-600 max-w-2xl">
             Worklynx brings attendance, leave, payroll, employee records and
             performance reviews into one cost-efficient, AI-powered platform, with
             HMRC compliance ready from day one.
           </p>
 
-          {/* Mobile Actions */}
-          <div className="mt-6 flex w-full flex-col gap-3 px-2">
+          {/* Actions */}
+          <div className="mt-6 flex w-full flex-col sm:flex-row justify-center gap-3 px-2 sm:w-auto">
             <a
               href="/signUp"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-600 to-brand-500 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition-all hover:brightness-105 active:scale-[0.98]"
+              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-600 to-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition-all hover:brightness-105 active:scale-[0.98]"
             >
               Start 30-Day Free Trial
               <ArrowRight className="h-4 w-4" />
@@ -111,23 +121,29 @@ export default function HeroLaptop({ onWatchDemo }) {
             <button
               type="button"
               onClick={onWatchDemo}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-3 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 active:scale-[0.98]"
+              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 active:scale-[0.98]"
             >
               <Play className="h-3 w-3 fill-current text-brand-600" />
               Watch demo video
             </button>
           </div>
 
-          {/* Mobile Features Showcase Grid */}
-          <div className="mt-12 w-full">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Everything in one place</p>
-            <div className="mt-4 grid grid-cols-2 gap-2.5 text-left">
-              {FEATURES.map(({ label, image }) => (
-                <div key={label} className="flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white p-2.5 shadow-xs">
-                  <span className="flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-lg bg-brand-50 ring-1 ring-brand-100/50">
-                    <img src={image} alt="" className="h-4.5 w-4.5 object-contain" />
+          {/* Features Showcase Grid */}
+          <div className="mt-12 sm:mt-16 w-full">
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">Everything in one place</p>
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-left">
+              {FEATURES.map(({ label, image, icon: Icon, iconGradient }) => (
+                <div key={label} className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white p-3 shadow-xs">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 ring-1 ring-brand-100/50 overflow-hidden">
+                    {Icon ? (
+                      <span className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${iconGradient || "from-brand-500 to-brand-700"} text-white`}>
+                        <Icon className="h-4 w-4" />
+                      </span>
+                    ) : (
+                      <img src={image} alt="" className="h-5 w-5 object-contain" />
+                    )}
                   </span>
-                  <span className="text-[10px] font-bold text-slate-700 leading-tight">
+                  <span className="text-[11px] font-bold text-slate-700 leading-tight">
                     {label}
                   </span>
                 </div>
@@ -135,10 +151,8 @@ export default function HeroLaptop({ onWatchDemo }) {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Desktop Hero: Sticky-scroll laptop layout */}
-      <div ref={runwayRef} className="hidden sm:block relative h-[240vh]">
+      </div>      {/* Desktop Hero: Sticky-scroll laptop layout */}
+      <div ref={runwayRef} className="hidden lg:block relative h-[240vh]">
         <div className="sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
           <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
             {/* Laptop screen */}
@@ -163,13 +177,13 @@ export default function HeroLaptop({ onWatchDemo }) {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
                       <span className="relative inline-flex h-1 w-1 rounded-full bg-accent-500 sm:h-2 sm:w-2" />
                     </span>
-                    <span className="hidden sm:inline">Cost-efficient &amp; AI-powered HR platform · Built for UK teams</span>
+                    <span className="hidden sm:inline">Cost-efficient &amp; AI-powered HR platform</span>
                     <span className="sm:hidden">Cost-efficient &amp; AI-powered</span>
                     <Sparkle className="hidden h-3.5 w-3.5 text-brand-400 sm:block" />
                   </div>
 
                   <h1 className="text-balance text-[11px] font-semibold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-5xl">
-                    Cost-efficient &amp; AI-powered attendance, payroll &amp;{" "}
+                    AI-powered attendance, payroll &amp;{" "}
                     <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
                       HR
                     </span>{" "}
@@ -201,41 +215,22 @@ export default function HeroLaptop({ onWatchDemo }) {
                       Watch demo video
                     </button>
                   </div>
+
+                  {/* Minimalist Horizontal Feature Ribbon */}
+                  <div className="mt-4 sm:mt-8 flex items-center justify-center gap-3 sm:gap-6 md:gap-8 border-t border-slate-200/40 pt-4 sm:pt-6 w-full max-w-2xl">
+                    {FEATURES.map(({ label, icon: Icon, iconGradient }) => (
+                      <div key={label} className="flex items-center gap-1.5 sm:gap-2.5 group cursor-default">
+                        <span className={`flex h-4 w-4 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-gradient-to-br ${iconGradient} text-white shadow-xs transition-transform group-hover:scale-105`}>
+                          <Icon className="h-2.5 w-2.5 sm:h-4 sm:w-4" strokeWidth={2.5} />
+                        </span>
+                        <span className="text-[5px] sm:text-[10px] md:text-xs font-semibold text-slate-600 transition-colors group-hover:text-slate-900">
+                          {label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-
-              {/* Feature callouts + connector lines, layered over the bezel */}
-              {FEATURES.map(({ label, image, position, entranceX }, index) => (
-                <div key={label} className={`absolute ${position}`}>
-                  <motion.div
-                    initial={{ opacity: 0, x: entranceX, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                    transition={{
-                      duration: 0.75,
-                      delay: 0.28 + index * 0.12,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    <motion.div
-                      style={{ opacity: calloutOpacity }}
-                      whileHover={{ y: -3, scale: 1.03 }}
-                    >
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-brand-100 sm:h-16 sm:w-16">
-                        <img
-                          src={image}
-                          alt=""
-                          aria-hidden="true"
-                          className="h-4 w-4 object-contain sm:h-14 sm:w-14"
-                          loading="eager"
-                        />
-                      </span>
-                      <span className="max-w-16 text-[5px] font-semibold leading-tight text-slate-700 sm:max-w-24 sm:text-[11px]">
-                        {label}
-                      </span>
-                    </motion.div>
-                  </motion.div>
-                </div>
-              ))}
             </div>
 
             {/* Laptop base / keyboard */}
