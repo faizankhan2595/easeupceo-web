@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <FadeIn>
             <h2 className="text-base font-semibold text-brand-600">Why Worklynx</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
               Cost-efficient and AI-powered HR platform built for modern teams
             </p>
             <p className="mt-4 text-lg text-slate-600">

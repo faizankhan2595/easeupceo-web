@@ -189,7 +189,7 @@ export default function FeatureShowcase() {
 
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-brand-600">Core platform</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+          <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             The 5 tools every HR team needs
           </p>
           <p className="mt-4 text-base text-slate-600 lg:text-lg">

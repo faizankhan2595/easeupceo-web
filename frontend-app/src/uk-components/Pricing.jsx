@@ -79,7 +79,7 @@ export default function Pricing() {
             <Sparkles className="h-3.5 w-3.5 text-accent-500" />
             Pricing
           </span>
-          <p className="mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+          <p className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
             Pick the plan that matches your team today
           </p>
           <p className="mt-4 text-lg leading-8 text-slate-600">
