@@ -6,52 +6,42 @@ import {
   ArrowRight,
   Play,
   Sparkle,
-  CalendarCheck,
-  ClipboardList,
-  Wallet,
-  Users,
-  BarChart3,
 } from "lucide-react";
 
 const FEATURES = [
   {
     label: "Attendance",
-    icon: CalendarCheck,
+    image: "/attendance.png",
     position: "top-[18%] left-[1%] sm:left-[2%]",
     entranceX: -56,
-    line: "M 0 0 C 40 10, 70 30, 96 60",
     box: { top: 4, left: 4, width: 92, height: 56 },
   },
   {
     label: "Leave Management",
-    icon: ClipboardList,
+    image: "/leave.png",
     position: "top-[18%] right-[1%] sm:right-[2%]",
     entranceX: 56,
-    line: "M 100 0 C 60 12, 40 30, 6 58",
     box: { top: 2, left: 4, width: 110, height: 56 },
   },
   {
     label: "Payroll",
-    icon: Wallet,
-    position: "top-[55%] right-[1%] sm:right-[-1%]",
+    image: "/payroll.png",
+    position: "top-[55%] right-[1%] sm:right-[3%]",
     entranceX: 64,
-    line: "M 100 50 C 60 50, 30 50, 0 50",
-    box: { top: 0, left: 0, width: 96, height: 52 },
+    box: { top: 0, left: 0, width: 132, height: 52 },
   },
-  {
+    {
     label: "Employee Management",
-    icon: Users,
-    position: "top-[55%] left-[1%] sm:left-[-1%]",
+    image: "/employemanagement.png",
+    position: "top-[55%] left-[1%] sm:left-[2%]",
     entranceX: -64,
-    line: "M 0 50 C 40 50, 70 50, 100 50",
     box: { top: 0, left: 0, width: 132, height: 52 },
   },
   {
     label: "Performance Management",
-    icon: BarChart3,
-    position: "bottom-[3%] left-1/2 -translate-x-1/2",
+    image: "/performance.png",
+    position: "bottom-[3%] right-[31%] -translate-x-1/2",
     entranceX: -48,
-    line: "M 50 100 C 50 65, 50 35, 50 0",
     box: { top: 0, left: 0, width: 150, height: 52 },
   },
 ];
@@ -89,7 +79,7 @@ export default function HeroLaptop({ onWatchDemo }) {
       <div className="sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
         <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
           {/* Laptop screen */}
-          <div className="relative rounded-[1.4rem] border-[10px] border-slate-900 bg-slate-900 shadow-2xl shadow-slate-900/30">
+          <div className="relative rounded-[1rem] border-[8px] border-slate-700 bg-slate-900 shadow-2xl shadow-slate-900/30">
             <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-px rounded-full bg-slate-700" />
 
             <div className="relative aspect-[16/10] overflow-hidden rounded-[0.6rem] bg-linear-to-br from-brand-50 via-white to-white">
@@ -115,7 +105,7 @@ export default function HeroLaptop({ onWatchDemo }) {
                   <Sparkle className="hidden h-3.5 w-3.5 text-brand-400 sm:block" />
                 </div>
 
-                <h1 className="text-balance text-[11px] font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-5xl">
+                <h1 className="text-balance text-[11px] font-semibold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-5xl">
                   AI-powered attendance, payroll &amp;{" "}
                   <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
                     HR
@@ -152,7 +142,7 @@ export default function HeroLaptop({ onWatchDemo }) {
             </div>
 
             {/* Feature callouts + connector lines, layered over the bezel so they aren't clipped by the screen */}
-            {FEATURES.map(({ label, icon: Icon, position, entranceX, line, box }, index) => (
+            {FEATURES.map(({ label, image, position, entranceX, box }, index) => (
               <div key={label} className={`absolute ${position}`}>
                 <motion.div
                   initial={{ opacity: 0, x: entranceX, filter: "blur(6px)" }}
@@ -163,41 +153,22 @@ export default function HeroLaptop({ onWatchDemo }) {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <svg
-                    className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible text-brand-300 sm:block"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    style={{
-                      top: box.top,
-                      left: box.left,
-                      width: box.width,
-                      height: box.height,
-                    }}
-                  >
-                    <motion.path
-                      d={line}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeDasharray="3 3"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: 1 }}
-                      transition={{
-                        duration: 0.75,
-                        delay: 0.45 + index * 0.12,
-                        ease: "easeOut",
-                      }}
-                    />
-                  </svg>
+                 
                   <motion.div
                     style={{ opacity: calloutOpacity }}
                     whileHover={{ y: -3, scale: 1.03 }}
-                    className="glass-card relative z-10 flex items-center gap-1 rounded-md px-1 py-0.5 shadow-md shadow-slate-900/10 sm:gap-2 sm:rounded-lg sm:px-3 sm:py-2"
+                    // className="glass-card relative z-10 flex min-w-14 flex-col items-center justify-center gap-0.5 rounded-lg px-1.5 py-1 text-center shadow-md shadow-slate-900/10 sm:min-w-24 sm:gap-1.5 sm:rounded-xl sm:px-3 sm:py-2.5"
                   >
-                    <span className="flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600 sm:h-6 sm:w-6">
-                      <Icon className="h-1.5 w-1.5 sm:h-3.5 sm:w-3.5" />
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-brand-100 sm:h-16 sm:w-16">
+                      <img
+                        src={image}
+                        alt=""
+                        aria-hidden="true"
+                        className="h-4 w-4 object-contain sm:h-14 sm:w-14"
+                        loading="eager"
+                      />
                     </span>
-                    <span className="whitespace-nowrap text-[5px] font-semibold text-slate-700 sm:text-[11px]">
+                    <span className="max-w-16 text-[5px] font-semibold leading-tight text-slate-700 sm:max-w-24 sm:text-[11px]">
                       {label}
                     </span>
                   </motion.div>
