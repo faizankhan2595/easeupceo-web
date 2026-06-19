@@ -124,7 +124,7 @@ export default function Navbar({ onContactClick }) {
                 Sign in
               </a>
               <a
-                href="/signUp"
+                href="/signup"
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md"
               >

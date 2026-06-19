@@ -81,19 +81,20 @@ export default function ContactSalesModal({ open, onClose, onStartChat }) {
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="relative w-full max-w-4xl rounded-2xl bg-white shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
             {/* Close Button */}
             <button
               type="button"
               onClick={handleClose}
               aria-label="Close modal"
-              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900"
+              className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100/90 backdrop-blur-xs text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900"
             >
               <X className="h-4.5 w-4.5" />
             </button>
 
-            <div className="grid grid-cols-1 md:grid-cols-12">
+            <div className="overflow-y-auto w-full h-full">
+              <div className="grid grid-cols-1 md:grid-cols-12">
               {/* Left Column: Email Contact Form */}
               <div className="md:col-span-7 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-slate-100">
                 <div className="mb-6">
@@ -354,9 +355,10 @@ export default function ContactSalesModal({ open, onClose, onStartChat }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
-      )}
-    </AnimatePresence>
-  );
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
 }

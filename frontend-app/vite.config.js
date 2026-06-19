@@ -14,6 +14,7 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    allowedHosts: [".ngrok-free.dev", ".ngrok.io"],
     fs: {
       allow: [path.resolve(__dirname, ".."), path.resolve(__dirname, "./")],
     },

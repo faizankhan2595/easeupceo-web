@@ -179,7 +179,7 @@ export default function Pricing() {
                 </ul>
 
                 <motion.a
-                  href="#contact"
+                  href="/signup"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                   className={`relative mt-6 inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-center text-sm font-semibold shadow-sm transition-all ${
@@ -304,7 +304,7 @@ export default function Pricing() {
                   </div>
 
                   <motion.a
-                    href="#contact"
+                    href="/signup"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand-700 shadow-lg transition-colors hover:bg-brand-50"
@@ -332,7 +332,7 @@ export default function Pricing() {
               </p>
             </div>
             <motion.a
-              href="/signUp"
+              href="/signup"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               className="relative inline-flex shrink-0 items-center gap-1.5 rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-colors hover:bg-accent-600"

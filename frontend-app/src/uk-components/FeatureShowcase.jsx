@@ -148,7 +148,7 @@ function StackCard({ tab, index, progress, isDesktop }) {
               ))}
             </ul>
             <a
-              href="#contact"
+              href="/signup"
               className="group mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 transition-colors hover:text-brand-700 lg:mt-8 lg:text-sm"
             >
               See {tab.label.toLowerCase()} in action

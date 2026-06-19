@@ -52,6 +52,7 @@ const FEATURES = [
   },
 ];
 
+
 function TrafficLights() {
   return (
     <div className="flex items-center gap-1.5">
@@ -81,8 +82,13 @@ export default function HeroLaptop({ onWatchDemo }) {
   return (
     <>
       {/* Mobile/Tablet Hero: Clean, highly-readable layout for small & medium screens */}
-      <div className="block lg:hidden bg-slate-50/50 pt-28 pb-16 px-6 sm:px-12 sm:pt-36 sm:pb-24">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+      <div className="block lg:hidden bg-slate-50/50 pt-28 pb-16 px-6 sm:px-12 sm:pt-36 sm:pb-24 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center max-w-4xl mx-auto"
+        >
           {/* Badge */}
           <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm">
             <span className="relative flex h-2 w-2">
@@ -112,7 +118,7 @@ export default function HeroLaptop({ onWatchDemo }) {
           {/* Actions */}
           <div className="mt-6 flex w-full flex-col sm:flex-row justify-center gap-3 px-2 sm:w-auto">
             <a
-              href="/signUp"
+              href="/signup"
               className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-600 to-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition-all hover:brightness-105 active:scale-[0.98]"
             >
               Start 30-Day Free Trial
@@ -150,96 +156,128 @@ export default function HeroLaptop({ onWatchDemo }) {
               ))}
             </div>
           </div>
-        </div>
-      </div>      {/* Desktop Hero: Sticky-scroll laptop layout */}
+        </motion.div>
+      </div>
+
+      {/* Desktop Hero: Sticky-scroll laptop layout */}
       <div ref={runwayRef} className="hidden lg:block relative h-[240vh]">
         <div className="sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
-          <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
-            {/* Laptop screen */}
-            <div className="relative rounded-[1rem] border-[8px] border-slate-700 bg-slate-900 shadow-2xl shadow-slate-900/30">
-              <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-px rounded-full bg-slate-700" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 48 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-[92vw] max-w-5xl sm:w-[88vw]"
+          >
+            <motion.div style={{ scale, y }} className="w-full">
+              {/* Laptop screen */}
+              <div className="relative rounded-[1rem] border-[8px] border-slate-700 bg-slate-900 shadow-2xl shadow-slate-900/30">
+                <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-px rounded-full bg-slate-700" />
 
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[0.6rem] bg-linear-to-br from-brand-50 via-white to-white">
-                <div className="absolute inset-0 bg-grid opacity-40" />
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[0.6rem] bg-linear-to-br from-brand-50 via-white to-white">
+                  <div className="absolute inset-0 bg-grid opacity-40" />
 
-                {/* macOS-style window chrome */}
-                <div className="absolute inset-x-0 top-0 flex items-center gap-2 border-b border-slate-200/70 bg-white/70 px-2.5 py-1.5 backdrop-blur-sm sm:px-4 sm:py-2.5">
-                  <TrafficLights />
-                  <div className="mx-auto hidden w-32 rounded-full bg-slate-100 px-3 py-1 text-center text-[8px] text-slate-400 sm:block sm:w-48 sm:text-[10px]">
-                    app.worklynx.com
-                  </div>
-                </div>
-
-                {/* Central hero content */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-6 text-center sm:px-8">
-                  <div className="mb-1.5 inline-flex items-center gap-1 rounded-full border border-brand-200 bg-white px-2 py-0.5 text-[5px] font-medium text-brand-700 shadow-sm sm:mb-4 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-xs">
-                    <span className="relative flex h-1 w-1 sm:h-2 sm:w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
-                      <span className="relative inline-flex h-1 w-1 rounded-full bg-accent-500 sm:h-2 sm:w-2" />
-                    </span>
-                    <span className="hidden sm:inline">Cost-efficient &amp; AI-powered HR platform</span>
-                    <span className="sm:hidden">Cost-efficient &amp; AI-powered</span>
-                    <Sparkle className="hidden h-3.5 w-3.5 text-brand-400 sm:block" />
+                  {/* macOS-style window chrome */}
+                  <div className="absolute inset-x-0 top-0 flex items-center gap-2 border-b border-slate-200/70 bg-white/70 px-2.5 py-1.5 backdrop-blur-sm sm:px-4 sm:py-2.5">
+                    <TrafficLights />
+                    <div className="mx-auto hidden w-32 rounded-full bg-slate-100 px-3 py-1 text-center text-[8px] text-slate-400 sm:block sm:w-48 sm:text-[10px]">
+                      app.worklynx.com
+                    </div>
                   </div>
 
-                  <h1 className="text-balance text-[11px] font-semibold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-5xl">
-                    AI-powered attendance, payroll &amp;{" "}
-                    <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
-                      HR
-                    </span>{" "}
-                    — built for growing UK teams
-                  </h1>
-
-                  <p className="mx-auto mt-1.5 hidden max-w-md text-[11px] leading-5 text-slate-600 sm:mt-4 sm:block sm:text-sm sm:leading-7">
-                    Worklynx brings attendance, leave, payroll, employee records
-                    and performance reviews into one cost-efficient, AI-powered platform, with
-                    HMRC compliance ready from day one.
-                  </p>
-
-                  <div className="mt-2 flex flex-col items-center gap-1.5 sm:mt-6 sm:flex-row sm:gap-3">
-                    <a
-                      href="/signUp"
-                      className="group inline-flex items-center justify-center gap-1 rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-2.5 py-1.5 text-[7px] font-semibold text-white shadow-lg shadow-brand-600/25 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm"
+                  {/* Central hero content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-6 text-center sm:px-8">
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+                      className="mb-1.5 inline-flex items-center gap-1 rounded-full border border-brand-200 bg-white px-2 py-0.5 text-[5px] font-medium text-brand-700 shadow-sm sm:mb-4 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-xs"
                     >
-                      Start 30-Day Free Trial
-                      <ArrowRight className="h-2 w-2 transition-transform group-hover:translate-x-0.5 sm:h-4 sm:w-4" />
-                    </a>
-                    <button
-                      type="button"
-                      onClick={onWatchDemo}
-                      className="hidden items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-brand-300 hover:text-brand-700 sm:flex"
-                    >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-                        <Play className="h-2.5 w-2.5 fill-current" />
+                      <span className="relative flex h-1 w-1 sm:h-2 sm:w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />
+                        <span className="relative inline-flex h-1 w-1 rounded-full bg-accent-500 sm:h-2 sm:w-2" />
                       </span>
-                      Watch demo video
-                    </button>
-                  </div>
+                      <span className="hidden sm:inline">Cost-efficient &amp; AI-powered HR platform</span>
+                      <span className="sm:hidden">Cost-efficient &amp; AI-powered</span>
+                      <Sparkle className="hidden h-3.5 w-3.5 text-brand-400 sm:block" />
+                    </motion.div>
 
-                  {/* Minimalist Horizontal Feature Ribbon */}
-                  <div className="mt-4 sm:mt-8 flex items-center justify-center gap-3 sm:gap-6 md:gap-8 border-t border-slate-200/40 pt-4 sm:pt-6 w-full max-w-2xl">
-                    {FEATURES.map(({ label, icon: Icon, iconGradient }) => (
-                      <div key={label} className="flex items-center gap-1.5 sm:gap-2.5 group cursor-default">
-                        <span className={`flex h-4 w-4 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-gradient-to-br ${iconGradient} text-white shadow-xs transition-transform group-hover:scale-105`}>
-                          <Icon className="h-2.5 w-2.5 sm:h-4 sm:w-4" strokeWidth={2.5} />
+                    <motion.h1
+                      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-balance text-[11px] font-semibold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-5xl"
+                    >
+                      AI-powered attendance, payroll &amp;{" "}
+                      <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
+                        HR
+                      </span>{" "}
+                      — built for growing UK teams
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      className="mx-auto mt-1.5 hidden max-w-md text-[11px] leading-5 text-slate-600 sm:mt-4 sm:block sm:text-sm sm:leading-7"
+                    >
+                      Worklynx brings attendance, leave, payroll, employee records
+                      and performance reviews into one cost-efficient, AI-powered platform, with
+                      HMRC compliance ready from day one.
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                      className="mt-2 flex flex-col items-center gap-1.5 sm:mt-6 sm:flex-row sm:gap-3"
+                    >
+                      <a
+                        href="/signup"
+                        className="group inline-flex items-center justify-center gap-1 rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-2.5 py-1.5 text-[7px] font-semibold text-white shadow-lg shadow-brand-600/25 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm"
+                      >
+                        Start 30-Day Free Trial
+                        <ArrowRight className="h-2 w-2 transition-transform group-hover:translate-x-0.5 sm:h-4 sm:w-4" />
+                      </a>
+                      <button
+                        type="button"
+                        onClick={onWatchDemo}
+                        className="hidden items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-brand-300 hover:text-brand-700 sm:flex"
+                      >
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                          <Play className="h-2.5 w-2.5 fill-current" />
                         </span>
-                        <span className="text-[5px] sm:text-[10px] md:text-xs font-semibold text-slate-600 transition-colors group-hover:text-slate-900">
-                          {label}
-                        </span>
-                      </div>
-                    ))}
+                        Watch demo video
+                      </button>
+                    </motion.div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Laptop base / keyboard */}
-            <motion.div style={{ opacity: baseOpacity, y: baseY }} className="relative mx-auto">
-              <div className="h-2 w-[94%] mx-auto rounded-b-sm bg-linear-to-b from-slate-700 to-slate-800" />
-              <div
-                className="mx-auto h-3.5 rounded-b-2xl bg-linear-to-b from-slate-300 to-slate-400 shadow-md"
-                style={{ width: "112%", marginLeft: "-6%" }}
-              />
+              {/* Laptop base / keyboard */}
+              <motion.div style={{ opacity: baseOpacity, y: baseY }} className="relative mx-auto">
+                <div className="h-2 w-[94%] mx-auto rounded-b-sm bg-linear-to-b from-slate-700 to-slate-800" />
+                <div
+                  className="mx-auto h-3.5 rounded-b-2xl bg-linear-to-b from-slate-300 to-slate-400 shadow-md"
+                  style={{ width: "112%", marginLeft: "-6%" }}
+                />
+              </motion.div>
+
+              {/* Minimalist Horizontal Feature Ribbon */}
+              <motion.div
+                style={{ opacity: baseOpacity }}
+                className="mt-10 sm:mt-12 flex items-center justify-center gap-4 sm:gap-6 md:gap-10 border-t border-slate-200/30 pt-6 sm:pt-8 w-full max-w-4xl mx-auto"
+              >
+                {FEATURES.map(({ label, icon: Icon, iconGradient }) => (
+                  <div key={label} className="flex items-center gap-2.5 group cursor-default">
+                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${iconGradient} text-white shadow-sm transition-transform group-hover:scale-105`}>
+                      <Icon className="h-4 w-4" strokeWidth={2.5} />
+                    </span>
+                    <span className="text-xs font-semibold text-slate-600 transition-colors group-hover:text-slate-950">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>

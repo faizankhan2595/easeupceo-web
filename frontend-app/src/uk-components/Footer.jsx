@@ -93,23 +93,48 @@ export default function Footer({ onContactClick }) {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 sm:flex-row">
-          <p className="text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
-            <a
-              href="https://techtradeitsolutions.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
-            >
-              Techtrade IT Solutions
-            </a>
-            . Registered in England &amp; Wales. All rights reserved.
-          </p>
-          <p className="text-xs text-slate-500 text-right">
-            Birmingham | Email: <a href="mailto:sales@techtradeitsolutions.com" className="text-slate-300 hover:text-white underline">sales@techtradeitsolutions.com</a> | Tel: <a href="tel:+447776839310" className="text-slate-300 hover:text-white underline">+44 7776839310</a>
-          </p>
-        </div>
+       <div className="mt-12 border-t border-slate-800 pt-8">
+  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    {/* Left */}
+    <p className="text-xs text-slate-500 leading-6 max-w-xl">
+      &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
+      <a
+        href="https://techtradeitsolutions.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
+      >
+        Techtrade IT Solutions
+      </a>
+      . Registered in England &amp; Wales. All rights reserved.
+    </p>
+
+    {/* Right */}
+    <div className="flex flex-col gap-2 text-xs text-slate-500 md:items-end">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
+        <p>
+          Birmingham | Email:{" "}
+          <a
+            href="mailto:sales@techtradeitsolutions.com"
+            className="text-slate-300 hover:text-white underline"
+          >
+            sales@techtradeitsolutions.com
+          </a>
+        </p>
+
+        <p>
+          Tel:{" "}
+          <a
+            href="tel:+447776839310"
+            className="text-slate-300 hover:text-white underline"
+          >
+            +44 7776839310
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </footer>
   );
