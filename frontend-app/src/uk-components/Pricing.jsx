@@ -69,7 +69,7 @@ export default function Pricing() {
   const monthlyTotal = activePlan.priceValue * employeeCount;
 
   return (
-    <section id="pricing" className="relative scroll-mt-24 overflow-hidden bg-linear-to-b from-white via-brand-50/40 to-white py-20 sm:py-28">
+    <section id="pricing" className="relative scroll-mt-24 overflow-hidden bg-linear-to-b from-white via-brand-50/40 to-white py-14 sm:py-20">
       <div className="absolute inset-x-0 top-0 h-64 bg-grid opacity-50" />
       <div className="absolute inset-x-0 top-0 h-80 bg-linear-to-b from-brand-100/60 via-accent-50/35 to-transparent blur-2xl" />
 
@@ -98,7 +98,7 @@ export default function Pricing() {
           </div>
         </FadeIn>
 
-        <div className="mt-14 grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
+        <div className="mt-10 lg:mt-12 grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
           {tiers.map((tier, index) => (
             <FadeIn key={tier.name} delay={index * 0.1}>
               <motion.div

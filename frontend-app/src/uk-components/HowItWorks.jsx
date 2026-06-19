@@ -32,7 +32,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="scroll-mt-24 bg-slate-50 py-20 sm:py-28">
+    <section id="how-it-works" className="scroll-mt-24 bg-slate-50 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-base font-semibold text-brand-600">How it works</h2>
@@ -45,7 +45,7 @@ export default function HowItWorks() {
           </p>
         </FadeIn>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 lg:mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((item, index) => (
             <FadeIn key={item.step} delay={index * 0.1} className="relative">
               <div className="flex items-center gap-3">
