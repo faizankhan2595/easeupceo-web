@@ -28,13 +28,13 @@ export default function Navbar({ onContactClick }) {
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-10 w-full transition-all duration-300 ${
         scrolled
           ? "border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-md"
           : "border-b border-transparent bg-white/0"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
          <Link to="/" className="flex items-center shrink-0">
             <img src={worklynxLogo} alt="Worklynx" className="h-12 w-auto" />
           </Link>
