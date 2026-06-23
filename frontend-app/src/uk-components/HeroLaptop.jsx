@@ -151,15 +151,17 @@ export default function HeroLaptop({ onWatchDemo }) {
             </div>
           </div>
         </div>
-      </div>      {/* Desktop Hero: Sticky-scroll laptop layout */}
+      </div>    
+        {/* Desktop Hero: Sticky-scroll laptop layout */}
       <div ref={runwayRef} className="hidden lg:block relative h-[240vh]">
         <div className="sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
-          <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
+       
+       <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
             {/* Laptop screen */}
             <div className="relative rounded-[1rem] border-[8px] border-slate-700 bg-slate-900 shadow-2xl shadow-slate-900/30">
               <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-px rounded-full bg-slate-700" />
 
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[0.6rem] bg-linear-to-br from-brand-50 via-white to-white">
+              <div className="relative  aspect-[16/10] overflow-hidden rounded-[0.6rem] bg-linear-to-br from-white via-white to-white">
                 <div className="absolute inset-0 bg-grid opacity-40" />
 
                 {/* macOS-style window chrome */}
@@ -171,7 +173,7 @@ export default function HeroLaptop({ onWatchDemo }) {
                 </div>
 
                 {/* Central hero content */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-3 pt-6 text-center sm:px-8">
+                <div className="absolute  inset-0 flex flex-col items-center justify-center px-3 pt-6 text-center sm:px-8">
                   <div className="mb-1.5 inline-flex items-center gap-1 rounded-full border border-brand-200 bg-white px-2 py-0.5 text-[5px] font-medium text-brand-700 shadow-sm sm:mb-4 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-xs">
                     <span className="relative flex h-1 w-1 sm:h-2 sm:w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75" />

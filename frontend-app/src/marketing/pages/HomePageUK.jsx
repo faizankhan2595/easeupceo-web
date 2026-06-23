@@ -1,5 +1,6 @@
 import Hero from "@/uk-components/Hero";
 import LogoCloud from "@/uk-components/LogoCloud";
+import VideoShowcase from "@/uk-components/VideoShowcase";
 import FeatureShowcase from "@/uk-components/FeatureShowcase";
 import StatsBand from "@/uk-components/StatsBand";
 import WhyChooseUs from "@/uk-components/WhyChooseUs";
@@ -18,6 +19,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
     <>
       <Hero />
       <LogoCloud />
+      <VideoShowcase />
       <FeatureShowcase />
       <StatsBand />
       <WhyChooseUs />
