@@ -28,16 +28,17 @@ export default function Navbar({ onContactClick }) {
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-10 w-full transition-all duration-300 
-        
-         
-           border-b border-slate-100 bg-white
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300
+        ${(scrolled || open)
+          ? "border-b border-slate-200/70 bg-white/85 backdrop-blur-md shadow-sm"
+          : "border-b border-transparent bg-transparent"
+        }
       `}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
-         <Link to="/" className="flex items-center shrink-0">
-            <img src={worklynxLogo} alt="Worklynx" className="h-12 w-auto" />
-          </Link>
+        <Link to="/" className="flex items-center shrink-0">
+          <img src={worklynxLogo} alt="Worklynx" className="h-13 w-auto" />
+        </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => {
@@ -52,7 +53,7 @@ export default function Navbar({ onContactClick }) {
                     onContactClick();
                   }
                 }}
-                className="relative text-sm font-medium text-slate-600 transition-colors hover:text-brand-600"
+                className="relative text-md font-medium text-slate-700 transition-colors hover:text-brand-600"
               >
                 {link.label}
               </a>
@@ -60,14 +61,12 @@ export default function Navbar({ onContactClick }) {
           })}
         </div>
 
-           
-
         <div className="hidden items-center gap-4 lg:flex">
           <a
-                      href="https://app.worklynx.io"
-            className="text-sm font-semibold text-slate-700 transition-colors hover:text-brand-600"
+            href="https://app.worklynx.io"
+            className="text-md font-semibold text-slate-700 transition-colors hover:text-brand-600"
           >
-                      Sign In
+            Sign In
           </a>
           <motion.a
             href="/signup"

@@ -81,8 +81,28 @@ export default function HeroLaptop({ onWatchDemo }) {
   return (
     <>
       {/* Mobile/Tablet Hero: Clean, highly-readable layout for small & medium screens */}
-      <div className="block lg:hidden bg-slate-50/50 pt-28 pb-16 px-6 sm:px-12 sm:pt-36 sm:pb-24">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+      <div className="block lg:hidden relative bg-slate-50/50 pt-28 pb-16 px-6 sm:px-12 sm:pt-36 sm:pb-24 isolate overflow-hidden">
+        {/* Top Half-Circle Gradient — extends up behind transparent navbar */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-x-0 h-[480px] z-0"
+          style={{
+            top: "-4.5rem",
+            background:
+              "radial-gradient(ellipse 85% 100% at 50% 0%, rgba(99,102,241,0.20) 0%, rgba(99,102,241,0.06) 45%, transparent 80%)"
+          }}
+        />
+        {/* Subtle green accent glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-x-0 h-[280px] z-0"
+          style={{
+            top: "-4.5rem",
+            background:
+              "radial-gradient(ellipse 55% 80% at 50% 0%, rgba(16,185,129,0.09) 0%, transparent 70%)"
+          }}
+        />
+        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Badge */}
           <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm">
             <span className="relative flex h-2 w-2">
@@ -151,12 +171,51 @@ export default function HeroLaptop({ onWatchDemo }) {
             </div>
           </div>
         </div>
-      </div>    
-        {/* Desktop Hero: Sticky-scroll laptop layout */}
-      <div ref={runwayRef} className="hidden lg:block relative h-[240vh]">
-        <div className="sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
+      </div>
+      {/* Desktop Hero: Sticky-scroll laptop layout */}
+      <div ref={runwayRef} className="hidden lg:block relative h-[150vh] isolate">
+        {/* ── Primary top half-circle gradient — negative top so it bleeds through transparent navbar */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-x-0 h-[620px] z-0"
+          style={{
+            top: "-4.5rem",
+            background:
+              "radial-gradient(ellipse 50% 70% at 50% 0%, rgba(97,98,240,0.46) 0%, rgba(97,98,240,0.46) 80%, transparent 90%)"
+          }}
+        />
+        {/* Secondary green tint glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-x-0 h-[380px] z-0"
+          style={{
+            top: "-4.5rem",
+            background:
+              "radial-gradient(ellipse 55% 80% at 50% 0%, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.02) 45%, transparent 70%)"
+          }}
+        />
+
+        {/* Left ambient orb */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -left-[8%] h-[520px] w-[520px] rounded-full blur-3xl z-0"
+          style={{ top: "10%", background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)" }}
+        />
+        {/* Right ambient orb */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -right-[8%] h-[560px] w-[560px] rounded-full blur-3xl z-0"
+          style={{ top: "25%", background: "radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%)" }}
+        />
+
+        {/* Concentric ring arcs — shifted up to align with gradient origin */}
+        <div aria-hidden="true" className="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 h-[720px] w-[720px] rounded-full border border-slate-300/12 z-0" style={{ top: "-4.5rem" }} />
+        <div aria-hidden="true" className="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 h-[1040px] w-[1040px] rounded-full border border-dashed border-slate-200/8 z-0" style={{ top: "-4.5rem" }} />
+        <div aria-hidden="true" className="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 h-[1340px] w-[1340px] rounded-full border border-slate-200/5 z-0" style={{ top: "-4.5rem" }} />
        
-       <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
+        <div className="relative z-10 sticky top-[5rem] flex h-[calc(100svh-5rem)] items-center justify-center overflow-visible px-4 py-8 sm:top-[5.5rem] sm:h-[calc(100svh-5.5rem)] sm:px-8 sm:py-10">
+
+          <motion.div style={{ scale, y }} className="w-[92vw] max-w-5xl sm:w-[88vw]">
             {/* Laptop screen */}
             <div className="relative rounded-[1rem] border-[8px] border-slate-700 bg-slate-900 shadow-2xl shadow-slate-900/30">
               <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-px rounded-full bg-slate-700" />
