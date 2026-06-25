@@ -94,7 +94,7 @@ export default function LocationAwareHomePage() {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <UKNavbar onContactClick={() => setContactOpen(true)} />
-        <main className="flex-1 overflow-x-clip">
+        <main className="flex-1 overflow-x-clip pt-[4.5rem]">
           <HomePageUK
             chatbotOpen={chatbotOpen}
             setChatbotOpen={setChatbotOpen}

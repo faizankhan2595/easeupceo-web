@@ -4,11 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useTransform } from "motion/react";
 import { Clock, CalendarCheck, Banknote, Users, LineChart, Check, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/uk-components/motion/FadeIn";
-import AttendanceMockup from "@/uk-components/feature-mockups/AttendanceMockup";
-import LeaveMockup from "@/uk-components/feature-mockups/LeaveMockup";
-import PayrollMockup from "@/uk-components/feature-mockups/PayrollMockup";
-import EmployeeMockup from "@/uk-components/feature-mockups/EmployeeMockup";
-import PerformanceMockup from "@/uk-components/feature-mockups/PerformanceMockup";
 
 const tabs = [
   {
@@ -23,7 +18,7 @@ const tabs = [
       "Automated shift rotas & timesheets",
       "Real-time lateness & absence alerts",
     ],
-    mockup: AttendanceMockup,
+    image: "/timeAndAttendance.png",
   },
   {
     id: "leave",
@@ -37,7 +32,7 @@ const tabs = [
       "SSP, maternity & shared parental leave rules built in",
       "Team leave calendar with conflict warnings",
     ],
-    mockup: LeaveMockup,
+    image: "/leaveManagement.png",
   },
   {
     id: "payroll",
@@ -51,7 +46,7 @@ const tabs = [
       "One-click RTI submissions",
       "NEST & NOW: Pensions auto-enrolment",
     ],
-    mockup: PayrollMockup,
+    image: "/payrol.png",
   },
   {
     id: "employees",
@@ -65,7 +60,7 @@ const tabs = [
       "Right-to-work & document storage",
       "Org charts & self-service onboarding",
     ],
-    mockup: EmployeeMockup,
+    image: "/employmanagement.png",
   },
   {
     id: "performance",
@@ -79,12 +74,11 @@ const tabs = [
       "Structured 1:1s & appraisal cycles",
       "360° feedback & development plans",
     ],
-    mockup: PerformanceMockup,
+    image: "/training.png",
   },
 ];
 
-function FeatureMockupCard({ tab }) {
-  const Mockup = tab.mockup;
+function FeatureImageCard({ tab }) {
   const cardX = useMotionValue(0);
   const cardY = useMotionValue(0);
   const tiltX = useTransform(cardY, [-150, 150], [6, -6]);
@@ -107,8 +101,14 @@ function FeatureMockupCard({ tab }) {
         onMouseMove={handleCardMove}
         onMouseLeave={handleCardLeave}
         style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: "preserve-3d" }}
+        className="overflow-hidden rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10"
       >
-        <Mockup />
+        <img
+          src={tab.image}
+          alt={`${tab.label} feature screenshot`}
+          className="h-auto w-full object-cover"
+          draggable={false}
+        />
       </motion.div>
     </div>
   );
@@ -156,8 +156,8 @@ function StackCard({ tab, index, progress, isDesktop }) {
             </a>
           </div>
 
-          <div className="hidden lg:block">
-            <FeatureMockupCard tab={tab} />
+          <div className="hidden lg:flex lg:items-center lg:justify-center">
+            <FeatureImageCard tab={tab} />
           </div>
         </div>
       </motion.div>
