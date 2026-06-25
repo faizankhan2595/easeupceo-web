@@ -9,6 +9,7 @@ import Testimonials from "@/uk-components/Testimonials";
 import Pricing from "@/uk-components/Pricing";
 import Chatbot from "@/uk-components/Chatbot";
 import { useEffect } from "react";
+import FeatureShowcaseCopy from "@/uk-components/FeatureShowcaseCopy";
 
 export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, setChatUserData }) {
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       <Hero />
       <LogoCloud />
       <VideoShowcase />
+      <FeatureShowcaseCopy />
       <FeatureShowcase />
       <StatsBand />
       <WhyChooseUs />

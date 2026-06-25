@@ -175,15 +175,15 @@ export default function HeroLaptop({ onWatchDemo }) {
       {/* Desktop Hero: Sticky-scroll laptop layout */}
       <div ref={runwayRef} className="hidden lg:block relative h-[150vh] isolate">
         {/* ── Primary top half-circle gradient — negative top so it bleeds through transparent navbar */}
-        <div
+        {/* <div
           aria-hidden="true"
           className="pointer-events-none select-none absolute inset-x-0 h-[620px] z-0"
           style={{
             top: "-4.5rem",
             background:
-              "radial-gradient(ellipse 50% 70% at 50% 0%, rgba(97,98,240,0.46) 0%, rgba(97,98,240,0.46) 80%, transparent 90%)"
+              "radial-gradient(ellipse 40% 60% at 50% 100%, rgba(97,98,240,0.46) 0%, rgba(97,98,240,0.46) 80%, transparent 90%)"
           }}
-        />
+        /> */}
         {/* Secondary green tint glow */}
         <div
           aria-hidden="true"
@@ -248,7 +248,7 @@ export default function HeroLaptop({ onWatchDemo }) {
                     <span className="bg-linear-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">
                       HR
                     </span>{" "}
-                    — built for growing UK teams
+                    — built for growing  teams
                   </h1>
 
                   <p className="mx-auto mt-1.5 hidden max-w-md text-[11px] leading-5 text-slate-600 sm:mt-4 sm:block sm:text-sm sm:leading-7">

@@ -38,8 +38,8 @@ export default function VideoShowcase() {
 
         {/* Video Player Card */}
         <FadeIn className="mx-auto max-w-5xl">
-          <div className="relative rounded-3xl border border-slate-200 bg-white p-3 shadow-2xl shadow-slate-900/10">
-            <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-950 shadow-inner">
+          <div className="relative rounded-3xl ">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-slate-950 shadow-inner">
               <video
                 ref={videoRef}
                 src="/Worklynx-video.mp4"
