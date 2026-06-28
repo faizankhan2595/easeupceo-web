@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import MarketingLayout from "./marketing/layouts/MarketingLayout";
+import MarketingNavbar from "./marketing/components/navbar/MarketingNavbar";
+import UKNavbar from "./uk-components/Navbar";
+import { useCountryContext } from "./context/CountryContext";
 
 const LocationAwareHomePage = lazy(() => import("./marketing/pages/LocationAwareHomePage"));
 const FeaturesPage = lazy(() => import("./marketing/pages/FeaturesPage"));
@@ -28,6 +31,11 @@ const StartOnboardingPage = lazy(() => import("./pages/StartOnboardingPage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 
 const Fallback = () => <div className="h-screen" />;
+
+const SignupNavbar = () => {
+  const { country } = useCountryContext();
+  return country === "uk" ? <UKNavbar /> : <MarketingNavbar />;
+};
 
 const App = () => {
   return (
@@ -69,13 +77,16 @@ const App = () => {
           <Route path="*" element={<Navigate to="/live-order" replace />} />
         </Route>
 
-        {/* Sign up — standalone, no marketing chrome */}
+        {/* Sign up — navbar inlined directly, no wrapper component needed */}
         <Route
           path="/signup"
           element={
-            <Suspense fallback={<Fallback />}>
-              <SignUpPage />
-            </Suspense>
+            <>
+              <SignupNavbar />
+              <Suspense fallback={<Fallback />}>
+                <SignUpPage />
+              </Suspense>
+            </>
           }
         />
 

@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, Globe } from "lucide-react";
 import worklynxLogo from "@/assets/worklynx-light.png";
 import {
   NavigationMenu,
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import FeaturesMegaMenu from "./FeaturesMegaMenu";
 import CTAButton from "../shared/CTAButton";
+import { useCountryContext } from "@/context/CountryContext";
 
 const navLinks = [
   { label: "Features", href: "/features", hasMega: true },
@@ -20,9 +21,89 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+const COUNTRIES = [
+  { key: "india", flag: "🇮🇳", label: "India", short: "IN" },
+  { key: "uk",    flag: "🇬🇧", label: "United Kingdom", short: "UK" },
+];
+
+/**
+ * CountryDropdown — fully self-contained.
+ * Reads + writes CountryContext directly. No props needed.
+ */
+function CountryDropdown({ align = "right" }) {
+  const { country, setCountry } = useCountryContext();
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const active = COUNTRIES.find((c) => c.key === country) || COUNTRIES[0];
+
+  const handleSwitch = (key) => {
+    try {
+      sessionStorage.setItem("geo_country", JSON.stringify({ value: key, ts: Date.now() }));
+    } catch (_) {}
+    setCountry(key);
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+      >
+        <Globe className="w-4 h-4 shrink-0" />
+        <span className="text-base leading-none">{active.flag}</span>
+        <span className="hidden sm:inline">{active.short}</span>
+        <ChevronDown
+          className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.96 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className={`absolute top-full mt-1.5 w-44 bg-white rounded-xl shadow-lg border border-slate-200/80 overflow-hidden z-50 ${
+              align === "right" ? "right-0" : "left-0"
+            }`}
+          >
+            {COUNTRIES.map((c) => (
+              <button
+                key={c.key}
+                onClick={() => handleSwitch(c.key)}
+                className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${
+                  country === c.key
+                    ? "bg-slate-50 text-slate-900 font-semibold"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                }`}
+              >
+                <span className="text-base">{c.flag}</span>
+                <span>{c.label}</span>
+                {country === c.key && (
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/** MarketingNavbar — self-contained, no props required. */
 export default function MarketingNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { country, setCountry } = useCountryContext();
   const location = useLocation();
 
   useEffect(() => {
@@ -34,6 +115,14 @@ export default function MarketingNavbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
+
+  const handleMobileSwitch = (key) => {
+    try {
+      sessionStorage.setItem("geo_country", JSON.stringify({ value: key, ts: Date.now() }));
+    } catch (_) {}
+    setCountry(key);
+    setMobileOpen(false);
+  };
 
   return (
     <header
@@ -83,6 +172,7 @@ export default function MarketingNavbar() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
+            <CountryDropdown align="right" />
             <a
               href="https://app.worklynx.io"
               target="_blank"
@@ -128,6 +218,27 @@ export default function MarketingNavbar() {
                 </Link>
               ))}
               <div className="pt-3 border-t border-slate-100 mt-3 flex flex-col gap-2">
+                {/* Mobile region switcher */}
+                <div className="px-1">
+                  <p className="px-3 pb-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wide">Region</p>
+                  {COUNTRIES.map((c) => (
+                    <button
+                      key={c.key}
+                      onClick={() => handleMobileSwitch(c.key)}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                        country === c.key
+                          ? "bg-slate-100 text-slate-900 font-semibold"
+                          : "text-slate-600 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="text-base">{c.flag}</span>
+                      <span>{c.label}</span>
+                      {country === c.key && (
+                        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500" />
+                      )}
+                    </button>
+                  ))}
+                </div>
                 <a
                   href="https://app.worklynx.io"
                   target="_blank"

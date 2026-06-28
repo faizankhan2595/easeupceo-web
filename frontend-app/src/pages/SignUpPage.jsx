@@ -89,6 +89,64 @@ export default function SignUpPage() {
   const [adminPassword,  setAdminPassword]  = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country,        setCountry]        = useState("India");
+  const hasManuallyChangedCountry = useRef(false);
+
+  useEffect(() => {
+    if (hasManuallyChangedCountry.current) return;
+
+    // 1. Try resolving country using user timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const tzMap = {
+        "Asia/Kolkata": "India",
+        "Europe/London": "United Kingdom",
+        "Europe/Belfast": "United Kingdom",
+        "Asia/Riyadh": "Saudi Arabia",
+        "Asia/Dubai": "United Arab Emirates",
+        "Asia/Muscat": "Oman",
+        "Asia/Qatar": "Qatar",
+        "Asia/Bahrain": "Bahrain",
+        "Asia/Amman": "Jordan",
+        "Africa/Cairo": "Egypt",
+        "Asia/Singapore": "Singapore"
+      };
+      if (tzMap[tz]) {
+        setCountry(tzMap[tz]);
+      }
+    } catch (_) {}
+
+    // 2. Fetch actual location from ipapi
+    let cancelled = false;
+    async function detectCountry() {
+      try {
+        const res = await fetch("https://ipapi.co/country/", { signal: AbortSignal.timeout(3000) });
+        if (res.ok && !cancelled) {
+          const code = (await res.text()).trim().toUpperCase();
+          const countryMap = {
+            IN: "India",
+            GB: "United Kingdom",
+            SA: "Saudi Arabia",
+            AE: "United Arab Emirates",
+            OM: "Oman",
+            QA: "Qatar",
+            BH: "Bahrain",
+            JO: "Jordan",
+            EG: "Egypt",
+            SG: "Singapore"
+          };
+          if (countryMap[code] && !hasManuallyChangedCountry.current) {
+            setCountry(countryMap[code]);
+          }
+        }
+      } catch (_) {}
+    }
+    detectCountry();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const [employeeCount,  setEmployeeCount]  = useState(10);
   const [modules,        setModules]        = useState({
     payroll: false, attendance: false, leave: false, restaurant: false, healthcare: false,
@@ -347,7 +405,14 @@ export default function SignUpPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Country</label>
-              <select className={inputBase} value={country} onChange={(e) => setCountry(e.target.value)}>
+              <select
+                className={inputBase}
+                value={country}
+                onChange={(e) => {
+                  setCountry(e.target.value);
+                  hasManuallyChangedCountry.current = true;
+                }}
+              >
                 {COUNTRY_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </div>
