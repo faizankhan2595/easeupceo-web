@@ -51,8 +51,8 @@ export default function LeaveMockup() {
       <div className="mt-5 rounded-lg border border-slate-100 p-3">
         <p className="text-xs font-medium text-slate-500">Team calendar</p>
         <div className="mt-3 grid grid-cols-7 gap-1.5">
-          {Array.from({ length: 28 }).map((_, i) => {
-            const dayNum = i + 1;
+          {Array.from({ length: 14 }).map((_, i) => {
+            const dayNum = i + 15;
             const isBooked = bookedDays.includes(dayNum);
             return (
               <motion.div

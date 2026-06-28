@@ -4,10 +4,10 @@ import { FadeIn } from "@/uk-components/motion/FadeIn";
 import { Counter } from "@/uk-components/motion/Counter";
 
 const stats = [
-  { value: 500, suffix: "+", label: "UK businesses run on Worklynx" },
-  { value: 46000, suffix: "+", label: "Employees managed daily" },
-  { value: 98, suffix: "%", label: "Customer satisfaction score" },
-  { value: 10, suffix: "hrs", label: "Saved per month on HR admin" },
+  { value: 5, suffix: "+", label: "UK businesses run on Worklynx" },
+  { value: 150, suffix: "+", label: "Employees managed daily" },
+  { value: 100, suffix: "%", label: "Customer satisfaction score" },
+  { value: 15, suffix: "hrs", label: "Saved per month on HR admin" },
 ];
 
 export default function StatsBand() {

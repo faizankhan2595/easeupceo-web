@@ -6,9 +6,9 @@ import { FadeIn } from "@/uk-components/motion/FadeIn";
 
 const benefits = [
   {
-    title: "Built for UK compliance",
+    title: "Compliance built in",
     description:
-      "Stay aligned with HMRC, ICO and UK employment law — from RTI payroll submissions to statutory leave entitlements — without spreadsheets or guesswork.",
+      "Stay aligned with HMRC, ICO and employment law — from RTI payroll submissions to statutory leave entitlements — without spreadsheets or guesswork.",
     icon: ShieldCheck,
   },
   {
@@ -26,7 +26,7 @@ const benefits = [
   {
     title: "GDPR-first security",
     description:
-      "Employee data is encrypted, access-controlled and hosted in the UK, giving you confidence in every audit and data subject request.",
+      "Employee data is encrypted, access-controlled and securely hosted, giving you confidence in every audit and data subject request.",
     icon: Lock,
   },
 ];
@@ -38,14 +38,11 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
           <FadeIn>
             <h2 className="text-base font-semibold text-brand-600">Why Worklynx</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              The HR platform built around how UK businesses actually work
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              Cost-efficient and AI-powered HR platform built for modern teams
             </p>
             <p className="mt-4 text-lg text-slate-600">
-              Most HR tools are built for the US market and bolt on UK
-              compliance as an afterthought. Worklynx starts with UK payroll,
-              employment law and statutory leave — so you&apos;re covered from
-              day one.
+              Worklynx consolidates your attendance, payroll, leave management, and employee records into one cost-efficient, AI-powered system designed for growing UK teams.
             </p>
 
             <a

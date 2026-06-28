@@ -22,7 +22,7 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+export default function Footer({ onContactClick }) {
   return (
     <footer className="bg-slate-900 text-slate-300">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -69,33 +69,72 @@ export default function Footer() {
             <div key={heading}>
               <h3 className="text-sm font-semibold text-white">{heading}</h3>
               <ul className="mt-4 space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-sm text-slate-400 transition-colors hover:text-white">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isContact = link.href === "#contact";
+                  return (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          if (isContact && onContactClick) {
+                            e.preventDefault();
+                            onContactClick();
+                          }
+                        }}
+                        className="text-sm text-slate-400 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 sm:flex-row">
-          <p className="text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
-            <a
-              href="https://techtradeitsolutions.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
-            >
-              Techtrade IT Solutions
-            </a>
-            . Registered in England &amp; Wales. All rights reserved.
-          </p>
-          <p className="text-xs text-slate-500">123 High Street, London, EC1A 1AA, United Kingdom</p>
-        </div>
+       <div className="mt-12 border-t border-slate-800 pt-8">
+  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    {/* Left */}
+    <p className="text-xs text-slate-500 leading-6 max-w-xl">
+      &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
+      <a
+        href="https://techtradeitsolutions.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
+      >
+        Techtrade IT Solutions
+      </a>
+      . Registered in England &amp; Wales. All rights reserved.
+    </p>
+
+    {/* Right */}
+    <div className="flex flex-col gap-2 text-xs text-slate-500 md:items-end">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
+        <p>
+          Birmingham | Email:{" "}
+          <a
+            href="mailto:sales@techtradeitsolutions.com"
+            className="text-slate-300 hover:text-white underline"
+          >
+            sales@techtradeitsolutions.com
+          </a>
+        </p>
+
+        <p>
+          Tel:{" "}
+          <a
+            href="tel:+447776839310"
+            className="text-slate-300 hover:text-white underline"
+          >
+            +44 7776839310
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </footer>
   );

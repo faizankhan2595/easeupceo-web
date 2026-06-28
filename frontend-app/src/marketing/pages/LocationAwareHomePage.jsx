@@ -5,6 +5,7 @@ import MarketingNavbar from "../components/navbar/MarketingNavbar";
 import MarketingFooter from "../components/footer/MarketingFooter";
 import UKNavbar from "@/uk-components/Navbar";
 import UKFooter from "@/uk-components/Footer";
+import ContactSalesModal from "@/uk-components/ContactSalesModal";
 
 const CACHE_KEY = "geo_country";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -81,6 +82,9 @@ function useCountry() {
 
 export default function LocationAwareHomePage() {
   const country = useCountry();
+  const [contactOpen, setContactOpen] = useState(false);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+  const [chatUserData, setChatUserData] = useState(null);
 
   if (country === null) {
     return <div className="min-h-screen bg-white" />;
@@ -89,11 +93,24 @@ export default function LocationAwareHomePage() {
   if (country === "uk") {
     return (
       <div className="min-h-screen flex flex-col bg-white">
-        <UKNavbar />
-        <main className="flex-1 overflow-x-hidden">
-          <HomePageUK />
+        <UKNavbar onContactClick={() => setContactOpen(true)} />
+        <main className="flex-1 overflow-x-clip pt-[4.5rem]">
+          <HomePageUK
+            chatbotOpen={chatbotOpen}
+            setChatbotOpen={setChatbotOpen}
+            chatUserData={chatUserData}
+            setChatUserData={setChatUserData}
+          />
         </main>
-        <UKFooter />
+        <UKFooter onContactClick={() => setContactOpen(true)} />
+        <ContactSalesModal
+          open={contactOpen}
+          onClose={() => setContactOpen(false)}
+          onStartChat={(userData) => {
+            setChatUserData(userData);
+            setChatbotOpen(true);
+          }}
+        />
       </div>
     );
   }
