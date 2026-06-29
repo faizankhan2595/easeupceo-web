@@ -74,7 +74,7 @@ export default function TermsOfServicePage() {
 
           <Section title="5. Free Trial">
             <p>
-              New customers may receive a 30-day free trial of the Service. No credit card is required to begin a trial. At the end of the trial, you must subscribe to a paid plan to continue using the Service. We reserve the right to modify or terminate the free trial at any time without notice.
+              New customers may receive a 14-day free trial of the Service. No credit card is required to begin a trial. At the end of the trial, you must subscribe to a paid plan to continue using the Service. We reserve the right to modify or terminate the free trial at any time without notice.
             </p>
           </Section>
 

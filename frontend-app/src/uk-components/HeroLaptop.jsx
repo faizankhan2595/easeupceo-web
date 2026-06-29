@@ -135,7 +135,7 @@ export default function HeroLaptop({ onWatchDemo }) {
               href="/signUp"
               className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-600 to-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition-all hover:brightness-105 active:scale-[0.98]"
             >
-              Start 30-Day Free Trial
+              Start 14-Day Free Trial
               <ArrowRight className="h-4 w-4" />
             </a>
             <button
@@ -262,7 +262,7 @@ export default function HeroLaptop({ onWatchDemo }) {
                       href="/signUp"
                       className="group inline-flex items-center justify-center gap-1 rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-2.5 py-1.5 text-[7px] font-semibold text-white shadow-lg shadow-brand-600/25 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm"
                     >
-                      Start 30-Day Free Trial
+                      Start 14-Day Free Trial
                       <ArrowRight className="h-2 w-2 transition-transform group-hover:translate-x-0.5 sm:h-4 sm:w-4" />
                     </a>
                     <button

@@ -22,13 +22,13 @@ const schema = z.object({
 });
 
 const faqs = [
-  { q: "How do I get started with Worklynx?", a: "Simply sign up for our 30-day free trial — no credit card required. You'll be guided through a quick setup wizard that gets you running in under 5 minutes." },
+  { q: "How do I get started with Worklynx?", a: "Simply sign up for our 14-day free trial — no credit card required. You'll be guided through a quick setup wizard that gets you running in under 5 minutes." },
   { q: "Does Worklynx support biometric device integration?", a: "Yes! Worklynx integrates with all major biometric brands including ZKTeco, eSSL, Suprema, and Hikvision. Our support team assists with device configuration at no extra cost." },
   { q: "Does Worklynx support local compliance requirements?", a: "Yes. Worklynx supports region-specific tax configurations, statutory compliance, and regulatory requirements. We continuously update the platform as regulations change across supported regions." },
   { q: "Can I migrate data from my existing software?", a: "Yes. We provide free data migration assistance. Our team can import your existing business data from most popular accounting and management systems." },
   { q: "What kind of support do you offer?", a: "All plans include email support. We also provide priority support and dedicated assistance based on your needs." },
   { q: "How secure is our data on Worklynx?", a: "Worklynx is hosted on AWS with 256-bit encryption, daily backups, and SOC 2 compliance. We never share your data with third parties." },
-  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 30-day trial — no credit card needed. You can add or remove modules at any time." },
+  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 14-day trial — no credit card needed. You can add or remove modules at any time." },
   { q: "Do you offer training for our team?", a: "Yes! We offer free onboarding sessions for all plans, and recorded video tutorials are available 24/7 in our help center." },
 ];
 

@@ -25,7 +25,7 @@ export default function PricingPreview() {
               <span className="text-gradient-brand">Add What You Need</span>
             </>
           }
-          subtext="Start at ₹999/month with core business tools. Add modules as your team grows. 30-day free trial."
+          subtext="Start at ₹999/month with core business tools. Add modules as your team grows. 14-day free trial."
         />
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -58,7 +58,7 @@ export default function PricingPreview() {
                 ))}
               </ul>
               <CTAButton href="/signup" variant="outline" size="md" className="w-full justify-center">
-                Start 30-Day Free Trial
+                Start 14-Day Free Trial
               </CTAButton>
             </div>
           </StaggerItem>

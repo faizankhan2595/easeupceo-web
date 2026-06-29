@@ -74,7 +74,7 @@ export default function Navbar({ onContactClick }) {
             whileTap={{ scale: 0.97 }}
             className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-600/25 transition-shadow hover:shadow-lg hover:shadow-brand-600/30"
           >
-            Start 30-Day Free Trial
+            Start 14-Day Free Trial
           </motion.a>
         </div>
 
@@ -127,7 +127,7 @@ export default function Navbar({ onContactClick }) {
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md"
               >
-                Start 30-Day Free Trial
+                Start 14-Day Free Trial
               </a>
             </div>
           </motion.div>

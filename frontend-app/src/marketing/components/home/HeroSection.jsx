@@ -5,7 +5,7 @@ import DashboardPreview from "../mockups/DashboardPreview";
 
 const highlights = [
   "No credit card required",
-  "Free 30-day trial",
+  "Free 14-day trial",
   "Setup in 5 minutes",
 ];
 
@@ -67,7 +67,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-3 mb-8"
             >
               <CTAButton href="/signup" variant="primary" size="lg">
-                Start 30-Day Free Trial
+                Start 14-Day Free Trial
                 <ArrowRight className="w-4 h-4" />
               </CTAButton>
               <CTAButton href="/pricing" variant="secondary" size="lg">

@@ -15,7 +15,7 @@ export default function HomeCTA() {
         <AnimatedSection>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 text-white text-xs font-semibold mb-6 border border-white/20">
             <Sparkles className="w-3.5 h-3.5" />
-            30-day free trial · No credit card required
+            14-day free trial · No credit card required
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
@@ -28,7 +28,7 @@ export default function HomeCTA() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <CTAButton href="/signup" variant="outline" size="lg" className="w-full sm:w-auto">
-              Start 30-Day Free Trial
+              Start 14-Day Free Trial
               <ArrowRight className="w-4 h-4" />
             </CTAButton>
             <CTAButton href="/contact" variant="outline" size="lg" className="w-full sm:w-auto opacity-80 hover:opacity-100">

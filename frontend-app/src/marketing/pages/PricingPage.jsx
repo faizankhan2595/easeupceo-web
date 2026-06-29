@@ -94,7 +94,7 @@ const faqs = [
   { q: "Can I add or remove modules anytime?", a: "Yes! You can enable or disable any add-on module at any time from your subscription settings. Changes take effect immediately." },
   { q: "Is there a setup fee?", a: "No setup fees ever. You only pay the base plan and any add-on modules you choose." },
   { q: "What payment methods do you accept?", a: "We accept UPI, credit/debit cards, NEFT/RTGS, and invoiced payments." },
-  { q: "How long is the free trial?", a: "You get a full 30-day free trial with access to all features. No credit card required to start." },
+  { q: "How long is the free trial?", a: "You get a full 14-day free trial with access to all features. No credit card required to start." },
 ];
 
 export default function PricingPage() {
@@ -138,7 +138,7 @@ export default function PricingPage() {
                 <span className="text-gradient-brand">Pay for What You Need</span>
               </>
             }
-            subtext="Start at just ₹999/month with everything you need to manage your business. Add modules as you grow. 30-day free trial included."
+            subtext="Start at just ₹999/month with everything you need to manage your business. Add modules as you grow. 14-day free trial included."
             className="mb-4"
           />
         </div>
@@ -178,7 +178,7 @@ export default function PricingPage() {
                   href="/signup"
                   className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-white text-blue-600 font-semibold text-sm hover:bg-blue-50 transition-colors shadow-lg"
                 >
-                  Start 30-Day Free Trial
+                  Start 14-Day Free Trial
                 </a>
               </div>
             </div>
