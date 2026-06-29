@@ -9,7 +9,7 @@
     "build": "vite build && git add . && git commit -m 'New' && git push",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "pnpm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
