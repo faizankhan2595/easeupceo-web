@@ -17,6 +17,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useCountryContext } from "../context/CountryContext";
 
 const API_BASE = "https://alfabackend.inkapps.io";
 
@@ -32,6 +33,19 @@ const COUNTRY_OPTIONS = [
   { label: "🇪🇬  Egypt",                value: "Egypt",                currency: "E£",  currencyCode: "EGP" },
   { label: "🇸🇬  Singapore",            value: "Singapore",            currency: "S$",  currencyCode: "SGD" },
 ];
+
+const COUNTRY_PHONE_MAP = {
+  "India": { label: "Phone (India)", placeholder: "+91 98765 43210" },
+  "United Kingdom": { label: "Phone (UK)", placeholder: "+44 7911 123456" },
+  "Saudi Arabia": { label: "Phone (Saudi Arabia)", placeholder: "+966 50 123 4567" },
+  "United Arab Emirates": { label: "Phone (UAE)", placeholder: "+971 50 123 4567" },
+  "Oman": { label: "Phone (Oman)", placeholder: "+968 9123 4567" },
+  "Qatar": { label: "Phone (Qatar)", placeholder: "+974 5555 1234" },
+  "Bahrain": { label: "Phone (Bahrain)", placeholder: "+973 3912 3456" },
+  "Jordan": { label: "Phone (Jordan)", placeholder: "+962 7 9123 4567" },
+  "Egypt": { label: "Phone (Egypt)", placeholder: "+20 100 123 4567" },
+  "Singapore": { label: "Phone (Singapore)", placeholder: "+65 8123 4567" },
+};
 
 // Display-only fallback shown until GET /api/get-pricing resolves. The backend
 // (SubscriptionService.PRICING_BY_COUNTRY) is the single source of truth and is
@@ -81,6 +95,8 @@ async function postJSON(path, body) {
 export default function SignUpPage() {
   const navigate = useNavigate();
 
+  const { country: contextCountry, setCountry: setContextCountry } = useCountryContext() || {};
+
   // Step 1 form fields
   const [orgName,        setOrgName]        = useState("");
   const [adminName,      setAdminName]      = useState("");
@@ -89,6 +105,73 @@ export default function SignUpPage() {
   const [adminPassword,  setAdminPassword]  = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [country,        setCountry]        = useState("India");
+  const hasManuallyChangedCountry = useRef(false);
+
+  useEffect(() => {
+    if (!contextCountry) return;
+    if (contextCountry === "uk") {
+      setCountry("United Kingdom");
+    } else if (contextCountry === "india") {
+      setCountry("India");
+    }
+  }, [contextCountry]);
+
+  useEffect(() => {
+    if (hasManuallyChangedCountry.current) return;
+
+    // 1. Try resolving country using user timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const tzMap = {
+        "Asia/Kolkata": "India",
+        "Europe/London": "United Kingdom",
+        "Europe/Belfast": "United Kingdom",
+        "Asia/Riyadh": "Saudi Arabia",
+        "Asia/Dubai": "United Arab Emirates",
+        "Asia/Muscat": "Oman",
+        "Asia/Qatar": "Qatar",
+        "Asia/Bahrain": "Bahrain",
+        "Asia/Amman": "Jordan",
+        "Africa/Cairo": "Egypt",
+        "Asia/Singapore": "Singapore"
+      };
+      if (tzMap[tz]) {
+        setCountry(tzMap[tz]);
+      }
+    } catch (_) {}
+
+    // 2. Fetch actual location from ipapi
+    let cancelled = false;
+    async function detectCountry() {
+      try {
+        const res = await fetch("https://ipapi.co/country/", { signal: AbortSignal.timeout(3000) });
+        if (res.ok && !cancelled) {
+          const code = (await res.text()).trim().toUpperCase();
+          const countryMap = {
+            IN: "India",
+            GB: "United Kingdom",
+            SA: "Saudi Arabia",
+            AE: "United Arab Emirates",
+            OM: "Oman",
+            QA: "Qatar",
+            BH: "Bahrain",
+            JO: "Jordan",
+            EG: "Egypt",
+            SG: "Singapore"
+          };
+          if (countryMap[code] && !hasManuallyChangedCountry.current) {
+            setCountry(countryMap[code]);
+          }
+        }
+      } catch (_) {}
+    }
+    detectCountry();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const [employeeCount,  setEmployeeCount]  = useState(10);
   const [modules,        setModules]        = useState({
     payroll: false, attendance: false, leave: false, restaurant: false, healthcare: false,
@@ -130,6 +213,7 @@ export default function SignUpPage() {
 
   const pricing = pricingMap[country] || pricingMap["India"] || PRICING_FALLBACK["India"];
   const currencySymbol = (COUNTRY_OPTIONS.find(c => c.value == country) || COUNTRY_OPTIONS[0]).currency;
+  const phoneInfo = COUNTRY_PHONE_MAP[country] || COUNTRY_PHONE_MAP["India"];
 
   const monthlyTotal = useMemo(() => {
     let total = pricing.base;
@@ -277,7 +361,7 @@ export default function SignUpPage() {
   const inputBase = "w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-50 pt-24 pb-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
@@ -339,15 +423,41 @@ export default function SignUpPage() {
           {/* Phone (optional) + Country */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Phone <span className="text-slate-400">(optional)</span></label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">{phoneInfo.label} <span className="text-slate-400">(optional)</span></label>
               <input
-                type="tel" className={inputBase} placeholder="+91 98765 43210"
+                type="tel" className={inputBase} placeholder={phoneInfo.placeholder}
                 value={adminPhone} onChange={(e) => setAdminPhone(e.target.value)} autoComplete="tel"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Country</label>
-              <select className={inputBase} value={country} onChange={(e) => setCountry(e.target.value)}>
+              <select
+                className={inputBase}
+                value={country}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setCountry(val);
+                  hasManuallyChangedCountry.current = true;
+                  if (setContextCountry) {
+                    if (val === "United Kingdom") {
+                      setContextCountry("uk");
+                      try {
+                        sessionStorage.setItem("geo_country", JSON.stringify({ value: "uk", ts: Date.now() }));
+                      } catch (_) {}
+                    } else if (val === "India") {
+                      setContextCountry("india");
+                      try {
+                        sessionStorage.setItem("geo_country", JSON.stringify({ value: "india", ts: Date.now() }));
+                      } catch (_) {}
+                    } else {
+                      setContextCountry("other");
+                      try {
+                        sessionStorage.setItem("geo_country", JSON.stringify({ value: "other", ts: Date.now() }));
+                      } catch (_) {}
+                    }
+                  }
+                }}
+              >
                 {COUNTRY_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </div>
