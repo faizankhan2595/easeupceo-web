@@ -28,9 +28,21 @@ export default function ChatAddressComposer({ initial = {}, onSubmit, onAction, 
   const set = (k, v) => setVals((p) => ({ ...p, [k]: v }));
   const hasAny = FIELDS.some((f) => (vals[f.key] || '').trim());
 
+  // One-time VAT/GST registration capture on the same step as country, so most
+  // users are classified before they ever reach the app's item form. Optional —
+  // the address still saves without it. `regStatus`: '' | 'registered' | 'not_registered'.
+  const [regStatus, setRegStatus] = useState('');
+  const [regNumber, setRegNumber] = useState('');
+  const regBlocked = regStatus === 'registered' && !regNumber.trim();
+
   const fire = () => {
-    if (!hasAny || disabled) return;
-    onSubmit(vals);
+    if (!hasAny || disabled || regBlocked) return;
+    const payload = { ...vals };
+    if (regStatus === 'registered' || regStatus === 'not_registered') {
+      payload.tax_registration_status = regStatus;
+      if (regStatus === 'registered') payload.tax_number = regNumber.trim();
+    }
+    onSubmit(payload);
   };
 
   return (
@@ -58,10 +70,47 @@ export default function ChatAddressComposer({ initial = {}, onSubmit, onAction, 
             }}
           />
         ))}
+        <div style={{ gridColumn: '1 / -1', marginTop: 4 }}>
+          <div style={{ fontSize: 13, color: 'var(--lynx-text-muted, #64748b)', marginBottom: 6 }}>
+            Are you registered for VAT / GST?
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {[{ v: 'registered', l: 'Yes, registered' }, { v: 'not_registered', l: 'No' }].map((o) => (
+              <button
+                key={o.v}
+                type="button"
+                onClick={() => { setRegStatus(o.v); if (o.v !== 'registered') setRegNumber(''); }}
+                disabled={disabled}
+                style={{
+                  flex: 1, padding: '8px 12px', borderRadius: 10, cursor: 'pointer',
+                  border: `1.5px solid ${regStatus === o.v ? '#3b82f6' : 'var(--lynx-border, #e2e8f0)'}`,
+                  background: regStatus === o.v ? '#eff6ff' : '#fff',
+                  color: regStatus === o.v ? '#1d4ed8' : 'var(--lynx-text, #334155)',
+                  fontWeight: regStatus === o.v ? 600 : 400,
+                }}
+              >
+                {o.l}
+              </button>
+            ))}
+          </div>
+          {regStatus === 'registered' && (
+            <input
+              type="text"
+              className="lynx-composer__input"
+              placeholder="Your VAT / GST number"
+              value={regNumber}
+              onChange={(e) => setRegNumber(e.target.value)}
+              disabled={disabled}
+              autoComplete="off"
+              style={{ marginTop: 8, width: '100%', border: '1px solid var(--lynx-border, #e2e8f0)', borderRadius: 10, padding: '10px 12px' }}
+            />
+          )}
+        </div>
+
         <button
           type="submit"
           className="lynx-action lynx-action--primary"
-          disabled={!hasAny || disabled}
+          disabled={!hasAny || disabled || regBlocked}
           style={{ gridColumn: '1 / -1', justifyContent: 'center' }}
         >
           <ArrowUp size={16} />

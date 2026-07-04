@@ -21,17 +21,22 @@ import { useCountryContext } from "../context/CountryContext";
 
 const API_BASE = "https://alfabackend.inkapps.io";
 
+// `tax` is a display-only echo of the country's tax regime — the authoritative
+// source is shared/taxRegime.js (VAT for UK/GCC, GST for India/Singapore). We
+// mirror it here (like currency) rather than import across the bundle boundary;
+// it only labels the "Tax regime" hint so a mis-detected country is visible
+// before commit. Backend still derives the real regime from country.
 const COUNTRY_OPTIONS = [
-  { label: "🇮🇳  India",                value: "India",                currency: "₹",   currencyCode: "INR" },
-  { label: "🇬🇧  United Kingdom",       value: "United Kingdom",       currency: "£",   currencyCode: "GBP" },
-  { label: "🇸🇦  Saudi Arabia",         value: "Saudi Arabia",         currency: "SR",  currencyCode: "SAR" },
-  { label: "🇦🇪  United Arab Emirates", value: "United Arab Emirates", currency: "AED", currencyCode: "AED" },
-  { label: "🇴🇲  Oman",                 value: "Oman",                 currency: "OMR", currencyCode: "OMR" },
-  { label: "🇶🇦  Qatar",                value: "Qatar",                currency: "QR",  currencyCode: "QAR" },
-  { label: "🇧🇭  Bahrain",              value: "Bahrain",              currency: "BD",  currencyCode: "BHD" },
-  { label: "🇯🇴  Jordan",               value: "Jordan",               currency: "JD",  currencyCode: "JOD" },
-  { label: "🇪🇬  Egypt",                value: "Egypt",                currency: "E£",  currencyCode: "EGP" },
-  { label: "🇸🇬  Singapore",            value: "Singapore",            currency: "S$",  currencyCode: "SGD" },
+  { label: "🇮🇳  India",                value: "India",                currency: "₹",   currencyCode: "INR", tax: "GST" },
+  { label: "🇬🇧  United Kingdom",       value: "United Kingdom",       currency: "£",   currencyCode: "GBP", tax: "VAT" },
+  { label: "🇸🇦  Saudi Arabia",         value: "Saudi Arabia",         currency: "SR",  currencyCode: "SAR", tax: "VAT" },
+  { label: "🇦🇪  United Arab Emirates", value: "United Arab Emirates", currency: "AED", currencyCode: "AED", tax: "VAT" },
+  { label: "🇴🇲  Oman",                 value: "Oman",                 currency: "OMR", currencyCode: "OMR", tax: "VAT" },
+  { label: "🇶🇦  Qatar",                value: "Qatar",                currency: "QR",  currencyCode: "QAR", tax: "VAT" },
+  { label: "🇧🇭  Bahrain",              value: "Bahrain",              currency: "BD",  currencyCode: "BHD", tax: "VAT" },
+  { label: "🇯🇴  Jordan",               value: "Jordan",               currency: "JD",  currencyCode: "JOD", tax: "VAT" },
+  { label: "🇪🇬  Egypt",                value: "Egypt",                currency: "E£",  currencyCode: "EGP", tax: "VAT" },
+  { label: "🇸🇬  Singapore",            value: "Singapore",            currency: "S$",  currencyCode: "SGD", tax: "GST" },
 ];
 
 const COUNTRY_PHONE_MAP = {
@@ -460,6 +465,11 @@ export default function SignUpPage() {
               >
                 {COUNTRY_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
+              {country && (COUNTRY_OPTIONS.find(c => c.value === country) || {}).tax ? (
+                <p className="mt-1 text-xs text-slate-500">
+                  Tax regime: <span className="font-medium text-slate-700">{(COUNTRY_OPTIONS.find(c => c.value === country) || {}).tax}</span> — invoices and tax fields adapt to this. Change the country if this looks wrong.
+                </p>
+              ) : null}
             </div>
           </div>
 
