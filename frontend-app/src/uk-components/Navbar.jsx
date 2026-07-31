@@ -91,11 +91,14 @@ function CountryDropdown({ align = "right" }) {
   );
 }
 
-/** UK Navbar — self-contained, no props required for country switching. */
+/** UK Navbar — self-contained with 3-Product Megamenu & Region Switcher. */
 export default function Navbar({ onContactClick }) {
   const { country, setCountry } = useCountryContext();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(true);
+  const productsMenuRef = useRef(null);
   const { scrollY } = useScroll();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
@@ -112,24 +115,162 @@ export default function Navbar({ onContactClick }) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (productsMenuRef.current && !productsMenuRef.current.contains(e.target)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const productSuites = [
+    {
+      id: "hrms",
+      title: "HRMS & HMRC Payroll",
+      badge: "HMRC Ready",
+      badgeBg: "bg-teal-50 text-teal-700 border-teal-200",
+      iconBg: "from-teal-500 to-emerald-600",
+      desc: "GPS attendance, 28-day statutory leave, HMRC PAYE RTI payroll & OKRs.",
+      highlights: ["PAYE & RTI Payroll", "GPS & Mobile Clock-In", " Statutory Holiday Rules"],
+      href: isHomePage ? "#features" : "/#features",
+    },
+    {
+      id: "erp",
+      title: "ERP & Inventory Management",
+      badge: "Real-Time Stock",
+      badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
+      iconBg: "from-amber-500 to-orange-600",
+      desc: "Stock tracking, purchase orders, multi-warehouse control & VAT invoices.",
+      highlights: ["Multi-Warehouse Control", "Supplier & PO Workflow", "Low Stock Alerts"],
+      href: isHomePage ? "#features" : "/#features",
+    },
+    {
+      id: "restaurant",
+      title: "Restaurant POS & Management",
+      badge: "Live POS & KDS",
+      badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
+      iconBg: "from-rose-500 to-red-600",
+      desc: "POS terminal, table QR ordering, Kitchen Display System (KDS) & live orders.",
+      highlights: ["Table QR & Live Orders", "Kitchen KDS Sync", "POS Billing & Menu"],
+      href: "/live-order",
+    },
+  ];
+
   return (
     <motion.header
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300
-        ${(scrolled || open)
-          ? "border-b border-slate-200/70 bg-white/85 backdrop-blur-md shadow-sm"
+        ${(scrolled || open || productsOpen)
+          ? "border-b border-slate-200/70 bg-white/90 backdrop-blur-md shadow-sm"
           : "border-b border-transparent bg-transparent"
         }
       `}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
         <Link to="/" className="flex items-center shrink-0">
-          <img src={worklynxLogo} alt="Worklynx" className="h-13 w-auto" />
+          <img src={worklynxLogo} alt="Worklynx UK" className="h-13 w-auto" />
         </Link>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        {/* Desktop Navigation Links */}
+        <div className="hidden items-center gap-7 lg:flex">
+          {/* Products Megamenu Trigger */}
+          <div
+            ref={productsMenuRef}
+            className="relative"
+            onMouseEnter={() => setProductsOpen(true)}
+            onMouseLeave={() => setProductsOpen(false)}
+          >
+            <button
+              onClick={() => setProductsOpen((prev) => !prev)}
+              className={`flex items-center gap-1 text-md font-medium transition-colors py-1 ${
+                productsOpen ? "text-brand-600 font-semibold" : "text-slate-700 hover:text-brand-600"
+              }`}
+            >
+              <span>Products</span>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? "rotate-180 text-brand-600" : "text-slate-400"}`}
+              />
+            </button>
+
+            {/* Products Megamenu Popup */}
+            <AnimatePresence>
+              {productsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  className="absolute top-full -left-12 mt-2 w-[780px] rounded-2xl bg-white p-6 shadow-2xl border border-slate-200/90 z-50 overflow-hidden"
+                >
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Worklynx UK Product Suites</h4>
+                      <p className="text-xs text-slate-500 mt-0.5">3 connected platforms designed specifically for UK business operations</p>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-100">
+                      🇬🇧 All 3 Suites HMRC & UK Ready
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    {productSuites.map((suite) => (
+                      <a
+                        key={suite.id}
+                        href={suite.href}
+                        onClick={() => setProductsOpen(false)}
+                        className="group relative flex flex-col justify-between rounded-xl p-4 transition-all duration-200 hover:bg-slate-50 border border-transparent hover:border-slate-200/80"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className={`inline-block px-2 py-0.5 text-[10px] font-bold rounded-md border ${suite.badgeBg}`}>
+                              {suite.badge}
+                            </span>
+                          </div>
+                          <h5 className="text-sm font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
+                            {suite.title}
+                          </h5>
+                          <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
+                            {suite.desc}
+                          </p>
+                        </div>
+
+                        <div className="mt-4 pt-3 border-t border-slate-100">
+                          <ul className="space-y-1">
+                            {suite.highlights.map((item, i) => (
+                              <li key={i} className="flex items-center gap-1.5 text-[11px] text-slate-600 font-medium">
+                                <span className="w-1 h-1 rounded-full bg-brand-500 shrink-0" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-600 group-hover:translate-x-0.5 transition-transform">
+                            <span>Explore Suite</span>
+                            <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-6 -mb-6 px-6 py-3.5 text-xs">
+                    <span className="text-slate-600 font-medium">Need all 3 suites for your UK business?</span>
+                    <a
+                      href="#pricing"
+                      onClick={() => setProductsOpen(false)}
+                      className="font-bold text-brand-600 hover:underline"
+                    >
+                      View All-in-One UK Suite Pricing &rarr;
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {navLinks.map((link) => {
             const isContact = link.href === "#contact-sales";
             const targetHref = isHomePage ? link.href : `/${link.href}`;
@@ -180,6 +321,7 @@ export default function Navbar({ onContactClick }) {
         </button>
       </nav>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -190,6 +332,41 @@ export default function Navbar({ onContactClick }) {
             className="overflow-hidden border-t border-slate-200 bg-white lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
+              {/* Mobile Products Accordion */}
+              <div>
+                <button
+                  onClick={() => setMobileProductsOpen((prev) => !prev)}
+                  className="flex items-center justify-between w-full py-1 text-sm font-bold text-slate-900"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>Products</span>
+                    <span className="text-[10px] bg-brand-50 text-brand-700 px-2 py-0.5 rounded-full font-bold">3 Suites</span>
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileProductsOpen ? "rotate-180 text-brand-600" : ""}`} />
+                </button>
+
+                {mobileProductsOpen && (
+                  <div className="mt-2 space-y-2 pl-2 border-l-2 border-brand-100">
+                    {productSuites.map((suite) => (
+                      <a
+                        key={suite.id}
+                        href={suite.href}
+                        onClick={() => setOpen(false)}
+                        className="block p-2 rounded-lg hover:bg-slate-50 transition-colors"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-slate-800">{suite.title}</span>
+                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${suite.badgeBg}`}>{suite.badge}</span>
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-0.5">{suite.desc}</p>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <hr className="border-slate-200" />
+
               {navLinks.map((link) => {
                 const isContact = link.href === "#contact-sales";
                 const targetHref = isHomePage ? link.href : `/${link.href}`;
@@ -248,3 +425,4 @@ export default function Navbar({ onContactClick }) {
     </motion.header>
   );
 }
+

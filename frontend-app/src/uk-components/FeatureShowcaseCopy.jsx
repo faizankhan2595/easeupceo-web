@@ -30,16 +30,16 @@ import {
   CreditCard,
   Plane,
   ChevronRight,
+  Package,
+  Utensils,
+  Boxes,
+  Receipt,
+  Store,
+  ShoppingCart,
+  Truck,
+  Layers,
 } from "lucide-react";
 import { FadeIn } from "@/uk-components/motion/FadeIn";
-
-// ─── commented-out mockup imports ────────────────────────────────────────────
-// import AttendanceMockup from "@/uk-components/feature-mockups/AttendanceMockup";
-// import LeaveMockup from "@/uk-components/feature-mockups/LeaveMockup";
-// import PayrollMockup from "@/uk-components/feature-mockups/PayrollMockup";
-// import EmployeeMockup from "@/uk-components/feature-mockups/EmployeeMockup";
-// import PerformanceMockup from "@/uk-components/feature-mockups/PerformanceMockup";
-// ─────────────────────────────────────────────────────────────────────────────
 
 const AUTO_MS = 6000;
 
@@ -55,7 +55,6 @@ const features = [
     description:
       "Live dashboards show who's clocked in, who's running late, and who's on leave — with GPS-verified clock-ins from web, mobile or kiosk.",
     image: "/timeAndAttendance.png",
-    // mockup: AttendanceMockup,
     subFeatures: [
       { icon: MapPin, label: "GPS Clock-In / Out" },
       { icon: Clock, label: "Shift Management" },
@@ -76,7 +75,6 @@ const features = [
     description:
       "Employees request leave from their phone, managers approve instantly, and statutory entitlements — including UK bank holidays — are tracked automatically.",
     image: "/leaveManagement.png",
-    // mockup: LeaveMockup,
     subFeatures: [
       { icon: CalendarCheck, label: "Leave Request Workflow" },
       { icon: FileText, label: "Leave Categories" },
@@ -88,7 +86,7 @@ const features = [
   },
   {
     id: "payroll",
-    label: "Payroll",
+    label: "Payroll & HMRC",
     icon: Banknote,
     color: "from-violet-500 to-purple-700",
     lightBg: "bg-violet-50",
@@ -97,7 +95,6 @@ const features = [
     description:
       "PAYE and National Insurance are calculated automatically, pension contributions auto-enrolled, and RTI submissions go directly to HMRC.",
     image: "/payrol.png",
-    // mockup: PayrollMockup,
     subFeatures: [
       { icon: Banknote, label: "Payroll Batch Console" },
       { icon: CreditCard, label: "Payroll Salary Items" },
@@ -108,8 +105,48 @@ const features = [
     ],
   },
   {
+    id: "erp",
+    label: "ERP & Inventory",
+    icon: Package,
+    color: "from-amber-500 to-orange-600",
+    lightBg: "bg-amber-50",
+    lightText: "text-amber-700",
+    heading: "Complete stock & purchase order management",
+    description:
+      "Control your inventory across multi-warehouses, automate purchase orders, manage vendor lead times, and generate UK VAT-compliant invoices.",
+    image: "/timeAndAttendance.png",
+    subFeatures: [
+      { icon: Boxes, label: "Multi-Warehouse Stock Control" },
+      { icon: ShoppingCart, label: "Purchase Order Workflow" },
+      { icon: Truck, label: "Supplier & Vendor Portal" },
+      { icon: Receipt, label: "UK VAT Compliant Invoices" },
+      { icon: BarChart2, label: "Stock Reorder & Alert Rules" },
+      { icon: Layers, label: "Product Catalog & SKUs" },
+    ],
+  },
+  {
+    id: "restaurant",
+    label: "Restaurant POS",
+    icon: Utensils,
+    color: "from-rose-500 to-red-600",
+    lightBg: "bg-rose-50",
+    lightText: "text-rose-700",
+    heading: "POS billing, table QR & kitchen display",
+    description:
+      "Streamline operations with instant table QR ordering, real-time Kitchen Display Systems (KDS), fast POS checkout, and live order tracking.",
+    image: "/timeAndAttendance.png",
+    subFeatures: [
+      { icon: Store, label: "POS Terminal & Counter Billing" },
+      { icon: RefreshCw, label: "Kitchen KDS Display Screen" },
+      { icon: Users, label: "Dine-In Table QR Ordering" },
+      { icon: FileText, label: "Digital Menu & Recipe Sync" },
+      { icon: ShoppingCart, label: "Takeaway & Delivery Orders" },
+      { icon: BarChart2, label: "Daily Sales Analytics" },
+    ],
+  },
+  {
     id: "employees",
-    label: "Employee Management",
+    label: "Employee Records",
     icon: Users,
     color: "from-blue-500 to-indigo-600",
     lightBg: "bg-blue-50",
@@ -118,7 +155,6 @@ const features = [
     description:
       "Store contracts, right-to-work documents and personal details securely, visualise your org chart, and onboard new starters in minutes.",
     image: "/employmanagement.png",
-    // mockup: EmployeeMockup,
     subFeatures: [
       { icon: FileText, label: "Digital Employee Records" },
       { icon: Shield, label: "Right-to-Work & Documents" },
@@ -130,16 +166,15 @@ const features = [
   },
   {
     id: "performance",
-    label: "Performance & Training",
+    label: "Performance & Growth",
     icon: LineChart,
-    color: "from-rose-500 to-pink-600",
-    lightBg: "bg-rose-50",
-    lightText: "text-rose-700",
+    color: "from-pink-500 to-rose-600",
+    lightBg: "bg-pink-50",
+    lightText: "text-pink-700",
     heading: "Keep every team aligned and growing",
     description:
       "Set OKRs, run structured reviews, collect 360° feedback, and assign training courses — so managers and employees always know where they stand.",
     image: "/training.png",
-    // mockup: PerformanceMockup,
     subFeatures: [
       { icon: Target, label: "Goals, OKRs & KPIs" },
       { icon: Star, label: "Appraisal Cycles" },
