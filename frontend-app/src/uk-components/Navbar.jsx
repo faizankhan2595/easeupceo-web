@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
-import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Globe ,ChevronRight} from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import worklynxLogo from "@/assets/worklynx-light.png";
 import { Link, useLocation } from "react-router-dom";
