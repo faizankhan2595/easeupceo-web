@@ -209,11 +209,8 @@ export default function Navbar({ onContactClick }) {
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
                     <div>
                       <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Worklynx UK Product Suites</h4>
-                      <p className="text-xs text-slate-500 mt-0.5">3 connected platforms designed specifically for UK business operations</p>
                     </div>
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-100">
-                      🇬🇧 All 3 Suites HMRC & UK Ready
-                    </span>
+                    
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
