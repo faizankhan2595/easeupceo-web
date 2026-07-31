@@ -129,12 +129,35 @@ const PRODUCTS = [
   },
 ];
 
+const AUTO_ROTATE_MS = 6000;
+
 export default function HeroLaptop({ onWatchDemo }) {
   const [activeTab, setActiveTab] = useState("hrms");
+  const [isPaused, setIsPaused] = useState(false);
+  const [progressKey, setProgressKey] = useState(0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
 
   const currentProduct = PRODUCTS.find((p) => p.id === activeTab) || PRODUCTS[0];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setActiveTab((prev) => {
+        const idx = PRODUCTS.findIndex((p) => p.id === prev);
+        const nextIdx = (idx + 1) % PRODUCTS.length;
+        return PRODUCTS[nextIdx].id;
+      });
+      setProgressKey((k) => k + 1);
+    }, AUTO_ROTATE_MS);
+
+    return () => clearInterval(timer);
+  }, [isPaused, activeTab]);
+
+  const handleTabClick = (id) => {
+    setActiveTab(id);
+    setProgressKey((k) => k + 1);
+  };
 
   const up = (d = 0) => ({
     initial: { opacity: 0, y: 24 },
@@ -184,18 +207,21 @@ export default function HeroLaptop({ onWatchDemo }) {
       ════════════════════════════════ */}
       <div className="hidden xl:block relative z-10 h-[830px] 2xl:h-[880px] transition-all duration-300">
         {/* Heading & 3-Product Switcher */}
-        <div className="flex flex-col items-center text-center pt-[6.5rem] px-6 relative z-20">
-          
-          {/* 3-Product Segment Control Bar */}
-          <motion.div {...up(0)} className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-slate-100/90 p-1.5 border border-slate-200/80 shadow-inner">
+        <div
+          className="flex flex-col items-center text-center pt-[6rem] px-6 relative z-20"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* 3-Product Segment Control Bar with visual progress timer */}
+          <motion.div {...up(0)} className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-slate-100/90 p-1.5 border border-slate-200/80 shadow-inner">
             {PRODUCTS.map((prod) => {
               const IconComponent = prod.icon;
               const isActive = activeTab === prod.id;
               return (
                 <button
                   key={prod.id}
-                  onClick={() => setActiveTab(prod.id)}
-                  className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 ${
+                  onClick={() => handleTabClick(prod.id)}
+                  className={`relative overflow-hidden flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 ${
                     isActive
                       ? "bg-white text-slate-900 shadow-md shadow-slate-900/5 ring-1 ring-slate-200"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
@@ -203,11 +229,15 @@ export default function HeroLaptop({ onWatchDemo }) {
                 >
                   <IconComponent className={`w-3.5 h-3.5 ${isActive ? "text-brand-600" : "text-slate-400"}`} />
                   <span>{prod.label}</span>
+
+                  {/* Sleek bottom progress bar showing auto-switching timer */}
                   {isActive && (
-                    <motion.span
-                      layoutId="activeTabGlow"
-                      className="absolute inset-0 rounded-full border border-brand-500/30 pointer-events-none"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    <motion.div
+                      key={`progress-${progressKey}-${prod.id}`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: isPaused ? 0 : AUTO_ROTATE_MS / 1000, ease: "linear" }}
+                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-brand-500 to-indigo-600 origin-left pointer-events-none"
                     />
                   )}
                 </button>
@@ -216,46 +246,53 @@ export default function HeroLaptop({ onWatchDemo }) {
           </motion.div>
 
           {/* Product Badge Pill */}
-          <motion.div
-            key={`pill-${currentProduct.id}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25 }}
-            className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold border ${currentProduct.pillBg}`}
-          >
-            <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span>{currentProduct.pillText}</span>
-          </motion.div>
+          <div className="h-7 flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`pill-${currentProduct.id}`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold border ${currentProduct.pillBg}`}
+              >
+                <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                <span>{currentProduct.pillText}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          {/* Main Title with Animated Content */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`title-${currentProduct.id}`}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-              className="flex flex-col items-center"
-            >
-              <h1 className="mt-3 max-w-[760px] text-[3.2rem] font-bold leading-[1.1] tracking-tight text-slate-900 font-satoshi">
-                {currentProduct.title}
-              </h1>
+          {/* Locked-height Container to Prevent Layout Jump */}
+          <div className="min-h-[210px] flex items-center justify-center w-full max-w-[780px] my-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`title-${currentProduct.id}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22 }}
+                className="flex flex-col items-center justify-center text-center"
+              >
+                <h1 className="max-w-[760px] text-[3.1rem] font-bold leading-[1.12] tracking-tight text-slate-900 font-satoshi">
+                  {currentProduct.title}
+                </h1>
 
-              <p className="mt-4 italic max-w-[560px] text-[1rem] leading-relaxed text-slate-600">
-                {currentProduct.description}
-              </p>
+                <p className="mt-3.5 italic max-w-[560px] text-[0.98rem] leading-relaxed text-slate-600">
+                  {currentProduct.description}
+                </p>
 
-              {/* Highlights */}
-              <div className="mt-4 flex items-center justify-center gap-4 flex-wrap">
-                {currentProduct.highlights.map((item, idx) => (
-                  <span key={idx} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-50 px-3 py-1 rounded-full border border-slate-200/80">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 shrink-0" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                {/* Highlights */}
+                <div className="mt-3.5 flex items-center justify-center gap-3 flex-wrap">
+                  {currentProduct.highlights.map((item, idx) => (
+                    <span key={idx} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-50 px-3 py-1 rounded-full border border-slate-200/80 shadow-xs">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 shrink-0" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* CTAs */}
           <motion.div {...up(0.2)} className="mt-6 flex items-center gap-3">
