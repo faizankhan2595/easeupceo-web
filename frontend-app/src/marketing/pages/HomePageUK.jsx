@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import HRMSHero from "../components/home/HRMSHero";
+import Hero from "@/uk-components/Hero";
 import LogoCloud from "@/uk-components/LogoCloud";
 import HRMSFeaturesSection from "../components/home/HRMSFeaturesSection";
 import WhyChooseHRMS from "../components/home/WhyChooseHRMS";
@@ -14,13 +14,13 @@ import Chatbot from "@/uk-components/Chatbot";
 
 export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, setChatUserData }) {
   useEffect(() => {
-    document.title = "Worklynx UK — Complete HRMS & HMRC Payroll Platform";
+    document.title = "Worklynx UK — Business Management Platform for UK teams";
   }, []);
 
   return (
     <>
-      {/* 1. Hero Section (HRMS Focused) */}
-      <HRMSHero />
+      {/* 1. Original UK Hero Section (Laptop & Interactive Cards) */}
+      <Hero />
 
       {/* 2. Trusted Companies */}
       <LogoCloud />
