@@ -15,7 +15,6 @@ import {
   Globe,
   ChevronRight,
   CheckCircle2,
-  TrendingUp,
   DollarSign
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -24,19 +23,19 @@ const hrmsFeatures = [
   {
     icon: Clock,
     title: "GPS & Mobile Attendance",
-    desc: "Geofenced clock-in, facial verification, selfie attendance, and shift rosters for UK office & remote workers.",
+    desc: "Geofenced clock-in, facial verification, selfie attendance, and shift rosters for office & remote workers.",
     metrics: "99.8% Accuracy"
   },
   {
     icon: Zap,
     title: "HMRC PAYE RTI Payroll",
-    desc: "Automated salary processing, HMRC PAYE tax calculations, statutory pension deductions, and digital payslips.",
+    desc: "Automated salary processing, statutory tax deductions, workplace pension calculations, and digital payslips.",
     metrics: "HMRC Ready"
   },
   {
     icon: Calendar,
     title: "28-Day Statutory Holiday & Leave",
-    desc: "Statutory leave tracking, UK bank holiday overlays, custom accrual policies, and instant manager approvals.",
+    desc: "Statutory leave tracking, holiday overlays, custom accrual policies, and instant manager approvals.",
     metrics: "Zero Friction"
   },
   {
@@ -60,13 +59,13 @@ const hrmsFeatures = [
   {
     icon: Smartphone,
     title: "Employee Self-Service (ESS) Portal",
-    desc: "Empower UK staff with mobile app access for payslip downloads, leave requests, shift swaps, and personal updates.",
+    desc: "Empower staff with mobile app access for payslip downloads, leave requests, shift swaps, and personal updates.",
     metrics: "iOS & Android"
   },
   {
     icon: ShieldCheck,
     title: "Compliance & Audit Readiness",
-    desc: "Automated UK labor law compliance, GDPR enforcement, audit logs, and instant regulatory report generation.",
+    desc: "Automated labor law compliance, GDPR enforcement, audit logs, and instant regulatory report generation.",
     metrics: "100% Compliant"
   },
   {
@@ -85,7 +84,7 @@ const hrmsFeatures = [
 
 export default function UKHRMSPage() {
   useEffect(() => {
-    document.title = "UK HRMS & HMRC PAYE Payroll Software | Worklynx UK";
+    document.title = "HRMS & HMRC PAYE Payroll Software | Worklynx";
     window.scrollTo(0, 0);
   }, []);
 
@@ -105,7 +104,7 @@ export default function UKHRMSPage() {
           <nav className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-slate-200/80 text-xs text-slate-600 shadow-xs mb-6 backdrop-blur-xs">
             <Link to="/" className="hover:text-slate-900 transition-colors">Products</Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="font-semibold text-brand-700">HRMS &amp; HMRC Payroll</span>
+            <span className="font-semibold text-brand-700">HRMS &amp; Payroll</span>
           </nav>
 
           <motion.h1
@@ -116,7 +115,7 @@ export default function UKHRMSPage() {
           >
             Complete HRMS Platform for{" "}
             <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent italic font-serif">
-              Modern UK Businesses
+              Modern Businesses
             </span>
           </motion.h1>
 
@@ -126,7 +125,7 @@ export default function UKHRMSPage() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Automate HMRC PAYE payroll, GPS attendance, 28-day statutory leave, ATS recruitment, 360 performance reviews, and employee self-service in one enterprise UK HR solution.
+            Automate HMRC PAYE payroll, GPS attendance, statutory leave, ATS recruitment, 360 performance reviews, and employee self-service in one enterprise HR solution.
           </motion.p>
 
           <motion.div
@@ -139,7 +138,7 @@ export default function UKHRMSPage() {
               href="#contact"
               className="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-semibold text-white shadow-xs hover:scale-[1.01] transition-all flex items-center justify-center gap-2 text-sm"
             >
-              <span>Book UK HRMS Demo</span>
+              <span>Book HRMS Demo</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
@@ -153,7 +152,7 @@ export default function UKHRMSPage() {
           <div className="mt-8 pt-4 inline-flex flex-wrap justify-center items-center gap-5 text-xs font-normal text-slate-500 border-t border-slate-200/60">
             <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> HMRC PAYE RTI Ready</span>
             <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-brand-600" /> GDPR &amp; AES-256 Encrypted</span>
-            <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-sky-600" /> UK Support &amp; Onboarding</span>
+            <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-sky-600" /> 24/7 Global Support &amp; Onboarding</span>
           </div>
 
           {/* Aceternity UI Dashboard Showcase Card */}
@@ -166,7 +165,7 @@ export default function UKHRMSPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
               <div>
                 <span className="text-xs text-slate-500 font-medium">Worklynx HRMS Dashboard</span>
-                <h3 className="text-lg font-semibold text-slate-800">London Tech Hub HQ</h3>
+                <h3 className="text-lg font-semibold text-slate-800">Tech Hub HQ</h3>
               </div>
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200 flex items-center gap-1">
@@ -203,7 +202,7 @@ export default function UKHRMSPage() {
                   <Calendar className="w-4 h-4 text-indigo-600" />
                 </div>
                 <p className="text-xl font-bold text-slate-900">2 Pending Sign-offs</p>
-                <p className="text-[11px] text-slate-500 font-medium mt-1">28-Day Annual Allowance</p>
+                <p className="text-[11px] text-slate-500 font-medium mt-1">28-Day Allowance</p>
               </div>
             </div>
           </motion.div>
@@ -216,7 +215,7 @@ export default function UKHRMSPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800">10 Core Pillars of Worklynx HRMS</h2>
-            <p className="mt-2 text-slate-600 text-sm sm:text-base">Designed from the ground up to solve complex UK HR, payroll, and workforce operations.</p>
+            <p className="mt-2 text-slate-600 text-sm sm:text-base">Designed from the ground up to solve complex HR, payroll, and workforce operations.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -255,7 +254,7 @@ export default function UKHRMSPage() {
             <div className="relative z-10">
               <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5">Need more than HRMS?</h2>
               <p className="mt-3 text-slate-600 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed">
-                Worklynx seamlessly pairs your HR dataset with our integrated Inventory Management and Restaurant Management modules under one unified UK account.
+                Worklynx seamlessly pairs your HR dataset with our integrated Inventory Management and Restaurant Management modules under one unified account.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link

@@ -23,7 +23,7 @@ export default function FinalCTASection() {
             </h2>
 
             <p className="mt-3 text-slate-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
-              Join 500+ modern UK businesses using Worklynx HRMS to automate attendance, HMRC payroll, statutory leave, and performance.
+              Join 500+ modern businesses using Worklynx HRMS to automate attendance, HMRC payroll, statutory leave, and performance.
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3.5">
@@ -33,7 +33,7 @@ export default function FinalCTASection() {
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white hover:bg-slate-100 font-semibold text-brand-900 shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-xs sm:text-sm cursor-pointer"
               >
                 <Play className="w-3.5 h-3.5 fill-current text-brand-700" />
-                <span>Book UK HRMS Demo</span>
+                <span>Book HRMS Demo</span>
               </button>
 
               <a

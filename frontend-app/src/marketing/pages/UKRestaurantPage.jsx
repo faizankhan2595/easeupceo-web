@@ -32,8 +32,8 @@ const restaurantFeatures = [
   },
   {
     icon: CreditCard,
-    title: "Integrated Payments & UK VAT",
-    desc: "Accept cards, contactless Apple/Google Pay, QR payments, and print compliant UK VAT receipts automatically."
+    title: "Integrated Payments & VAT Receipts",
+    desc: "Accept cards, contactless Apple/Google Pay, QR payments, and print compliant VAT receipts automatically."
   },
   {
     icon: Clock,
@@ -49,7 +49,7 @@ const restaurantFeatures = [
 
 export default function UKRestaurantPage() {
   useEffect(() => {
-    document.title = "UK Restaurant POS & Kitchen Management System | Worklynx UK";
+    document.title = "Restaurant POS & Kitchen Management System | Worklynx";
     window.scrollTo(0, 0);
   }, []);
 
@@ -90,7 +90,7 @@ export default function UKRestaurantPage() {
             transition={{ delay: 0.2 }}
             className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Streamline billing, table QR ordering, kitchen display (KDS), and employee shift tracking in one integrated UK platform.
+            Streamline billing, table QR ordering, kitchen display (KDS), and employee shift tracking in one integrated platform.
           </motion.p>
 
           <motion.div

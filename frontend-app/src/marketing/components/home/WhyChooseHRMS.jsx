@@ -9,8 +9,8 @@ const reasons = [
   },
   {
     icon: ShieldCheck,
-    title: "100% UK Tax & Legal Compliance",
-    desc: "Built-in HMRC PAYE RTI tax rules, 28-day statutory leave algorithms, and automated labor law updates."
+    title: "100% Tax & Legal Compliance",
+    desc: "Built-in statutory tax rules, 28-day leave algorithms, and automated labor law updates."
   },
   {
     icon: Heart,
@@ -25,7 +25,7 @@ const reasons = [
   {
     icon: Globe2,
     title: "Multi-Location & Remote Support",
-    desc: "Seamlessly manage local UK office teams, remote workers, field crews, and multi-branch operations in one place."
+    desc: "Seamlessly manage local office teams, remote workers, field crews, and multi-branch operations in one place."
   },
   {
     icon: Award,

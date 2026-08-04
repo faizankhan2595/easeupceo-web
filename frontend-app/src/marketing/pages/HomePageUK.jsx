@@ -14,12 +14,12 @@ import Chatbot from "@/uk-components/Chatbot";
 
 export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, setChatUserData }) {
   useEffect(() => {
-    document.title = "Worklynx UK — Business Management Platform for UK teams";
+    document.title = "Worklynx — Business Management Platform for Modern Teams";
   }, []);
 
   return (
     <>
-      {/* 1. Original UK Hero Section (Laptop & Interactive Cards) */}
+      {/* 1. Original Hero Section */}
       <Hero />
 
       {/* 2. Trusted Companies */}
@@ -43,7 +43,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       {/* 8. Testimonials */}
       <Testimonials />
 
-      {/* 9. Original Pricing Section with Interactive Calculator */}
+      {/* 9. Original Pricing Section */}
       <Pricing />
 
       {/* 10. FAQ */}

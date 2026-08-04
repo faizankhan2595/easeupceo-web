@@ -19,11 +19,11 @@ export default function IntegrationsSection() {
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             Seamlessly Integrates with Your{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
-              Existing UK Stack
+              Existing Tech Stack
             </span>
           </h2>
           <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Connect Worklynx HRMS with UK accounting packages, communication apps, and biometric time clock hardware.
+            Connect Worklynx HRMS with accounting packages, communication apps, and biometric time clock hardware.
           </p>
         </div>
 

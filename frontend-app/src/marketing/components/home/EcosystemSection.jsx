@@ -1,4 +1,4 @@
-import { Users, Shield, Package, Utensils, BarChart3, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Users, Shield, Package, Utensils, BarChart3, TrendingUp } from "lucide-react";
 import { StickyScroll } from "@/uk-components/ui/sticky-scroll-reveal";
 
 const ecosystemContent = [
@@ -21,7 +21,7 @@ const ecosystemContent = [
     )
   },
   {
-    title: "HRMS & HMRC PAYE Engine",
+    title: "HRMS & PAYE Engine",
     subtitle: "Core Engine",
     description: "Automate HMRC payroll, tax deductions, 28-day statutory leave, ATS recruitment, and 360 performance reviews.",
     content: (
@@ -32,7 +32,7 @@ const ecosystemContent = [
         </div>
         <p className="text-xs text-slate-600">Auto-calculated gross-to-net payroll with statutory tax and pension submissions.</p>
         <div className="p-3 rounded-xl bg-brand-50/60 border border-brand-200">
-          <p className="text-xs font-semibold text-brand-900">£48,250.00 HMRC PAYE Run</p>
+          <p className="text-xs font-semibold text-brand-900">£48,250.00 PAYE Run</p>
           <p className="text-[11px] text-brand-700 font-medium">Statutory Tax &amp; Pension Ready</p>
         </div>
       </div>
@@ -51,7 +51,7 @@ const ecosystemContent = [
         <p className="text-xs text-slate-600">Staff clocked in via HRMS are assigned to warehouse picking and PO approvals.</p>
         <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
           <p className="text-xs font-semibold text-amber-900">£142,800.00 Stock Valuation</p>
-          <p className="text-[11px] text-amber-700 font-medium">3 UK Warehouses Live</p>
+          <p className="text-[11px] text-amber-700 font-medium">3 Warehouses Live</p>
         </div>
       </div>
     )
@@ -95,17 +95,17 @@ const ecosystemContent = [
   {
     title: "Scalable Business Growth",
     subtitle: "Final Outcome",
-    description: "Automated UK business operations, zero spreadsheet errors, and maximum profitability.",
+    description: "Automated business operations, zero spreadsheet errors, and maximum profitability.",
     content: (
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-emerald-600 font-semibold text-sm">
           <TrendingUp className="w-5 h-5" />
           <span>Scalable Business Outcome</span>
         </div>
-        <p className="text-xs text-slate-600">Scale your UK workforce and business operations with complete peace of mind.</p>
+        <p className="text-xs text-slate-600">Scale your workforce and business operations with complete peace of mind.</p>
         <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-200">
           <p className="text-xs font-semibold text-emerald-900">Zero Data Silos</p>
-          <p className="text-[11px] text-emerald-700 font-medium">100% Scalable UK Platform</p>
+          <p className="text-[11px] text-emerald-700 font-medium">100% Scalable Platform</p>
         </div>
       </div>
     )

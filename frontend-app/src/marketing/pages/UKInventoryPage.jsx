@@ -19,7 +19,7 @@ const inventoryFeatures = [
   {
     icon: Package,
     title: "Multi-Warehouse Stock Control",
-    desc: "Manage physical inventory across multiple UK locations, warehouses, and storage bins with real-time sync."
+    desc: "Manage physical inventory across multiple locations, warehouses, and storage bins with real-time sync."
   },
   {
     icon: Layers,
@@ -29,7 +29,7 @@ const inventoryFeatures = [
   {
     icon: Truck,
     title: "Purchase Orders & Supplier Workflows",
-    desc: "Automate purchase requisitions, supplier PO approvals, goods received notes (GRN), and UK VAT bills."
+    desc: "Automate purchase requisitions, supplier PO approvals, goods received notes (GRN), and VAT bills."
   },
   {
     icon: BarChart,
@@ -44,13 +44,13 @@ const inventoryFeatures = [
   {
     icon: ShoppingBag,
     title: "Multi-Channel Sales Sync",
-    desc: "Connect physical UK stores, B2B orders, and e-commerce channels to maintain single-source stock levels."
+    desc: "Connect physical stores, B2B orders, and e-commerce channels to maintain single-source stock levels."
   }
 ];
 
 export default function UKInventoryPage() {
   useEffect(() => {
-    document.title = "UK Inventory Management & Multi-Warehouse ERP | Worklynx UK";
+    document.title = "Inventory Management & Multi-Warehouse ERP | Worklynx";
     window.scrollTo(0, 0);
   }, []);
 
@@ -129,7 +129,7 @@ export default function UKInventoryPage() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-medium border border-amber-200 flex items-center gap-1">
-                  <Boxes className="w-3.5 h-3.5 text-amber-700" /> 3 UK Warehouses Live
+                  <Boxes className="w-3.5 h-3.5 text-amber-700" /> 3 Warehouses Live
                 </span>
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function UKInventoryPage() {
                   <FileCheck className="w-4 h-4 text-emerald-600" />
                 </div>
                 <p className="text-xl font-bold text-slate-900">4 Goods Received</p>
-                <p className="text-[11px] text-slate-500 font-medium mt-1">UK VAT Compliant</p>
+                <p className="text-[11px] text-slate-500 font-medium mt-1">VAT Compliant</p>
               </div>
             </div>
           </motion.div>
@@ -172,7 +172,7 @@ export default function UKInventoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800">Enterprise Inventory Features</h2>
-            <p className="mt-2 text-slate-600 text-sm sm:text-base">Designed to keep UK stock counts accurate and supply chains moving.</p>
+            <p className="mt-2 text-slate-600 text-sm sm:text-base">Designed to keep stock counts accurate and supply chains moving.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

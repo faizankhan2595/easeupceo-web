@@ -3,11 +3,11 @@ import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
-    q: "Is Worklynx UK primarily an HRMS software?",
-    a: "Yes. Worklynx UK is built primarily as an all-in-one HRMS & HMRC PAYE Payroll platform. It manages attendance, payroll, 28-day statutory leave, recruitment, employee self-service, and compliance. Additional business modules (Inventory Management and Restaurant POS) are available as integrated expansion solutions."
+    q: "Is Worklynx primarily an HRMS software?",
+    a: "Yes. Worklynx is built primarily as an all-in-one HRMS & HMRC PAYE Payroll platform. It manages attendance, payroll, 28-day statutory leave, recruitment, employee self-service, and compliance. Additional business modules (Inventory Management and Restaurant POS) are available as integrated expansion solutions."
   },
   {
-    q: "How fast can we set up Worklynx HRMS for our UK workforce?",
+    q: "How fast can we set up Worklynx HRMS for our workforce?",
     a: "Most businesses complete HR setup in under 24 hours. You can bulk import employee records via CSV or integrations, configure leave policies, and invite employees to download the self-service mobile app immediately."
   },
   {
@@ -23,7 +23,7 @@ const faqs = [
     a: "Absolutely. Worklynx employs bank-grade AES-256 bit encryption, strict role-based access controls, and full GDPR compliance data isolation."
   },
   {
-    q: "Do you offer mobile apps for UK employees?",
+    q: "Do you offer mobile apps for employees?",
     a: "Yes, our Employee Self-Service (ESS) mobile app is available for iOS and Android. Staff can clock in via GPS, view payslips, request time off, and swap shifts directly from their phones."
   }
 ];
@@ -42,7 +42,7 @@ export default function HRMSFAQSection() {
             </span>
           </h2>
           <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Everything you need to know about Worklynx HRMS and our UK business solutions.
+            Everything you need to know about Worklynx HRMS and our integrated business solutions.
           </p>
         </div>
 
