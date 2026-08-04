@@ -1,97 +1,95 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Package, FileText, ShoppingCart, Users, BarChart3 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Users, Package, Utensils, BookOpen, FileText, BarChart3 } from "lucide-react";
 
-const features = [
+const productSuites = [
   {
-    icon: BookOpen,
-    name: "Accounting & Finance",
-    desc: "Journals, ledgers, bank reconciliation & tax management",
-    hash: "#accounting",
-    color: "bg-indigo-50 text-indigo-600",
+    icon: Users,
+    name: "⭐ HRMS & Payroll",
+    badge: "Flagship",
+    desc: "Attendance, payroll, statutory leave, performance & self-service portal",
+    path: "/hrms",
+    color: "bg-brand-50 text-brand-600 border border-brand-200",
+    featured: true,
   },
   {
     icon: Package,
     name: "Inventory Management",
-    desc: "Stock tracking with batch, serial & FIFO costing",
-    hash: "#inventory",
-    color: "bg-violet-50 text-violet-600",
+    badge: "Expansion",
+    desc: "Multi-warehouse stock control, batch tracking & PO workflows",
+    path: "/inventory-management",
+    color: "bg-amber-50 text-amber-600 border border-amber-200",
   },
   {
-    icon: FileText,
-    name: "Sales & Invoicing",
-    desc: "Quotations, orders, invoices & payment tracking",
-    hash: "#sales",
-    color: "bg-blue-50 text-blue-600",
-  },
-  {
-    icon: ShoppingCart,
-    name: "Purchases & Bills",
-    desc: "Purchase orders, bills & vendor management",
-    hash: "#purchases",
-    color: "bg-sky-50 text-sky-600",
-  },
-  {
-    icon: Users,
-    name: "Employees & Contacts",
-    desc: "Employee profiles, departments & contact management",
-    hash: "#employees",
-    color: "bg-emerald-50 text-emerald-600",
-  },
-  {
-    icon: BarChart3,
-    name: "Reports & Analytics",
-    desc: "Sales, purchase, inventory & accounting reports",
-    hash: "#reports",
-    color: "bg-orange-50 text-orange-600",
+    icon: Utensils,
+    name: "Restaurant Management",
+    badge: "Expansion",
+    desc: "Touchscreen POS, table QR ordering & Kitchen KDS sync",
+    path: "/restaurant-management",
+    color: "bg-rose-50 text-rose-600 border border-rose-200",
   },
 ];
 
+const secondaryFeatures = [
+  { icon: BookOpen, name: "Accounting & Finance", path: "/features#accounting" },
+  { icon: FileText, name: "Sales & Invoicing", path: "/features#sales" },
+  { icon: BarChart3, name: "Analytics & Reports", path: "/features#reports" },
+];
+
 export default function FeaturesMegaMenu() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleClick = (e, hash) => {
-    const targetId = hash.slice(1);
-
-    if (location.pathname === "/features") {
-      e.preventDefault();
-      const el = document.getElementById(targetId);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top, behavior: "smooth" });
-      }
-      window.history.replaceState(null, "", `/features${hash}`);
-    }
-  };
-
   return (
-    <div className="grid grid-cols-2 gap-1 p-3 w-[480px]">
-      {features.map((f) => (
-        <Link
-          key={f.name}
-          to={`/features${f.hash}`}
-          onClick={(e) => handleClick(e, f.hash)}
-          className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group"
-        >
-          <div className={`w-8 h-8 rounded-lg ${f.color} flex items-center justify-center shrink-0 mt-0.5`}>
-            <f.icon className="w-4 h-4" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">
-              {f.name}
-            </p>
-            <p className="text-xs text-slate-500 leading-tight mt-0.5">{f.desc}</p>
-          </div>
-        </Link>
-      ))}
-      <div className="col-span-2 mt-1 pt-3 border-t border-slate-100 flex items-center justify-between px-3">
-        <p className="text-xs text-slate-500">Explore all features →</p>
-        <Link
-          to="/features"
-          className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-        >
-          View All Features
-        </Link>
+    <div className="p-4 w-[540px] bg-white rounded-2xl shadow-xl border border-slate-100">
+      <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">
+        Worklynx Product Suites
+      </div>
+
+      <div className="space-y-2">
+        {productSuites.map((p) => {
+          const Icon = p.icon;
+          return (
+            <Link
+              key={p.name}
+              to={p.path}
+              className={`flex items-start gap-3 p-3 rounded-xl transition-all border ${
+                p.featured
+                  ? "bg-brand-50/40 border-brand-200/80 hover:bg-brand-50"
+                  : "border-transparent hover:bg-slate-50 hover:border-slate-200/60"
+              }`}
+            >
+              <div className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center shrink-0 mt-0.5`}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-bold text-slate-900 group-hover:text-brand-600">
+                    {p.name}
+                  </p>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                    p.featured ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600"
+                  }`}>
+                    {p.badge}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{p.desc}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      <div className="mt-3 pt-3 border-t border-slate-100 grid grid-cols-3 gap-2 px-1">
+        {secondaryFeatures.map((sf) => {
+          const Icon = sf.icon;
+          return (
+            <Link
+              key={sf.name}
+              to={sf.path}
+              className="flex items-center gap-1.5 p-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+            >
+              <Icon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span className="truncate">{sf.name}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

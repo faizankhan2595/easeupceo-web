@@ -1,0 +1,48 @@
+import { RefreshCw } from "lucide-react";
+
+const integrations = [
+  { name: "Xero", category: "Accounting", desc: "Automated payroll journal sync" },
+  { name: "QuickBooks", category: "Finance", desc: "Direct expense & wage ledger push" },
+  { name: "Sage", category: "Payroll", desc: "HMRC tax code & P60 export" },
+  { name: "Slack", category: "Communication", desc: "Clock-in alerts & leave approvals" },
+  { name: "Microsoft Teams", category: "Workplace", desc: "Bot triggers for shift updates" },
+  { name: "Biometric Hardware", category: "Time Clocks", desc: "ZKTeco & Anviz device sync" },
+  { name: "Stripe & Banks", category: "Payouts", desc: "BACS & direct salary transfers" },
+  { name: "Google Workspace", category: "SSO", desc: "Single sign-on & calendar sync" }
+];
+
+export default function IntegrationsSection() {
+  return (
+    <section className="py-20 bg-slate-950 text-white border-t border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-400">Connected Ecosystem</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">
+            Seamlessly Integrates with Your Existing UK Stack
+          </h2>
+          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+            Connect Worklynx HRMS with UK accounting packages, communication apps, and biometric time clock hardware.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {integrations.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/40 transition-all"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-brand-400 border border-slate-700">
+                  {item.category}
+                </span>
+                <RefreshCw className="w-3.5 h-3.5 text-slate-500" />
+              </div>
+              <h3 className="text-base font-bold text-white mb-1">{item.name}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
