@@ -27,13 +27,13 @@ const hrmsPillars = [
     shortDesc: "GPS clock-in, geofencing, facial recognition & biometric time logs.",
     badge: "GPS & Facial Sync",
     badgeBg: "bg-teal-50 text-teal-700 border-teal-200",
+    iconBg: "from-teal-500/15 via-emerald-500/10 to-teal-600/20 border-teal-200 text-teal-700 ring-teal-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50 p-3 border border-teal-100 flex flex-col justify-between overflow-hidden relative">
         <div className="flex items-center justify-between text-xs text-teal-800 font-semibold">
           <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-teal-600" /> Central Office Geofence</span>
           <span className="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full font-bold">LIVE</span>
         </div>
-        {/* SVG Graphic Bar Chart */}
         <div className="flex items-end justify-between gap-1 h-16 pt-2 px-1">
           {[65, 80, 95, 88, 98, 92, 100].map((h, i) => (
             <div key={i} className="w-full bg-teal-200/80 rounded-t-sm relative group hover:bg-teal-500 transition-colors" style={{ height: `${h}%` }}>
@@ -54,6 +54,7 @@ const hrmsPillars = [
     shortDesc: "Automated salary calculations, statutory tax deductions & digital payslips.",
     badge: "HMRC RTI Ready",
     badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    iconBg: "from-emerald-500/15 via-teal-500/10 to-emerald-600/20 border-emerald-200 text-emerald-700 ring-emerald-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-3.5 border border-emerald-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between">
@@ -62,9 +63,9 @@ const hrmsPillars = [
         </div>
         <div className="space-y-1.5 my-auto">
           <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
-            <div className="bg-emerald-500 h-full" style={{ width: "70%" }} title="Net Salary" />
-            <div className="bg-teal-400 h-full" style={{ width: "20%" }} title="PAYE Tax" />
-            <div className="bg-amber-400 h-full" style={{ width: "10%" }} title="National Insurance" />
+            <div className="bg-emerald-500 h-full" style={{ width: "70%" }} />
+            <div className="bg-teal-400 h-full" style={{ width: "20%" }} />
+            <div className="bg-amber-400 h-full" style={{ width: "10%" }} />
           </div>
           <div className="flex justify-between text-[10px] text-slate-500 font-medium">
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500" /> Net Salary (70%)</span>
@@ -82,6 +83,7 @@ const hrmsPillars = [
     shortDesc: "28-day statutory leave tracking, custom accruals & instant approvals.",
     badge: "Automated Accruals",
     badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    iconBg: "from-indigo-500/15 via-purple-500/10 to-indigo-600/20 border-indigo-200 text-indigo-700 ring-indigo-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-indigo-50 via-slate-50 to-purple-50 p-3 border border-indigo-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-indigo-900 font-semibold">
@@ -113,6 +115,7 @@ const hrmsPillars = [
     shortDesc: "End-to-end applicant tracking, candidate funnel & offer letters.",
     badge: "Smart ATS",
     badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
+    iconBg: "from-purple-500/15 via-pink-500/10 to-purple-600/20 border-purple-200 text-purple-700 ring-purple-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-purple-50 via-slate-50 to-pink-50 p-3 border border-purple-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-purple-900 font-semibold">
@@ -152,6 +155,7 @@ const hrmsPillars = [
     shortDesc: "Continuous 360 feedback, goal tracking & appraisal reviews.",
     badge: "Goal Alignment",
     badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
+    iconBg: "from-rose-500/15 via-orange-500/10 to-rose-600/20 border-rose-200 text-rose-700 ring-rose-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-rose-50 via-slate-50 to-orange-50 p-3.5 border border-rose-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-rose-900 font-semibold">
@@ -180,6 +184,7 @@ const hrmsPillars = [
     shortDesc: "Single source of truth for contracts, visa docs & org charts.",
     badge: "GDPR Encrypted",
     badgeBg: "bg-blue-50 text-blue-700 border-blue-200",
+    iconBg: "from-blue-500/15 via-indigo-500/10 to-blue-600/20 border-blue-200 text-blue-700 ring-blue-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-blue-50 via-slate-50 to-indigo-50 p-3 border border-blue-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-blue-900 font-semibold">
@@ -212,6 +217,7 @@ const hrmsPillars = [
     shortDesc: "Real-time headcount, turnover rate, payroll cost & overtime charts.",
     badge: "Executive Insights",
     badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
+    iconBg: "from-amber-500/15 via-orange-500/10 to-amber-600/20 border-amber-200 text-amber-700 ring-amber-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-amber-50 via-slate-50 to-yellow-50 p-3 border border-amber-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-amber-900 font-semibold">
@@ -235,6 +241,7 @@ const hrmsPillars = [
     shortDesc: "Labor law compliance, GDPR compliance & immutable logs.",
     badge: "Audit Ready",
     badgeBg: "bg-sky-50 text-sky-700 border-sky-200",
+    iconBg: "from-sky-500/15 via-blue-500/10 to-sky-600/20 border-sky-200 text-sky-700 ring-sky-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-sky-50 via-slate-50 to-blue-50 p-3 border border-sky-100 flex flex-col justify-between relative overflow-hidden">
         <div className="flex items-center justify-between text-xs text-sky-900 font-semibold">
@@ -261,6 +268,7 @@ const hrmsPillars = [
     shortDesc: "Mobile portal for payslips, leave requests & shift updates.",
     badge: "iOS & Android Apps",
     badgeBg: "bg-cyan-50 text-cyan-700 border-cyan-200",
+    iconBg: "from-cyan-500/15 via-teal-500/10 to-cyan-600/20 border-cyan-200 text-cyan-700 ring-cyan-500/10",
     header: (
       <div className="w-full h-32 rounded-xl bg-gradient-to-br from-cyan-50 via-slate-50 to-teal-50 p-3 border border-cyan-100 flex items-center justify-center relative overflow-hidden">
         <div className="w-24 h-28 bg-white rounded-t-xl border border-slate-300 shadow-md p-2 space-y-1.5">
@@ -299,7 +307,7 @@ export default function HRMSFeaturesSection() {
           </p>
         </div>
 
-        {/* Aceternity Bento Grid with SVG Visual Headers */}
+        {/* Aceternity Bento Grid with Dual-Tone Gradient Glass Icon Badges */}
         <BentoGrid className="mb-8">
           {hrmsPillars.map((pillar) => {
             const Icon = pillar.icon;
@@ -314,7 +322,11 @@ export default function HRMSFeaturesSection() {
                 isSelected={isSelected}
                 onClick={() => setActiveId(pillar.id)}
                 header={pillar.header}
-                icon={<Icon className={`w-5 h-5 ${isSelected ? "text-brand-600" : "text-slate-500"}`} />}
+                icon={
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${pillar.iconBg} border shadow-xs flex items-center justify-center ring-2 transition-all duration-300 group-hover:scale-105`}>
+                    <Icon className="w-5.5 h-5.5" />
+                  </div>
+                }
               />
             );
           })}
