@@ -51,15 +51,6 @@ export default function UKRestaurantPage() {
       {/* Hero Section */}
       <section className="relative pt-16 pb-16 overflow-hidden bg-gradient-to-b from-rose-50/30 via-white to-slate-50/40 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-100/80 border border-rose-200 text-rose-800 text-xs font-semibold mb-5"
-          >
-            <Utensils className="w-3.5 h-3.5 text-rose-700" />
-            <span>Business Expansion Module — UK Restaurant POS</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}

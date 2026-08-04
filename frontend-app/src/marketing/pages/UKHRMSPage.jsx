@@ -9,10 +9,9 @@ import {
   ShieldCheck, 
   BarChart2, 
   Smartphone, 
-  Sparkles, 
+  Lock,
   ArrowRight,
   Zap,
-  Lock,
   Globe
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -74,10 +73,10 @@ const hrmsFeatures = [
     metrics: "Live Analytics"
   },
   {
-    icon: Sparkles,
-    title: "AI HR Assistant",
-    desc: "AI-driven shift optimization, flight-risk predictions, policy Q&A assistant, and automated attendance flags.",
-    metrics: "Powered by AI"
+    icon: Lock,
+    title: "Security & Role Access Controls",
+    desc: "AES-256 bit encryption, multi-tenant isolation, role-based permission matrices, and field-level privacy controls.",
+    metrics: "Bank-Grade AES-256"
   }
 ];
 
@@ -95,20 +94,10 @@ export default function UKHRMSPage() {
       {/* Hero Section */}
       <section className="relative pt-16 pb-16 overflow-hidden bg-gradient-to-b from-slate-50/60 via-white to-slate-50/40 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-50/80 border border-brand-200 text-brand-700 text-xs font-semibold mb-5"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-            <span>⭐ Flagship Core Suite — UK HRMS &amp; HMRC Payroll</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{ duration: 0.4 }}
             className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-800 max-w-4xl mx-auto leading-tight"
           >
             Complete HRMS Platform for{" "}
@@ -120,7 +109,7 @@ export default function UKHRMSPage() {
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
             Automate HMRC PAYE payroll, GPS attendance, 28-day statutory leave, ATS recruitment, 360 performance reviews, and employee self-service in one enterprise UK HR solution.
@@ -129,7 +118,7 @@ export default function UKHRMSPage() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
           >
             <a
@@ -197,7 +186,6 @@ export default function UKHRMSPage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="p-6 sm:p-10 rounded-2xl bg-brand-50/40 border border-brand-200/80 relative overflow-hidden shadow-xs">
             <div className="relative z-10">
-              <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Integrated Ecosystem</span>
               <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5">Need more than HRMS?</h2>
               <p className="mt-3 text-slate-600 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed">
                 Worklynx seamlessly pairs your HR dataset with our integrated Inventory Management and Restaurant Management modules under one unified UK account.

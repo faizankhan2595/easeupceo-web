@@ -58,10 +58,9 @@ export default function EcosystemSection() {
     <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Aceternity UI Header */}
+        {/* Aceternity UI Clean Header (NO AI PILLS) */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Unified Architecture</span>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5 leading-snug">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             How the Worklynx{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
               Ecosystem Works

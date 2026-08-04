@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Play, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Play, CheckCircle2 } from "lucide-react";
 import DemoModal from "@/uk-components/DemoModal";
 
 export default function FinalCTASection() {
@@ -9,11 +9,6 @@ export default function FinalCTASection() {
     <section className="py-20 bg-slate-50/70 text-slate-800 relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-brand-900 via-slate-900 to-indigo-950 text-white border border-slate-800/80 shadow-xl relative overflow-hidden">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-medium mb-5">
-            <Sparkles className="w-3.5 h-3.5 text-brand-300" />
-            <span>Ready to Modernize Your UK Workforce?</span>
-          </span>
-
           <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-white leading-snug">
             Transform Your HR &amp;{" "}
             <span className="italic font-serif text-brand-300">

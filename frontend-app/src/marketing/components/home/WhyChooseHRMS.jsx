@@ -38,8 +38,7 @@ export default function WhyChooseHRMS() {
     <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Why Modern Teams Upgrade</span>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800">
             Why Choose Our{" "}
             <span className="italic font-serif bg-gradient-to-r from-slate-800 via-brand-600 to-indigo-600 bg-clip-text text-transparent">
               HRMS Platform

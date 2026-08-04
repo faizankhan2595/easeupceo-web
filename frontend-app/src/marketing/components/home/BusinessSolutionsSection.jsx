@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Users, Package, Utensils, CheckCircle2, ArrowRight, Star } from "lucide-react";
+import { Users, Package, Utensils, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function BusinessSolutionsSection() {
@@ -7,11 +7,8 @@ export default function BusinessSolutionsSection() {
     <section className="py-20 bg-white text-slate-800 relative overflow-hidden border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Aceternity UI Header */}
+        {/* Aceternity UI Clean Header (NO AI PILLS) */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200/80 text-slate-700 text-xs font-medium tracking-wide mb-3">
-            Integrated Business Architecture
-          </span>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             One Platform.{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-800 bg-clip-text text-transparent">
@@ -34,24 +31,18 @@ export default function BusinessSolutionsSection() {
             viewport={{ once: true }}
             className="lg:col-span-6 rounded-2xl bg-brand-50/30 border border-brand-300 p-6 sm:p-8 shadow-sm relative flex flex-col justify-between group hover:border-brand-500 transition-all"
           >
-            {/* Featured Badge */}
-            <div className="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-brand-600 text-white font-semibold text-[11px] tracking-wide shadow-xs flex items-center gap-1">
-              <Star className="w-3 h-3 fill-current" />
-              <span>Flagship Core Platform</span>
-            </div>
-
             <div>
               <div className="flex items-center justify-between mb-5">
                 <div className="w-12 h-12 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-xs">
                   <Users className="w-6 h-6" />
                 </div>
                 <span className="text-[11px] font-semibold text-brand-700 bg-brand-100/80 px-2.5 py-0.5 rounded-full border border-brand-200/80">
-                  Primary Solution
+                  Primary HR Solution
                 </span>
               </div>
 
               <h3 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-2">
-                ⭐ HRMS &amp; Payroll Suite
+                HRMS &amp; Payroll Suite
               </h3>
 
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">

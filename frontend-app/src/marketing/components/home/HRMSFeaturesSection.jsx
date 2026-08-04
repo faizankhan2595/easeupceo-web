@@ -10,7 +10,7 @@ import {
   BarChart2, 
   ShieldCheck, 
   Smartphone, 
-  Sparkles,
+  Lock,
   CheckCircle2,
   ArrowRight
 } from "lucide-react";
@@ -153,19 +153,19 @@ const hrmsPillars = [
     stats: "94% Adoption Rate"
   },
   {
-    id: "ai-features",
-    icon: Sparkles,
-    title: "AI HR Intelligence",
-    shortDesc: "AI shift optimization, policy Q&A assistant & flight-risk alerts.",
-    badge: "Powered by AI",
-    badgeBg: "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200",
+    id: "security",
+    icon: Lock,
+    title: "Security & Role Access Controls",
+    shortDesc: "AES-256 bit encryption, multi-tenant isolation & custom roles.",
+    badge: "Enterprise Security",
+    badgeBg: "bg-slate-100 text-slate-700 border-slate-300",
     details: [
-      "Instant AI answers for company policy & employee queries",
-      "Predictive employee attrition & flight-risk detection",
-      "Automated shift schedule generation based on demand",
-      "Smart anomaly detection for attendance & expense claims"
+      "Role-based permission matrices for managers, HR, and auditors",
+      "Bank-grade AES-256 bit encryption in transit and at rest",
+      "Single sign-on (SSO) integration via Google & Microsoft",
+      "Granular document permissions and field-level data privacy"
     ],
-    stats: "10x Productivity"
+    stats: "Bank-Grade AES-256"
   }
 ];
 
@@ -177,12 +177,8 @@ export default function HRMSFeaturesSection() {
     <section id="hrms-features" className="py-20 bg-white text-slate-800 scroll-mt-16 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Aceternity UI Header */}
+        {/* Aceternity UI Clean Header (NO AI PILLS) */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200/80 text-slate-700 text-xs font-medium tracking-wide mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-            Flagship HRMS Suite
-          </span>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             10 Pillars of{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
@@ -226,7 +222,7 @@ export default function HRMSFeaturesSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="rounded-2xl bg-slate-50/70 backdrop-blur-xs text-slate-800 p-6 lg:p-8 shadow-xs border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
+              className="rounded-2xl bg-slate-50/70 text-slate-800 p-6 lg:p-8 shadow-xs border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
             >
               <div className="lg:col-span-7">
                 <div className="flex items-center gap-3 mb-3">
@@ -273,7 +269,7 @@ export default function HRMSFeaturesSection() {
               {/* Right Side Visual Component */}
               <div className="lg:col-span-5 bg-white/90 p-5 rounded-xl border border-slate-200/80 shadow-xs space-y-3">
                 <div className="flex items-center justify-between text-xs text-slate-500 pb-2.5 border-b border-slate-100">
-                  <span className="font-semibold text-slate-800">Feature Status</span>
+                  <span className="font-semibold text-slate-800">Feature Preview</span>
                   <span className="text-emerald-600 font-semibold">100% Cloud Native</span>
                 </div>
                 <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/60">
