@@ -44,59 +44,59 @@ export default function UKInventoryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-amber-600 selection:text-white">
+    <div className="min-h-screen bg-white text-slate-800 selection:bg-amber-600 selection:text-white">
       {/* Product Suite Switcher Bar */}
       <ProductSuiteSwitcher activeSuiteId="inventory" />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-20 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50 border-b border-slate-200/60">
+      <section className="relative pt-16 pb-16 overflow-hidden bg-gradient-to-b from-amber-50/30 via-white to-slate-50/40 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 border border-amber-200 text-amber-800 text-sm font-bold mb-6"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 text-xs font-semibold mb-5"
           >
-            <Package className="w-4 h-4 text-amber-700" />
+            <Package className="w-3.5 h-3.5 text-amber-700" />
             <span>Business Expansion Module — UK Inventory ERP</span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight"
+            className="text-3xl sm:text-5xl font-semibold tracking-tight text-slate-800 max-w-4xl mx-auto leading-tight"
           >
             Smart Inventory &amp; Multi-Warehouse{" "}
-            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 bg-clip-text text-transparent italic font-serif">
               Stock Control
             </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+            className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
             Track stock in real-time, automate purchase orders, manage batch numbers, and integrate seamlessly with your Worklynx HRMS platform.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
           >
             <a
               href="#contact"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-600 hover:bg-amber-700 font-bold text-white shadow-md shadow-amber-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 font-semibold text-white shadow-xs hover:scale-[1.01] transition-all flex items-center justify-center gap-2 text-sm"
             >
               <span>Book Inventory Demo</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </a>
             <Link
               to="/hrms"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 font-bold text-slate-800 transition-all text-center shadow-xs"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white border border-slate-200/80 hover:bg-slate-50 font-medium text-slate-700 transition-all text-center text-sm shadow-xs"
             >
               Explore HRMS Platform First
             </Link>
@@ -105,26 +105,26 @@ export default function UKInventoryPage() {
       </section>
 
       {/* Feature Grid */}
-      <section className="py-20 bg-slate-50 border-b border-slate-200/60">
+      <section className="py-16 bg-slate-50/70 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">Enterprise Inventory Features</h2>
-            <p className="mt-4 text-slate-600 text-lg">Designed to keep UK stock counts accurate and supply chains moving.</p>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800">Enterprise Inventory Features</h2>
+            <p className="mt-2 text-slate-600 text-sm sm:text-base">Designed to keep UK stock counts accurate and supply chains moving.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {inventoryFeatures.map((feat, i) => {
               const Icon = feat.icon;
               return (
                 <div
                   key={i}
-                  className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-amber-300 hover:shadow-md transition-all group"
+                  className="p-5 rounded-xl bg-white/90 border border-slate-200/70 shadow-xs hover:border-amber-300 hover:shadow-xs transition-all group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-lg bg-amber-100/80 border border-amber-200 flex items-center justify-center text-amber-700 mb-3 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{feat.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{feat.desc}</p>
+                  <h3 className="text-base font-semibold text-slate-800 mb-1.5">{feat.title}</h3>
+                  <p className="text-slate-600 text-xs leading-relaxed">{feat.desc}</p>
                 </div>
               );
             })}
@@ -133,17 +133,17 @@ export default function UKInventoryPage() {
       </section>
 
       {/* HR Integration Callout */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-xs">
-            <h3 className="text-2xl font-extrabold text-slate-900">Integrated with Worklynx HRMS</h3>
-            <p className="mt-2 text-slate-600">
+      <section className="py-14 bg-white">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80 shadow-xs">
+            <h3 className="text-xl font-semibold text-slate-800">Integrated with Worklynx HRMS</h3>
+            <p className="mt-2 text-slate-600 text-xs sm:text-sm">
               Warehouse managers, stock clerks, and procurement leads are managed directly through your HR employee database with role-based access permissions.
             </p>
-            <div className="mt-6">
-              <Link to="/hrms" className="inline-flex items-center gap-2 text-brand-700 hover:text-brand-800 font-bold text-sm">
+            <div className="mt-5">
+              <Link to="/hrms" className="inline-flex items-center gap-1.5 text-brand-700 hover:text-brand-800 font-semibold text-xs">
                 <span>See HRMS &amp; Staff Management</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>

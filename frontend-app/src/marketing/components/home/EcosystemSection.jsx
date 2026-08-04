@@ -16,7 +16,7 @@ const nodes = [
     title: "HRMS",
     subtitle: "Core Engine",
     desc: "HMRC payroll, attendance, leave approval, and performance management.",
-    color: "bg-brand-50 text-brand-700 border-brand-300 ring-2 ring-brand-200",
+    color: "bg-brand-50 text-brand-700 border-brand-300 ring-1 ring-brand-200",
     featured: true
   },
   {
@@ -55,57 +55,57 @@ const nodes = [
 
 export default function EcosystemSection() {
   return (
-    <section className="py-24 bg-slate-50 text-slate-900 border-b border-slate-200/60 relative overflow-hidden">
+    <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        {/* Aceternity UI Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Unified Architecture</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mt-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5 leading-snug">
             How the Worklynx{" "}
-            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-6">
+            <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
               Ecosystem Works
             </span>{" "}
             Together
           </h2>
-          <p className="mt-4 text-slate-600 text-base sm:text-lg">
+          <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
             One single database powering your HR, staff, stock, sales, and executive intelligence.
           </p>
         </div>
 
         {/* Step Flow Nodes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3.5 relative">
           {nodes.map((node, i) => {
             const Icon = node.icon;
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={`p-5 rounded-2xl border flex flex-col justify-between relative group shadow-xs ${
+                transition={{ delay: i * 0.08 }}
+                className={`p-4 rounded-xl border flex flex-col justify-between relative group shadow-xs ${
                   node.featured
-                    ? "bg-white border-brand-400 shadow-md"
-                    : "bg-white border-slate-200/80 hover:border-slate-300"
+                    ? "bg-white border-brand-300 shadow-sm"
+                    : "bg-white/90 border-slate-200/70 hover:border-slate-300"
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       Step {node.step}
                     </span>
                     {i < nodes.length - 1 && (
-                      <ChevronRight className="hidden lg:block w-4 h-4 text-slate-300 absolute -right-2 top-8 z-20" />
+                      <ChevronRight className="hidden lg:block w-3.5 h-3.5 text-slate-300 absolute -right-2 top-7 z-20" />
                     )}
                   </div>
 
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center mb-3 ${node.color}`}>
-                    <Icon className="w-5 h-5" />
+                  <div className={`w-9 h-9 rounded-lg border flex items-center justify-center mb-2.5 ${node.color}`}>
+                    <Icon className="w-4 h-4" />
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 mb-0.5">{node.title}</h3>
-                  <p className="text-[11px] font-semibold text-brand-700 mb-2">{node.subtitle}</p>
+                  <h3 className="text-sm font-semibold text-slate-800 mb-0.5">{node.title}</h3>
+                  <p className="text-[10px] font-medium text-brand-700 mb-1.5">{node.subtitle}</p>
                   <p className="text-xs text-slate-600 leading-relaxed">{node.desc}</p>
                 </div>
               </motion.div>
@@ -114,16 +114,16 @@ export default function EcosystemSection() {
         </div>
 
         {/* Summary Banner */}
-        <div className="mt-12 p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="mt-10 p-5 rounded-xl bg-white border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div>
-            <h4 className="text-base font-bold text-slate-900">No More Data Silos Between HR and Operations</h4>
+            <h4 className="text-sm font-semibold text-slate-800">No More Data Silos Between HR and Operations</h4>
             <p className="text-xs text-slate-600 mt-0.5">
               Staff clocked in via HRMS are instantly mapped to inventory logs, POS terminals, and management reports.
             </p>
           </div>
           <a
             href="#contact"
-            className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shrink-0 transition-all shadow-xs"
+            className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs shrink-0 transition-all shadow-xs"
           >
             See Live Demo
           </a>

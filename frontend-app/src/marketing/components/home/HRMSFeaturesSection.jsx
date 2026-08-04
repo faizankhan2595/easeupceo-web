@@ -174,22 +174,23 @@ export default function HRMSFeaturesSection() {
   const activePillar = hrmsPillars.find(p => p.id === activeId) || hrmsPillars[0];
 
   return (
-    <section id="hrms-features" className="py-24 bg-white text-slate-900 scroll-mt-16 border-b border-slate-200/60">
+    <section id="hrms-features" className="py-20 bg-white text-slate-800 scroll-mt-16 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold uppercase tracking-wider mb-4">
+        {/* Aceternity UI Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200/80 text-slate-700 text-xs font-medium tracking-wide mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
             Flagship HRMS Suite
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             10 Pillars of{" "}
-            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-6">
+            <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
               Modern Workforce
             </span>{" "}
             Management
           </h2>
-          <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+          <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
             Everything your HR team, managers, and employees need — built into one clean, integrated platform.
           </p>
         </div>
@@ -203,13 +204,13 @@ export default function HRMSFeaturesSection() {
               <button
                 key={pillar.id}
                 onClick={() => setActiveId(pillar.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all cursor-pointer border ${
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all cursor-pointer border ${
                   isActive
-                    ? "bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20 scale-[1.02] font-semibold"
-                    : "bg-slate-50 text-slate-700 border-slate-200/80 hover:bg-slate-100 hover:text-slate-900"
+                    ? "bg-brand-600 text-white border-brand-600 shadow-xs font-semibold"
+                    : "bg-slate-100/70 text-slate-700 border-slate-200/70 hover:bg-slate-100 hover:text-slate-900"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500"}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-slate-500"}`} />
                 <span>{pillar.title.split("&")[0]}</span>
               </button>
             );
@@ -217,39 +218,39 @@ export default function HRMSFeaturesSection() {
         </div>
 
         {/* Featured Tab Display Card */}
-        <div className="mb-14">
+        <div className="mb-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePillar.id}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="rounded-3xl bg-slate-50 text-slate-900 p-8 lg:p-10 shadow-lg border border-slate-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              className="rounded-2xl bg-slate-50/70 backdrop-blur-xs text-slate-800 p-6 lg:p-8 shadow-xs border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
             >
               <div className="lg:col-span-7">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center shadow-md">
-                    <activePillar.icon className="w-6 h-6" />
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-xs">
+                    <activePillar.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md border ${activePillar.badgeBg}`}>
+                    <span className={`inline-block px-2.5 py-0.5 text-xs font-medium rounded-full border ${activePillar.badgeBg}`}>
                       {activePillar.badge}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-slate-800 mt-0.5">
                       {activePillar.title}
                     </h3>
                   </div>
                 </div>
 
-                <p className="text-slate-600 text-base sm:text-lg mb-6 leading-relaxed">
+                <p className="text-slate-600 text-sm sm:text-base mb-5 leading-relaxed">
                   {activePillar.shortDesc}
                 </p>
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-2.5 mb-6">
                   {activePillar.details.map((detail, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 font-medium">
-                      <CheckCircle2 className="w-5 h-5 text-brand-600 shrink-0 mt-0.5" />
+                    <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
                       <span>{detail}</span>
                     </li>
                   ))}
@@ -258,35 +259,35 @@ export default function HRMSFeaturesSection() {
                 <div className="flex items-center gap-4">
                   <Link
                     to="/hrms"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-semibold text-white transition-all text-sm shadow-md"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 font-medium text-white transition-all text-xs shadow-xs"
                   >
                     <span>Explore HRMS Features</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
-                  <span className="text-xs text-slate-500 font-semibold border-l border-slate-300 pl-4">
+                  <span className="text-xs text-slate-500 font-semibold border-l border-slate-300 pl-3">
                     {activePillar.stats}
                   </span>
                 </div>
               </div>
 
               {/* Right Side Visual Component */}
-              <div className="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                <div className="flex items-center justify-between text-xs text-slate-500 pb-3 border-b border-slate-100">
-                  <span className="font-semibold text-slate-900">Feature Preview</span>
-                  <span className="text-emerald-600 font-bold">100% Cloud Native</span>
+              <div className="lg:col-span-5 bg-white/90 p-5 rounded-xl border border-slate-200/80 shadow-xs space-y-3">
+                <div className="flex items-center justify-between text-xs text-slate-500 pb-2.5 border-b border-slate-100">
+                  <span className="font-semibold text-slate-800">Feature Status</span>
+                  <span className="text-emerald-600 font-semibold">100% Cloud Native</span>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-                  <p className="text-xs text-slate-500 font-semibold mb-1">Active Pillar</p>
-                  <p className="text-base font-bold text-slate-900">{activePillar.title}</p>
-                  <p className="text-xs text-brand-600 font-semibold mt-1">{activePillar.stats}</p>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/60">
+                  <p className="text-xs text-slate-500 font-medium mb-0.5">Active Pillar</p>
+                  <p className="text-sm font-semibold text-slate-800">{activePillar.title}</p>
+                  <p className="text-xs text-brand-600 font-semibold mt-0.5">{activePillar.stats}</p>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-                  <div className="h-2.5 rounded-full bg-slate-200 overflow-hidden">
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1.5">
+                  <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div className="h-full bg-brand-600 w-[85%]" />
                   </div>
-                  <div className="flex justify-between text-[11px] text-slate-600 font-semibold">
+                  <div className="flex justify-between text-[11px] text-slate-600 font-medium">
                     <span>Automation Rate</span>
-                    <span className="font-bold text-slate-900">85% Automated</span>
+                    <span className="font-semibold text-slate-800">85% Automated</span>
                   </div>
                 </div>
               </div>
@@ -295,7 +296,7 @@ export default function HRMSFeaturesSection() {
         </div>
 
         {/* 10 Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {hrmsPillars.map((pillar) => {
             const Icon = pillar.icon;
             const isSelected = pillar.id === activeId;
@@ -303,24 +304,24 @@ export default function HRMSFeaturesSection() {
               <div
                 key={pillar.id}
                 onClick={() => setActiveId(pillar.id)}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer group ${
+                className={`p-5 rounded-xl border transition-all cursor-pointer group ${
                   isSelected
-                    ? "bg-brand-50/60 border-brand-300 shadow-sm ring-1 ring-brand-200"
-                    : "bg-white text-slate-900 border-slate-200/80 hover:border-brand-200 hover:shadow-xs"
+                    ? "bg-brand-50/50 border-brand-300 shadow-xs ring-1 ring-brand-200"
+                    : "bg-white text-slate-800 border-slate-200/70 hover:border-brand-200 hover:shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
                     isSelected ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white"
                   } transition-all`}>
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4" />
                   </div>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${pillar.badgeBg}`}>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${pillar.badgeBg}`}>
                     {pillar.badge}
                   </span>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">
+                <h4 className="text-sm font-semibold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">
                   {pillar.title}
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">

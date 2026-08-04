@@ -32,43 +32,43 @@ export default function HRMSFAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="py-20 bg-white text-slate-900 border-b border-slate-200/60">
+    <section className="py-20 bg-white text-slate-800 border-b border-slate-200/60">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
+        <div className="text-center mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Got Questions?</span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mt-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 mt-1.5 leading-snug">
             Frequently Asked{" "}
-            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-4">
+            <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
               Questions
             </span>
           </h2>
-          <p className="mt-3 text-slate-600 text-base">
+          <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
             Everything you need to know about Worklynx HRMS and our UK business solutions.
           </p>
         </div>
 
-        <div className="space-y-3.5">
+        <div className="space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-slate-50 border border-slate-200/80 overflow-hidden transition-all"
+                className="rounded-xl bg-slate-50/70 border border-slate-200/70 overflow-hidden transition-all"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? -1 : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-base text-slate-900 hover:text-brand-600 transition-colors"
+                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-slate-800 hover:text-brand-600 transition-colors cursor-pointer"
                 >
-                  <span className="flex items-center gap-3">
-                    <HelpCircle className="w-5 h-5 text-brand-600 shrink-0" />
+                  <span className="flex items-center gap-2.5">
+                    <HelpCircle className="w-4 h-4 text-brand-600 shrink-0" />
                     <span>{faq.q}</span>
                   </span>
-                  <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${isOpen ? "rotate-180 text-brand-600" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${isOpen ? "rotate-180 text-brand-600" : ""}`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-sm text-slate-600 leading-relaxed border-t border-slate-200/60">
+                  <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/60">
                     {faq.a}
                   </div>
                 )}
