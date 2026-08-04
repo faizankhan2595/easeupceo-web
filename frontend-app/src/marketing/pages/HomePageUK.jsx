@@ -7,7 +7,7 @@ import BusinessSolutionsSection from "../components/home/BusinessSolutionsSectio
 import EcosystemSection from "../components/home/EcosystemSection";
 import IntegrationsSection from "../components/home/IntegrationsSection";
 import Testimonials from "@/uk-components/Testimonials";
-import HRMSPricingSection from "../components/home/HRMSPricingSection";
+import Pricing from "@/uk-components/Pricing";
 import HRMSFAQSection from "../components/home/HRMSFAQSection";
 import FinalCTASection from "../components/home/FinalCTASection";
 import Chatbot from "@/uk-components/Chatbot";
@@ -43,8 +43,8 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       {/* 8. Testimonials */}
       <Testimonials />
 
-      {/* 9. Pricing */}
-      <HRMSPricingSection />
+      {/* 9. Original Pricing Section with Interactive Calculator */}
+      <Pricing />
 
       {/* 10. FAQ */}
       <HRMSFAQSection />
