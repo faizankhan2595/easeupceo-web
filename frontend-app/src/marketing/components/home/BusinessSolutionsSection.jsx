@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Users, Package, Utensils, CheckCircle2, ArrowRight } from "lucide-react";
+import { Users, Package, Utensils, CheckCircle2, ArrowRight, TrendingUp, BarChart2, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function BusinessSolutionsSection() {
@@ -7,7 +7,7 @@ export default function BusinessSolutionsSection() {
     <section className="py-20 bg-white text-slate-800 relative overflow-hidden border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Aceternity UI Clean Header (NO AI PILLS) */}
+        {/* Aceternity UI Clean Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             One Platform.{" "}
@@ -29,7 +29,7 @@ export default function BusinessSolutionsSection() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-6 rounded-2xl bg-brand-50/30 border border-brand-300 p-6 sm:p-8 shadow-sm relative flex flex-col justify-between group hover:border-brand-500 transition-all"
+            className="lg:col-span-6 rounded-2xl bg-brand-50/30 border border-brand-300 p-6 sm:p-8 shadow-sm relative flex flex-col justify-between group hover:border-brand-500 transition-all overflow-hidden"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -49,6 +49,24 @@ export default function BusinessSolutionsSection() {
                 The central heartbeat of your business. Automate time &amp; attendance, HMRC PAYE tax payroll, statutory leave, employee self-service, ATS hiring, and performance OKRs.
               </p>
 
+              {/* Rich Visual Mini Dashboard Illustration */}
+              <div className="my-5 rounded-xl bg-white border border-brand-200/80 p-4 shadow-xs space-y-3">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-800 pb-2 border-b border-slate-100">
+                  <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-brand-600" /> Worklynx Live HR Metric</span>
+                  <span className="text-emerald-600 text-[11px]">99.8% Payroll Sync</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-left">
+                    <span className="text-[10px] text-slate-500 font-medium block">Monthly Payroll</span>
+                    <span className="text-sm font-bold text-slate-900">£48,250.00</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-left">
+                    <span className="text-[10px] text-slate-500 font-medium block">On-Time Clock-ins</span>
+                    <span className="text-sm font-bold text-brand-700">97.9% Verified</span>
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 shrink-0" />
@@ -61,10 +79,6 @@ export default function BusinessSolutionsSection() {
                 <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 shrink-0" />
                   <span>28-Day Statutory Leave &amp; Accrual Rules</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-600 shrink-0" />
-                  <span>Native Mobile ESS Apps (iOS &amp; Android)</span>
                 </div>
               </div>
             </div>
@@ -90,7 +104,7 @@ export default function BusinessSolutionsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="lg:col-span-3 rounded-2xl bg-slate-50/70 border border-slate-200/80 p-5 flex flex-col justify-between hover:border-amber-300 hover:bg-white transition-all group shadow-xs"
+            className="lg:col-span-3 rounded-2xl bg-slate-50/70 border border-slate-200/80 p-5 flex flex-col justify-between hover:border-amber-300 hover:bg-white transition-all group shadow-xs overflow-hidden"
           >
             <div>
               <div className="flex items-center justify-between mb-3.5">
@@ -110,6 +124,18 @@ export default function BusinessSolutionsSection() {
                 Expand into multi-warehouse stock control, batch tracking, PO workflows, and stock valuation.
               </p>
 
+              {/* Unsplash Workplace / Warehouse High-Quality Sample Visual Image */}
+              <div className="my-3 rounded-xl overflow-hidden border border-slate-200/80 h-28 relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" 
+                  alt="Inventory ERP Warehouse" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end p-2">
+                  <span className="text-[10px] font-bold text-white bg-amber-600/90 px-2 py-0.5 rounded-md">Stock ERP Live</span>
+                </div>
+              </div>
+
               <ul className="space-y-1.5 mb-5">
                 <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
@@ -118,10 +144,6 @@ export default function BusinessSolutionsSection() {
                 <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                   <span>Batch &amp; Serial Tracking</span>
-                </li>
-                <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                  <span>Supplier Purchase Orders</span>
                 </li>
               </ul>
             </div>
@@ -143,7 +165,7 @@ export default function BusinessSolutionsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 rounded-2xl bg-slate-50/70 border border-slate-200/80 p-5 flex flex-col justify-between hover:border-rose-300 hover:bg-white transition-all group shadow-xs"
+            className="lg:col-span-3 rounded-2xl bg-slate-50/70 border border-slate-200/80 p-5 flex flex-col justify-between hover:border-rose-300 hover:bg-white transition-all group shadow-xs overflow-hidden"
           >
             <div>
               <div className="flex items-center justify-between mb-3.5">
@@ -163,6 +185,18 @@ export default function BusinessSolutionsSection() {
                 Expand into restaurant POS billing, table QR ordering, and Kitchen Display Systems (KDS).
               </p>
 
+              {/* Unsplash Restaurant POS / Hospitality Sample Visual Image */}
+              <div className="my-3 rounded-xl overflow-hidden border border-slate-200/80 h-28 relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" 
+                  alt="Restaurant POS Terminal" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end p-2">
+                  <span className="text-[10px] font-bold text-white bg-rose-600/90 px-2 py-0.5 rounded-md">POS &amp; KDS Live</span>
+                </div>
+              </div>
+
               <ul className="space-y-1.5 mb-5">
                 <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" />
@@ -171,10 +205,6 @@ export default function BusinessSolutionsSection() {
                 <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                   <span>Table QR Dine-In Ordering</span>
-                </li>
-                <li className="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                  <span>Kitchen Display (KDS) Sync</span>
                 </li>
               </ul>
             </div>
