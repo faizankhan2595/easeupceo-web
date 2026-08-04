@@ -35,31 +35,31 @@ const reasons = [
 
 export default function WhyChooseHRMS() {
   return (
-    <section className="py-20 bg-slate-900 text-white border-t border-slate-800">
+    <section className="py-20 bg-slate-50 text-slate-900 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-400">Why Modern Teams Upgrade</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Why Modern Teams Upgrade</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
             Why Choose Our HRMS Platform?
           </h2>
-          <p className="mt-4 text-slate-300 text-base sm:text-lg">
+          <p className="mt-3 text-slate-600 text-base sm:text-lg">
             Purpose-built to eliminate payroll errors, streamline attendance, and elevate the employee experience.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reasons.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-slate-950/60 border border-slate-800 hover:border-brand-500/40 hover:bg-slate-950 transition-all group"
+                className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-brand-200 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 mb-5 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 mb-4 group-hover:scale-105 group-hover:bg-brand-600 group-hover:text-white transition-all">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
               </div>
             );
           })}

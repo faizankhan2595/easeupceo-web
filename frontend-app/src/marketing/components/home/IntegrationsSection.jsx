@@ -13,14 +13,14 @@ const integrations = [
 
 export default function IntegrationsSection() {
   return (
-    <section className="py-20 bg-slate-950 text-white border-t border-slate-800">
+    <section className="py-20 bg-white text-slate-900 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-400">Connected Ecosystem</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Connected Ecosystem</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
             Seamlessly Integrates with Your Existing UK Stack
           </h2>
-          <p className="mt-4 text-slate-400 text-base sm:text-lg">
+          <p className="mt-4 text-slate-600 text-base sm:text-lg">
             Connect Worklynx HRMS with UK accounting packages, communication apps, and biometric time clock hardware.
           </p>
         </div>
@@ -29,16 +29,16 @@ export default function IntegrationsSection() {
           {integrations.map((item, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-brand-500/40 transition-all"
+              className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-brand-200 hover:bg-white hover:shadow-xs transition-all"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-brand-400 border border-slate-700">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white text-brand-700 border border-slate-200">
                   {item.category}
                 </span>
-                <RefreshCw className="w-3.5 h-3.5 text-slate-500" />
+                <RefreshCw className="w-3.5 h-3.5 text-slate-400" />
               </div>
-              <h3 className="text-base font-bold text-white mb-1">{item.name}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+              <h3 className="text-base font-bold text-slate-900 mb-1">{item.name}</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

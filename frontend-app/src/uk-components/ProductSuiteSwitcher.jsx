@@ -8,7 +8,7 @@ const suites = [
     badge: "Flagship",
     icon: Users,
     path: "/hrms",
-    activeColor: "bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-lg shadow-brand-500/25 border-brand-400/50",
+    activeColor: "bg-brand-600 text-white shadow-md shadow-brand-600/20 border-brand-600 font-bold",
     badgeStyle: "bg-white/20 text-white"
   },
   {
@@ -17,7 +17,7 @@ const suites = [
     badge: "Expansion",
     icon: Package,
     path: "/inventory-management",
-    activeColor: "bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg shadow-amber-500/25 border-amber-400/50",
+    activeColor: "bg-amber-600 text-white shadow-md shadow-amber-600/20 border-amber-600 font-bold",
     badgeStyle: "bg-white/20 text-white"
   },
   {
@@ -26,17 +26,17 @@ const suites = [
     badge: "Expansion",
     icon: Utensils,
     path: "/restaurant-management",
-    activeColor: "bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-500/25 border-rose-400/50",
+    activeColor: "bg-rose-600 text-white shadow-md shadow-rose-600/20 border-rose-600 font-bold",
     badgeStyle: "bg-white/20 text-white"
   }
 ];
 
 export default function ProductSuiteSwitcher({ activeSuiteId }) {
   return (
-    <div className="w-full py-4 bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-[4.5rem] z-40">
+    <div className="w-full py-3.5 bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-[4.5rem] z-40 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-          <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
+          <Sparkles className="w-3.5 h-3.5 text-brand-600" />
           <span>UK Product Suites:</span>
         </div>
 
@@ -48,16 +48,16 @@ export default function ProductSuiteSwitcher({ activeSuiteId }) {
               <Link
                 key={suite.id}
                 to={suite.path}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all border ${
                   isActive
                     ? suite.activeColor
-                    : "bg-slate-900/90 text-slate-300 hover:text-white hover:bg-slate-800 border-slate-800"
+                    : "bg-slate-50 text-slate-700 hover:text-slate-900 hover:bg-slate-100 border-slate-200/80"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
                 <span>{suite.label}</span>
                 <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                  isActive ? suite.badgeStyle : "bg-slate-800 text-slate-400"
+                  isActive ? suite.badgeStyle : "bg-slate-200/80 text-slate-600"
                 }`}>
                   {suite.badge}
                 </span>

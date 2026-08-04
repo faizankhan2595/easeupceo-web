@@ -25,7 +25,7 @@ const hrmsPlans = [
     priceMonthly: "£7",
     unit: "per employee / month",
     badge: "⭐ Flagship Best Value",
-    badgeBg: "bg-brand-500 text-white",
+    badgeBg: "bg-brand-600 text-white",
     features: [
       "Everything in Starter, plus:",
       "HMRC PAYE Tax Payroll & Payslips",
@@ -59,18 +59,18 @@ const hrmsPlans = [
 
 export default function HRMSPricingSection() {
   return (
-    <section id="pricing" className="py-24 bg-slate-900 text-white border-t border-slate-800 scroll-mt-16">
+    <section id="pricing" className="py-24 bg-slate-50 text-slate-900 border-b border-slate-200/60 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-bold uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-4">
             Transparent Pricing
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
             Simple, Transparent HRMS Pricing
           </h2>
-          <p className="mt-4 text-slate-300 text-lg">
+          <p className="mt-4 text-slate-600 text-base sm:text-lg">
             Start with our flagship HRMS platform. Add Inventory and Restaurant modules only when you need them.
           </p>
         </div>
@@ -82,31 +82,31 @@ export default function HRMSPricingSection() {
               key={idx}
               className={`rounded-3xl p-8 flex flex-col justify-between relative transition-all ${
                 plan.featured
-                  ? "bg-slate-950 border-2 border-brand-500 shadow-2xl ring-1 ring-brand-500/40"
-                  : "bg-slate-950/60 border border-slate-800 hover:border-slate-700"
+                  ? "bg-white border-2 border-brand-600 shadow-xl ring-1 ring-brand-200"
+                  : "bg-white border border-slate-200 shadow-xs hover:border-slate-300"
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-brand-500 text-white text-[11px] font-extrabold uppercase tracking-wider shadow">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-brand-600 text-white text-[11px] font-extrabold uppercase tracking-wider shadow">
                   {plan.badge}
                 </div>
               )}
 
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-6">{plan.desc}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">{plan.name}</h3>
+                <p className="text-xs text-slate-500 leading-relaxed mb-6">{plan.desc}</p>
 
-                <div className="mb-6 pb-6 border-b border-slate-800">
+                <div className="mb-6 pb-6 border-b border-slate-100">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-extrabold text-white">{plan.priceMonthly}</span>
-                    <span className="text-xs text-slate-400">{plan.unit}</span>
+                    <span className="text-4xl font-extrabold text-slate-900">{plan.priceMonthly}</span>
+                    <span className="text-xs text-slate-500 font-semibold">{plan.unit}</span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feat, fidx) => (
-                    <li key={fidx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                      <Check className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+                    <li key={fidx} className="flex items-start gap-2.5 text-xs text-slate-700 font-medium">
+                      <Check className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -118,8 +118,8 @@ export default function HRMSPricingSection() {
                   href="/signup"
                   className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${
                     plan.featured
-                      ? "bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-400 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25"
-                      : "bg-slate-800 hover:bg-slate-700 text-white border border-slate-700"
+                      ? "bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-600/20"
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200"
                   }`}
                 >
                   <span>{plan.cta}</span>
@@ -131,24 +131,24 @@ export default function HRMSPricingSection() {
         </div>
 
         {/* Additional Business Modules Add-on Box */}
-        <div className="p-8 rounded-3xl bg-slate-950 border border-slate-800 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-8">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-400">Operational Expansion Add-ons</span>
-            <h3 className="text-2xl font-bold text-white mt-1">Need Inventory ERP or Restaurant POS?</h3>
-            <p className="mt-2 text-slate-400 text-sm leading-relaxed">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-700">Operational Expansion Add-ons</span>
+            <h3 className="text-2xl font-bold text-slate-900 mt-1">Need Inventory ERP or Restaurant POS?</h3>
+            <p className="mt-2 text-slate-600 text-sm leading-relaxed">
               Add Inventory Management for multi-warehouse stock control or Restaurant POS for touchscreen billing &amp; KDS at flat modular add-on pricing.
             </p>
           </div>
           <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-3">
             <Link
               to="/inventory-management"
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-400 hover:text-amber-300 font-semibold text-xs transition-all text-center"
+              className="px-5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-amber-700 font-bold text-xs transition-all text-center"
             >
               View Inventory Module Add-on &rarr;
             </Link>
             <Link
               to="/restaurant-management"
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-rose-400 hover:text-rose-300 font-semibold text-xs transition-all text-center"
+              className="px-5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-rose-700 font-bold text-xs transition-all text-center"
             >
               View Restaurant POS Add-on &rarr;
             </Link>
