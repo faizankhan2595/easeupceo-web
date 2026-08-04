@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { 
   Clock, 
   DollarSign, 
@@ -15,6 +14,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BentoGrid, BentoGridItem } from "@/uk-components/ui/bento-grid";
 
 const hrmsPillars = [
   {
@@ -23,14 +23,7 @@ const hrmsPillars = [
     title: "Attendance & Time Tracking",
     shortDesc: "GPS clock-in, geofencing, facial recognition & biometric time logs.",
     badge: "GPS & Facial Sync",
-    badgeBg: "bg-teal-50 text-teal-700 border-teal-200",
-    details: [
-      "GPS geofenced clock-in & selfie attendance for field staff",
-      "Biometric hardware integration & automatic shift logging",
-      "Overtime calculation & shift roster scheduling",
-      "Break duration monitoring & lateness anomaly flags"
-    ],
-    stats: "99.8% Accuracy"
+    badgeBg: "bg-teal-50 text-teal-700 border-teal-200"
   },
   {
     id: "payroll",
@@ -38,14 +31,7 @@ const hrmsPillars = [
     title: "HMRC PAYE Payroll Processing",
     shortDesc: "Automated salary calculations, statutory tax deductions & digital payslips.",
     badge: "HMRC RTI Ready",
-    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    details: [
-      "Auto-calculated gross to net salaries with statutory tax deductions",
-      "Direct bank batch payout file generation & instant portal delivery",
-      "Digital, password-protected PDF payslips via email & app",
-      "HMRC PAYE RTI & Workplace Pension compliance ready"
-    ],
-    stats: "Saved 24 hours/month"
+    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200"
   },
   {
     id: "leave",
@@ -53,14 +39,7 @@ const hrmsPillars = [
     title: "Statutory Leave & Time Off",
     shortDesc: "28-day statutory leave tracking, custom accruals & instant approvals.",
     badge: "Automated Accruals",
-    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
-    details: [
-      "Custom leave policies: 28-day statutory annual, sick, & casual leave",
-      "Real-time balance calculations & automated prorating",
-      "Slack / Teams notification triggers for manager sign-offs",
-      "UK Bank Holiday calendar overlay across departments"
-    ],
-    stats: "Zero Email Friction"
+    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200"
   },
   {
     id: "recruitment",
@@ -68,14 +47,7 @@ const hrmsPillars = [
     title: "Recruitment & ATS",
     shortDesc: "End-to-end applicant tracking, candidate funnel & offer letters.",
     badge: "Smart ATS",
-    badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
-    details: [
-      "Custom career pages & multi-job board publishing",
-      "Visual drag-and-drop hiring pipeline stages",
-      "Automated interview scheduling & scorecard rubrics",
-      "Digital offer letter generation with e-signature signoff"
-    ],
-    stats: "50% Faster Hiring"
+    badgeBg: "bg-purple-50 text-purple-700 border-purple-200"
   },
   {
     id: "performance",
@@ -83,14 +55,7 @@ const hrmsPillars = [
     title: "Performance & OKRs",
     shortDesc: "Continuous 360 feedback, goal tracking & appraisal reviews.",
     badge: "Goal Alignment",
-    badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
-    details: [
-      "Quarterly & annual OKR target cascade across teams",
-      "360-degree peer, manager, and self-assessment surveys",
-      "Continuous feedback logs & 1-on-1 meeting notes",
-      "Performance vs compensation adjustment recommendation engine"
-    ],
-    stats: "3x Goal Completion"
+    badgeBg: "bg-rose-50 text-rose-700 border-rose-200"
   },
   {
     id: "database",
@@ -98,14 +63,7 @@ const hrmsPillars = [
     title: "Centralized Employee Database",
     shortDesc: "Single source of truth for contracts, visa docs & org charts.",
     badge: "GDPR Encrypted",
-    badgeBg: "bg-blue-50 text-blue-700 border-blue-200",
-    details: [
-      "Digital onboarding checklists & document collection",
-      "Interactive org hierarchy chart with line-reporting maps",
-      "Asset issuance tracking (laptops, phones, access keys)",
-      "Secure document vault with expiry alerts (right-to-work, visas)"
-    ],
-    stats: "100% Paperless HR"
+    badgeBg: "bg-blue-50 text-blue-700 border-blue-200"
   },
   {
     id: "reports",
@@ -113,14 +71,7 @@ const hrmsPillars = [
     title: "Workforce Reports & Analytics",
     shortDesc: "Real-time headcount, turnover rate, payroll cost & overtime charts.",
     badge: "Executive Insights",
-    badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
-    details: [
-      "Real-time payroll vs budget variance graphs",
-      "Absenteeism heatmaps & turnover trend forecasting",
-      "Custom builder with drag-and-drop report metrics",
-      "One-click export to PDF, Excel, or CSV formats"
-    ],
-    stats: "Live Dashboard"
+    badgeBg: "bg-amber-50 text-amber-700 border-amber-200"
   },
   {
     id: "compliance",
@@ -128,14 +79,7 @@ const hrmsPillars = [
     title: "Compliance & Audit Trail",
     shortDesc: "UK labor law compliance, GDPR compliance & immutable logs.",
     badge: "Audit Ready",
-    badgeBg: "bg-sky-50 text-sky-700 border-sky-200",
-    details: [
-      "Automated labor law & minimum wage compliance checks",
-      "Full system audit trails tracking every record change",
-      "GDPR data retention enforcement & right-to-be-forgotten flows",
-      "Document renewal reminders for safety certifications"
-    ],
-    stats: "100% Audit Ready"
+    badgeBg: "bg-sky-50 text-sky-700 border-sky-200"
   },
   {
     id: "self-service",
@@ -143,41 +87,18 @@ const hrmsPillars = [
     title: "Employee Self-Service (ESS)",
     shortDesc: "Mobile portal for payslips, leave requests & shift updates.",
     badge: "iOS & Android Apps",
-    badgeBg: "bg-cyan-50 text-cyan-700 border-cyan-200",
-    details: [
-      "Native mobile app experience for iOS & Android devices",
-      "Instant payslip download & P60 / tax summary access",
-      "One-tap leave application & team calendar view",
-      "Shift swap requests & direct manager messaging"
-    ],
-    stats: "94% Adoption Rate"
-  },
-  {
-    id: "security",
-    icon: Lock,
-    title: "Security & Role Access Controls",
-    shortDesc: "AES-256 bit encryption, multi-tenant isolation & custom roles.",
-    badge: "Enterprise Security",
-    badgeBg: "bg-slate-100 text-slate-700 border-slate-300",
-    details: [
-      "Role-based permission matrices for managers, HR, and auditors",
-      "Bank-grade AES-256 bit encryption in transit and at rest",
-      "Single sign-on (SSO) integration via Google & Microsoft",
-      "Granular document permissions and field-level data privacy"
-    ],
-    stats: "Bank-Grade AES-256"
+    badgeBg: "bg-cyan-50 text-cyan-700 border-cyan-200"
   }
 ];
 
 export default function HRMSFeaturesSection() {
   const [activeId, setActiveId] = useState(hrmsPillars[0].id);
-  const activePillar = hrmsPillars.find(p => p.id === activeId) || hrmsPillars[0];
 
   return (
     <section id="hrms-features" className="py-20 bg-white text-slate-800 scroll-mt-16 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Aceternity UI Clean Header (NO AI PILLS) */}
+        {/* Aceternity UI Clean Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             10 Pillars of{" "}
@@ -191,141 +112,34 @@ export default function HRMSFeaturesSection() {
           </p>
         </div>
 
-        {/* Tab Selector Buttons */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none justify-start lg:justify-center">
-          {hrmsPillars.map((pillar) => {
-            const Icon = pillar.icon;
-            const isActive = pillar.id === activeId;
-            return (
-              <button
-                key={pillar.id}
-                onClick={() => setActiveId(pillar.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all cursor-pointer border ${
-                  isActive
-                    ? "bg-brand-600 text-white border-brand-600 shadow-xs font-semibold"
-                    : "bg-slate-100/70 text-slate-700 border-slate-200/70 hover:bg-slate-100 hover:text-slate-900"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-slate-500"}`} />
-                <span>{pillar.title.split("&")[0]}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Featured Tab Display Card */}
-        <div className="mb-12">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePillar.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="rounded-2xl bg-slate-50/70 text-slate-800 p-6 lg:p-8 shadow-xs border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
-            >
-              <div className="lg:col-span-7">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-xs">
-                    <activePillar.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className={`inline-block px-2.5 py-0.5 text-xs font-medium rounded-full border ${activePillar.badgeBg}`}>
-                      {activePillar.badge}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-slate-800 mt-0.5">
-                      {activePillar.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="text-slate-600 text-sm sm:text-base mb-5 leading-relaxed">
-                  {activePillar.shortDesc}
-                </p>
-
-                <ul className="space-y-2.5 mb-6">
-                  {activePillar.details.map((detail, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex items-center gap-4">
-                  <Link
-                    to="/hrms"
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 font-medium text-white transition-all text-xs shadow-xs"
-                  >
-                    <span>Explore HRMS Features</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <span className="text-xs text-slate-500 font-semibold border-l border-slate-300 pl-3">
-                    {activePillar.stats}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right Side Visual Component */}
-              <div className="lg:col-span-5 bg-white/90 p-5 rounded-xl border border-slate-200/80 shadow-xs space-y-3">
-                <div className="flex items-center justify-between text-xs text-slate-500 pb-2.5 border-b border-slate-100">
-                  <span className="font-semibold text-slate-800">Feature Preview</span>
-                  <span className="text-emerald-600 font-semibold">100% Cloud Native</span>
-                </div>
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/60">
-                  <p className="text-xs text-slate-500 font-medium mb-0.5">Active Pillar</p>
-                  <p className="text-sm font-semibold text-slate-800">{activePillar.title}</p>
-                  <p className="text-xs text-brand-600 font-semibold mt-0.5">{activePillar.stats}</p>
-                </div>
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200/60 space-y-1.5">
-                  <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
-                    <div className="h-full bg-brand-600 w-[85%]" />
-                  </div>
-                  <div className="flex justify-between text-[11px] text-slate-600 font-medium">
-                    <span>Automation Rate</span>
-                    <span className="font-semibold text-slate-800">85% Automated</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* 10 Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Aceternity Bento Grid */}
+        <BentoGrid className="mb-8">
           {hrmsPillars.map((pillar) => {
             const Icon = pillar.icon;
             const isSelected = pillar.id === activeId;
             return (
-              <div
+              <BentoGridItem
                 key={pillar.id}
+                title={pillar.title}
+                description={pillar.shortDesc}
+                badge={pillar.badge}
+                badgeBg={pillar.badgeBg}
+                isSelected={isSelected}
                 onClick={() => setActiveId(pillar.id)}
-                className={`p-5 rounded-xl border transition-all cursor-pointer group ${
-                  isSelected
-                    ? "bg-brand-50/50 border-brand-300 shadow-xs ring-1 ring-brand-200"
-                    : "bg-white text-slate-800 border-slate-200/70 hover:border-brand-200 hover:shadow-xs"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
-                    isSelected ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white"
-                  } transition-all`}>
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${pillar.badgeBg}`}>
-                    {pillar.badge}
-                  </span>
-                </div>
-
-                <h4 className="text-sm font-semibold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">
-                  {pillar.title}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {pillar.shortDesc}
-                </p>
-              </div>
+                icon={<Icon className={`w-5 h-5 ${isSelected ? "text-brand-600" : "text-slate-500"}`} />}
+              />
             );
           })}
+        </BentoGrid>
+
+        <div className="text-center mt-8">
+          <Link
+            to="/hrms"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-semibold text-white transition-all text-xs shadow-xs"
+          >
+            <span>Explore All 10 HRMS Modules</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
       </div>

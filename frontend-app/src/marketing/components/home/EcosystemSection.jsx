@@ -1,65 +1,124 @@
-import { Users, Shield, Package, Utensils, BarChart3, TrendingUp, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Users, Shield, Package, Utensils, BarChart3, TrendingUp, CheckCircle2 } from "lucide-react";
+import { StickyScroll } from "@/uk-components/ui/sticky-scroll-reveal";
 
-const nodes = [
+const ecosystemContent = [
   {
-    step: "01",
-    icon: Users,
-    title: "Employees",
+    title: "Employees & Staff Entry",
     subtitle: "Workforce Entry",
-    desc: "Staff onboarding, GPS clock-ins, and employee master records.",
-    color: "bg-blue-50 text-blue-700 border-blue-200"
+    description: "Staff onboarding, GPS clock-ins, biometric attendance, and employee master records.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-brand-600 font-semibold text-sm">
+          <Users className="w-5 h-5" />
+          <span>Workforce Data Sync</span>
+        </div>
+        <p className="text-xs text-slate-600">Employee records, right-to-work visa docs, and clock-ins automatically flow into HRMS.</p>
+        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+          <p className="text-xs font-semibold text-slate-800">48 Active Team Members</p>
+          <p className="text-[11px] text-emerald-600 font-medium">100% Onboarding Compliance</p>
+        </div>
+      </div>
+    )
   },
   {
-    step: "02",
-    icon: Shield,
-    title: "HRMS",
+    title: "HRMS & HMRC PAYE Engine",
     subtitle: "Core Engine",
-    desc: "HMRC payroll, attendance, leave approval, and performance management.",
-    color: "bg-brand-50 text-brand-700 border-brand-300 ring-1 ring-brand-200",
-    featured: true
+    description: "Automate HMRC payroll, tax deductions, 28-day statutory leave, ATS recruitment, and 360 performance reviews.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-brand-600 font-semibold text-sm">
+          <Shield className="w-5 h-5" />
+          <span>Flagship HR Core</span>
+        </div>
+        <p className="text-xs text-slate-600">Auto-calculated gross-to-net payroll with statutory tax and pension submissions.</p>
+        <div className="p-3 rounded-xl bg-brand-50/60 border border-brand-200">
+          <p className="text-xs font-semibold text-brand-900">£48,250.00 HMRC PAYE Run</p>
+          <p className="text-[11px] text-brand-700 font-medium">Statutory Tax &amp; Pension Ready</p>
+        </div>
+      </div>
+    )
   },
   {
-    step: "03",
-    icon: Package,
-    title: "Inventory",
+    title: "Inventory Management ERP",
     subtitle: "Expansion Module",
-    desc: "Multi-warehouse stock control, purchase orders, and supplier sync.",
-    color: "bg-amber-50 text-amber-700 border-amber-200"
+    description: "Multi-warehouse stock control, purchase orders, supplier workflows, and stock valuation.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-amber-600 font-semibold text-sm">
+          <Package className="w-5 h-5" />
+          <span>Stock Control ERP</span>
+        </div>
+        <p className="text-xs text-slate-600">Staff clocked in via HRMS are assigned to warehouse picking and PO approvals.</p>
+        <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
+          <p className="text-xs font-semibold text-amber-900">£142,800.00 Stock Valuation</p>
+          <p className="text-[11px] text-amber-700 font-medium">3 UK Warehouses Live</p>
+        </div>
+      </div>
+    )
   },
   {
-    step: "04",
-    icon: Utensils,
-    title: "Restaurant",
+    title: "Restaurant POS System",
     subtitle: "Expansion Module",
-    desc: "POS billing terminals, table QR ordering, and Kitchen KDS displays.",
-    color: "bg-rose-50 text-rose-700 border-rose-200"
+    description: "High-speed touchscreen billing, table QR ordering, and Kitchen Display System (KDS) sync.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
+          <Utensils className="w-5 h-5" />
+          <span>Hospitality POS</span>
+        </div>
+        <p className="text-xs text-slate-600">Servers clock in on POS terminals, syncing attendance and tips directly into HRMS.</p>
+        <div className="p-3 rounded-xl bg-rose-50/60 border border-rose-200">
+          <p className="text-xs font-semibold text-rose-900">£3,840.50 Daily Revenue</p>
+          <p className="text-[11px] text-rose-700 font-medium">18 Tables Active</p>
+        </div>
+      </div>
+    )
   },
   {
-    step: "05",
-    icon: BarChart3,
-    title: "Reports",
+    title: "Unified Analytics & Reports",
     subtitle: "Unified Intelligence",
-    desc: "Cross-departmental analytics, P&L insight, and labor cost ratios.",
-    color: "bg-purple-50 text-purple-700 border-purple-200"
+    description: "Cross-departmental executive analytics, labor cost ratios, and P&L performance metrics.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-purple-600 font-semibold text-sm">
+          <BarChart3 className="w-5 h-5" />
+          <span>Executive Intelligence</span>
+        </div>
+        <p className="text-xs text-slate-600">Single source of truth eliminating data silos between HR, inventory, and sales.</p>
+        <div className="p-3 rounded-xl bg-purple-50/60 border border-purple-200">
+          <p className="text-xs font-semibold text-purple-900">Real-Time P&amp;L Variance</p>
+          <p className="text-[11px] text-purple-700 font-medium">Automated Executive Exports</p>
+        </div>
+      </div>
+    )
   },
   {
-    step: "06",
-    icon: TrendingUp,
-    title: "Business Growth",
+    title: "Scalable Business Growth",
     subtitle: "Final Outcome",
-    desc: "Scalable UK operations, zero data silos, and optimized profitability.",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200"
+    description: "Automated UK business operations, zero spreadsheet errors, and maximum profitability.",
+    content: (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 text-emerald-600 font-semibold text-sm">
+          <TrendingUp className="w-5 h-5" />
+          <span>Scalable Business Outcome</span>
+        </div>
+        <p className="text-xs text-slate-600">Scale your UK workforce and business operations with complete peace of mind.</p>
+        <div className="p-3 rounded-xl bg-emerald-50/60 border border-emerald-200">
+          <p className="text-xs font-semibold text-emerald-900">Zero Data Silos</p>
+          <p className="text-[11px] text-emerald-700 font-medium">100% Scalable UK Platform</p>
+        </div>
+      </div>
+    )
   }
 ];
 
 export default function EcosystemSection() {
   return (
-    <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60 relative overflow-hidden">
+    <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Aceternity UI Clean Header (NO AI PILLS) */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        {/* Aceternity UI Clean Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             How the Worklynx{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
@@ -72,61 +131,8 @@ export default function EcosystemSection() {
           </p>
         </div>
 
-        {/* Step Flow Nodes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3.5 relative">
-          {nodes.map((node, i) => {
-            const Icon = node.icon;
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className={`p-4 rounded-xl border flex flex-col justify-between relative group shadow-xs ${
-                  node.featured
-                    ? "bg-white border-brand-300 shadow-sm"
-                    : "bg-white/90 border-slate-200/70 hover:border-slate-300"
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      Step {node.step}
-                    </span>
-                    {i < nodes.length - 1 && (
-                      <ChevronRight className="hidden lg:block w-3.5 h-3.5 text-slate-300 absolute -right-2 top-7 z-20" />
-                    )}
-                  </div>
-
-                  <div className={`w-9 h-9 rounded-lg border flex items-center justify-center mb-2.5 ${node.color}`}>
-                    <Icon className="w-4 h-4" />
-                  </div>
-
-                  <h3 className="text-sm font-semibold text-slate-800 mb-0.5">{node.title}</h3>
-                  <p className="text-[10px] font-medium text-brand-700 mb-1.5">{node.subtitle}</p>
-                  <p className="text-xs text-slate-600 leading-relaxed">{node.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Summary Banner */}
-        <div className="mt-10 p-5 rounded-xl bg-white border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <h4 className="text-sm font-semibold text-slate-800">No More Data Silos Between HR and Operations</h4>
-            <p className="text-xs text-slate-600 mt-0.5">
-              Staff clocked in via HRMS are instantly mapped to inventory logs, POS terminals, and management reports.
-            </p>
-          </div>
-          <a
-            href="#contact"
-            className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs shrink-0 transition-all shadow-xs"
-          >
-            See Live Demo
-          </a>
-        </div>
+        {/* Aceternity Sticky Scroll Reveal */}
+        <StickyScroll content={ecosystemContent} />
 
       </div>
     </section>

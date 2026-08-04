@@ -1,4 +1,4 @@
-import { RefreshCw } from "lucide-react";
+import { InfiniteMovingCards } from "@/uk-components/ui/infinite-moving-cards";
 
 const integrations = [
   { name: "Xero", category: "Accounting", desc: "Automated payroll journal sync" },
@@ -13,9 +13,9 @@ const integrations = [
 
 export default function IntegrationsSection() {
   return (
-    <section className="py-20 bg-white text-slate-800 border-b border-slate-200/60">
+    <section className="py-20 bg-white text-slate-800 border-b border-slate-200/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800 leading-snug">
             Seamlessly Integrates with Your{" "}
             <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-700 bg-clip-text text-transparent">
@@ -27,23 +27,8 @@ export default function IntegrationsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
-          {integrations.map((item, idx) => (
-            <div
-              key={idx}
-              className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/70 hover:border-brand-200 hover:bg-white hover:shadow-xs transition-all"
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white text-brand-700 border border-slate-200/80">
-                  {item.category}
-                </span>
-                <RefreshCw className="w-3.5 h-3.5 text-slate-400" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-800 mb-0.5">{item.name}</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
+        {/* Aceternity Infinite Moving Cards */}
+        <InfiniteMovingCards items={integrations} direction="left" speed="normal" />
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { ShieldCheck, Zap, Heart, Lock, Globe2, Award } from "lucide-react";
+import { HoverEffect } from "@/uk-components/ui/card-hover-effect";
 
 const reasons = [
   {
@@ -37,7 +38,7 @@ export default function WhyChooseHRMS() {
   return (
     <section className="py-20 bg-slate-50/70 text-slate-800 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-slate-800">
             Why Choose Our{" "}
             <span className="italic font-serif bg-gradient-to-r from-slate-800 via-brand-600 to-indigo-600 bg-clip-text text-transparent">
@@ -50,23 +51,8 @@ export default function WhyChooseHRMS() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {reasons.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={idx}
-                className="p-5 rounded-xl bg-white/90 border border-slate-200/70 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 mb-3 group-hover:scale-105 group-hover:bg-brand-600 group-hover:text-white transition-all">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-semibold text-slate-800 mb-1.5">{item.title}</h3>
-                <p className="text-slate-600 text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            );
-          })}
-        </div>
+        {/* Aceternity UI Card Hover Effect */}
+        <HoverEffect items={reasons} />
       </div>
     </section>
   );
