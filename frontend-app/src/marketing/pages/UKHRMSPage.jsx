@@ -12,10 +12,10 @@ import {
   Lock,
   ArrowRight,
   Zap,
-  Globe
+  Globe,
+  ChevronRight
 } from "lucide-react";
 import { motion } from "framer-motion";
-import ProductSuiteSwitcher from "@/uk-components/ProductSuiteSwitcher";
 
 const hrmsFeatures = [
   {
@@ -88,12 +88,17 @@ export default function UKHRMSPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-brand-600 selection:text-white">
-      {/* Product Suite Switcher Bar */}
-      <ProductSuiteSwitcher activeSuiteId="hrms" />
-
       {/* Hero Section */}
       <section className="relative pt-16 pb-16 overflow-hidden bg-gradient-to-b from-slate-50/60 via-white to-slate-50/40 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          
+          {/* Hero Breadcrumb Ribbon */}
+          <nav className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/80 border border-slate-200/80 text-xs text-slate-600 mb-6">
+            <Link to="/" className="hover:text-slate-900 transition-colors">Products</Link>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+            <span className="font-semibold text-brand-700">HRMS &amp; HMRC Payroll</span>
+          </nav>
+
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}

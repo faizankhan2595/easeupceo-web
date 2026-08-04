@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Package, Layers, BarChart, Truck, ShieldCheck, ArrowRight, ShoppingBag } from "lucide-react";
+import { Package, Layers, BarChart, Truck, ShieldCheck, ArrowRight, ShoppingBag, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import ProductSuiteSwitcher from "@/uk-components/ProductSuiteSwitcher";
 
 const inventoryFeatures = [
   {
@@ -45,12 +44,17 @@ export default function UKInventoryPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-amber-600 selection:text-white">
-      {/* Product Suite Switcher Bar */}
-      <ProductSuiteSwitcher activeSuiteId="inventory" />
-
       {/* Hero Section */}
       <section className="relative pt-16 pb-16 overflow-hidden bg-gradient-to-b from-amber-50/30 via-white to-slate-50/40 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          
+          {/* Hero Breadcrumb Ribbon */}
+          <nav className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100/70 border border-amber-200/70 text-xs text-amber-800 mb-6">
+            <Link to="/" className="hover:text-amber-950 transition-colors">Products</Link>
+            <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-semibold text-amber-900">Inventory Management</span>
+          </nav>
+
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
