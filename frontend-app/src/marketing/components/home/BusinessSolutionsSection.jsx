@@ -9,11 +9,15 @@ export default function BusinessSolutionsSection() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold uppercase tracking-wider mb-4">
             Integrated Business Architecture
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-            One Platform. Multiple Business Solutions.
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900">
+            One Platform.{" "}
+            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-6">
+              Multiple Business Solutions
+            </span>
+            .
           </h2>
           <p className="mt-4 text-slate-600 text-base sm:text-lg">
             Start with our flagship HRMS platform, then seamlessly add operational modules as your business scales.
@@ -46,7 +50,7 @@ export default function BusinessSolutionsSection() {
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
+              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
                 ⭐ HRMS &amp; Payroll Suite
               </h3>
 
@@ -76,12 +80,12 @@ export default function BusinessSolutionsSection() {
 
             <div className="pt-6 border-t border-brand-200/80 flex items-center justify-between">
               <div>
-                <span className="text-xs text-slate-500 block">Core Product</span>
+                <span className="text-xs text-slate-500 block font-semibold">Core Product</span>
                 <span className="text-sm font-bold text-brand-700">Flagship HR Suite</span>
               </div>
               <Link
                 to="/hrms"
-                className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-bold text-white shadow-md hover:scale-[1.02] transition-all flex items-center gap-2 text-sm"
+                className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-semibold text-white shadow-md hover:scale-[1.02] transition-all flex items-center gap-2 text-sm"
               >
                 <span>Explore HRMS</span>
                 <ArrowRight className="w-4 h-4" />

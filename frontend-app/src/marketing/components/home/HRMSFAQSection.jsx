@@ -35,9 +35,12 @@ export default function HRMSFAQSection() {
     <section className="py-20 bg-white text-slate-900 border-b border-slate-200/60">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Got Questions?</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
-            Frequently Asked Questions
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Got Questions?</span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mt-2">
+            Frequently Asked{" "}
+            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-4">
+              Questions
+            </span>
           </h2>
           <p className="mt-3 text-slate-600 text-base">
             Everything you need to know about Worklynx HRMS and our UK business solutions.

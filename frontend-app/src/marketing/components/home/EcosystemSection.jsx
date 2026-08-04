@@ -60,9 +60,13 @@ export default function EcosystemSection() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Unified Architecture</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mt-2">
-            How the Worklynx Ecosystem Works Together
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Unified Architecture</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mt-2">
+            How the Worklynx{" "}
+            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-6">
+              Ecosystem Works
+            </span>{" "}
+            Together
           </h2>
           <p className="mt-4 text-slate-600 text-base sm:text-lg">
             One single database powering your HR, staff, stock, sales, and executive intelligence.
@@ -101,7 +105,7 @@ export default function EcosystemSection() {
                   </div>
 
                   <h3 className="text-base font-bold text-slate-900 mb-0.5">{node.title}</h3>
-                  <p className="text-[11px] font-bold text-brand-700 mb-2">{node.subtitle}</p>
+                  <p className="text-[11px] font-semibold text-brand-700 mb-2">{node.subtitle}</p>
                   <p className="text-xs text-slate-600 leading-relaxed">{node.desc}</p>
                 </div>
               </motion.div>
@@ -119,7 +123,7 @@ export default function EcosystemSection() {
           </div>
           <a
             href="#contact"
-            className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shrink-0 transition-all shadow-xs"
+            className="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shrink-0 transition-all shadow-xs"
           >
             See Live Demo
           </a>

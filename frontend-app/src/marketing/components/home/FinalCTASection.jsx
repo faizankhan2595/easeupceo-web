@@ -14,8 +14,11 @@ export default function FinalCTASection() {
             <span>Ready to Modernize Your UK Workforce?</span>
           </span>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Transform Your HR &amp; Operations Today
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+            Transform Your HR &amp;{" "}
+            <span className="italic font-serif text-brand-300 underline decoration-brand-400 decoration-wavy decoration-1 underline-offset-6">
+              Operations Today
+            </span>
           </h2>
 
           <p className="mt-4 text-slate-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
@@ -26,7 +29,7 @@ export default function FinalCTASection() {
             <button
               type="button"
               onClick={() => setDemoOpen(true)}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-slate-100 font-extrabold text-brand-900 shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-slate-100 font-bold text-brand-900 shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Play className="w-4 h-4 fill-current text-brand-700" />
               <span>Book UK HRMS Demo</span>

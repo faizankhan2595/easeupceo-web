@@ -38,9 +38,13 @@ export default function WhyChooseHRMS() {
     <section className="py-20 bg-slate-50 text-slate-900 border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Why Modern Teams Upgrade</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
-            Why Choose Our HRMS Platform?
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">Why Modern Teams Upgrade</span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mt-2">
+            Why Choose Our{" "}
+            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-4">
+              HRMS Platform
+            </span>
+            ?
           </h2>
           <p className="mt-3 text-slate-600 text-base sm:text-lg">
             Purpose-built to eliminate payroll errors, streamline attendance, and elevate the employee experience.

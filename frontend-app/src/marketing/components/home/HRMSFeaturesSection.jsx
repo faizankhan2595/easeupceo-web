@@ -60,7 +60,7 @@ const hrmsPillars = [
       "Slack / Teams notification triggers for manager sign-offs",
       "UK Bank Holiday calendar overlay across departments"
     ],
-    stats: "Zero Email Back-and-Forth"
+    stats: "Zero Email Friction"
   },
   {
     id: "recruitment",
@@ -90,7 +90,7 @@ const hrmsPillars = [
       "Continuous feedback logs & 1-on-1 meeting notes",
       "Performance vs compensation adjustment recommendation engine"
     ],
-    stats: "3x Goal Completion Rate"
+    stats: "3x Goal Completion"
   },
   {
     id: "database",
@@ -120,7 +120,7 @@ const hrmsPillars = [
       "Custom builder with drag-and-drop report metrics",
       "One-click export to PDF, Excel, or CSV formats"
     ],
-    stats: "Real-Time Dashboard"
+    stats: "Live Dashboard"
   },
   {
     id: "compliance",
@@ -135,7 +135,7 @@ const hrmsPillars = [
       "GDPR data retention enforcement & right-to-be-forgotten flows",
       "Document renewal reminders for safety certifications"
     ],
-    stats: "100% Compliance"
+    stats: "100% Audit Ready"
   },
   {
     id: "self-service",
@@ -150,7 +150,7 @@ const hrmsPillars = [
       "One-tap leave application & team calendar view",
       "Shift swap requests & direct manager messaging"
     ],
-    stats: "94% Adoption"
+    stats: "94% Adoption Rate"
   },
   {
     id: "ai-features",
@@ -179,11 +179,15 @@ export default function HRMSFeaturesSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold uppercase tracking-wider mb-4">
             Flagship HRMS Suite
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
-            10 Pillars of Modern Workforce Management
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+            10 Pillars of{" "}
+            <span className="italic font-serif text-brand-600 underline decoration-brand-300 decoration-wavy decoration-1 underline-offset-6">
+              Modern Workforce
+            </span>{" "}
+            Management
           </h2>
           <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
             Everything your HR team, managers, and employees need — built into one clean, integrated platform.
@@ -199,9 +203,9 @@ export default function HRMSFeaturesSection() {
               <button
                 key={pillar.id}
                 onClick={() => setActiveId(pillar.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-all cursor-pointer border ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all cursor-pointer border ${
                   isActive
-                    ? "bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20 scale-[1.02]"
+                    ? "bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20 scale-[1.02] font-semibold"
                     : "bg-slate-50 text-slate-700 border-slate-200/80 hover:bg-slate-100 hover:text-slate-900"
                 }`}
               >
@@ -229,10 +233,10 @@ export default function HRMSFeaturesSection() {
                     <activePillar.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className={`inline-block px-2.5 py-0.5 text-xs font-bold rounded-md border ${activePillar.badgeBg}`}>
+                    <span className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md border ${activePillar.badgeBg}`}>
                       {activePillar.badge}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1">
                       {activePillar.title}
                     </h3>
                   </div>
@@ -254,12 +258,12 @@ export default function HRMSFeaturesSection() {
                 <div className="flex items-center gap-4">
                   <Link
                     to="/hrms"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-bold text-white transition-all text-sm shadow-md"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 font-semibold text-white transition-all text-sm shadow-md"
                   >
                     <span>Explore HRMS Features</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <span className="text-xs text-slate-500 font-bold border-l border-slate-300 pl-4">
+                  <span className="text-xs text-slate-500 font-semibold border-l border-slate-300 pl-4">
                     {activePillar.stats}
                   </span>
                 </div>
@@ -268,13 +272,13 @@ export default function HRMSFeaturesSection() {
               {/* Right Side Visual Component */}
               <div className="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div className="flex items-center justify-between text-xs text-slate-500 pb-3 border-b border-slate-100">
-                  <span className="font-bold text-slate-900">Feature Status</span>
+                  <span className="font-semibold text-slate-900">Feature Preview</span>
                   <span className="text-emerald-600 font-bold">100% Cloud Native</span>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                   <p className="text-xs text-slate-500 font-semibold mb-1">Active Pillar</p>
-                  <p className="text-base font-extrabold text-slate-900">{activePillar.title}</p>
-                  <p className="text-xs text-brand-600 font-bold mt-1">{activePillar.stats}</p>
+                  <p className="text-base font-bold text-slate-900">{activePillar.title}</p>
+                  <p className="text-xs text-brand-600 font-semibold mt-1">{activePillar.stats}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
                   <div className="h-2.5 rounded-full bg-slate-200 overflow-hidden">
@@ -282,7 +286,7 @@ export default function HRMSFeaturesSection() {
                   </div>
                   <div className="flex justify-between text-[11px] text-slate-600 font-semibold">
                     <span>Automation Rate</span>
-                    <span className="font-extrabold text-slate-900">85% Automated</span>
+                    <span className="font-bold text-slate-900">85% Automated</span>
                   </div>
                 </div>
               </div>
@@ -301,8 +305,8 @@ export default function HRMSFeaturesSection() {
                 onClick={() => setActiveId(pillar.id)}
                 className={`p-6 rounded-2xl border transition-all cursor-pointer group ${
                   isSelected
-                    ? "bg-brand-50 border-brand-300 shadow-md ring-1 ring-brand-200"
-                    : "bg-white text-slate-900 border-slate-200/80 hover:border-brand-300 hover:shadow-sm"
+                    ? "bg-brand-50/60 border-brand-300 shadow-sm ring-1 ring-brand-200"
+                    : "bg-white text-slate-900 border-slate-200/80 hover:border-brand-200 hover:shadow-xs"
                 }`}
               >
                 <div className="flex items-center justify-between mb-4">
@@ -311,7 +315,7 @@ export default function HRMSFeaturesSection() {
                   } transition-all`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${pillar.badgeBg}`}>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${pillar.badgeBg}`}>
                     {pillar.badge}
                   </span>
                 </div>
