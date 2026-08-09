@@ -15,9 +15,10 @@
  *   - POST /api/signup          (final commit; returns { token, user, org_id })
  */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCountryContext } from "../context/CountryContext";
+import { PLANS, planPrice, fetchPlans } from "@/lib/plans";
 
 const API_BASE = "https://alfabackend.inkapps.io";
 
@@ -52,37 +53,6 @@ const COUNTRY_PHONE_MAP = {
   "Singapore": { label: "Phone (Singapore)", placeholder: "+65 8123 4567" },
 };
 
-// Display-only fallback shown until GET /api/get-pricing resolves. The backend
-// (SubscriptionService.PRICING_BY_COUNTRY) is the single source of truth and is
-// authoritative on what we actually charge — these values just avoid a flash of empty UI.
-const PRICING_FALLBACK = {
-  "India":                { base: 999, payroll_per_emp: 35,  attendance_per_emp: 18,  leave_per_emp: 12,  restaurant: 399, healthcare: 399 },
-  "United Kingdom":       { base: 10,  payroll_per_emp: 1,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 10,  healthcare: 10 },
-  "Saudi Arabia":         { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
-  "United Arab Emirates": { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
-  "Oman":                 { base: 4,   payroll_per_emp: 0.2, attendance_per_emp: 0.1, leave_per_emp: 0.1, restaurant: 4,   healthcare: 4 },
-  "Qatar":                { base: 39,  payroll_per_emp: 2,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 39,  healthcare: 39 },
-  "Bahrain":              { base: 4,   payroll_per_emp: 0.2, attendance_per_emp: 0.1, leave_per_emp: 0.1, restaurant: 4,   healthcare: 4 },
-  "Jordan":               { base: 7,   payroll_per_emp: 0.5, attendance_per_emp: 0.3, leave_per_emp: 0.2, restaurant: 7,   healthcare: 7 },
-  "Egypt":                { base: 499, payroll_per_emp: 20,  attendance_per_emp: 10,  leave_per_emp: 7,   restaurant: 199, healthcare: 199 },
-  "Singapore":            { base: 14,  payroll_per_emp: 1,   attendance_per_emp: 1,   leave_per_emp: 1,   restaurant: 14,  healthcare: 14 },
-};
-
-// HR modules included free with every plan and enabled by default at signup.
-// Their keys map 1:1 to `selected_modules` on /api/signup, which sets the
-// matching `enabled_features` flag (assets → asset_management; the rest share
-// their key) and seeds sample data. Toggling these off sends `false`, which the
-// backend honours (`modules.X != false`). They add nothing to monthlyTotal.
-const HR_MODULES = [
-  { k: "recruitment",   label: "Recruitment",        desc: "Jobs, applicants, interviews, hiring requests" },
-  { k: "performance",   label: "Performance",        desc: "Appraisal cycles & performance dashboard" },
-  { k: "assets",        label: "Asset Management",   desc: "Assets & asset types with assignment" },
-  { k: "disciplinary",  label: "Disciplinary",       desc: "Disciplinary actions, types & rules" },
-  { k: "letters",       label: "Letter Sending",     desc: "Generate & send HR letters" },
-  { k: "announcements", label: "Announcements",      desc: "Company-wide announcements" },
-  { k: "help_desk",     label: "Help Desk",          desc: "Tickets, workflows & categories" },
-];
-
 const slugify = (name) =>
   (name || "").toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 
@@ -99,6 +69,7 @@ async function postJSON(path, body) {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { country: contextCountry, setCountry: setContextCountry } = useCountryContext() || {};
 
@@ -178,11 +149,11 @@ export default function SignUpPage() {
   }, []);
 
   const [employeeCount,  setEmployeeCount]  = useState(10);
-  const [modules,        setModules]        = useState({
-    payroll: false, attendance: false, leave: false, restaurant: false, healthcare: false,
-    // HR modules included free and on by default (see HR_MODULES).
-    recruitment: true, performance: true, assets: true, disciplinary: true,
-    letters: true, announcements: true, help_desk: true,
+  // Plan tier — pre-selected by the ?plan= the pricing page CTAs carry;
+  // Professional ("Most chosen") when the visitor arrives without one.
+  const [selectedPlan, setSelectedPlan] = useState(() => {
+    const fromUrl = (searchParams.get("plan") || "").toLowerCase();
+    return PLANS.some((p) => p.key === fromUrl) ? fromUrl : "professional";
   });
   // Opt-in demo data. When ON we seed sample employees, invoices, contacts &
   // items so the workspace isn't empty. Leave categories, statutory rules and
@@ -203,32 +174,28 @@ export default function SignUpPage() {
 
   const [submitting, setSubmitting] = useState(false);
 
-  // Pricing comes from the backend (single source of truth); fall back to the local table until it loads.
-  const [pricingMap, setPricingMap] = useState(PRICING_FALLBACK);
+  // Plan catalog comes from the backend (single source of truth); the static
+  // lib/plans.js copy renders until it resolves.
+  const [plans, setPlans] = useState(PLANS);
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      try {
-        const res = await postJSON("/api/get-pricing", {});
-        if (!cancelled && res && res.success && res.pricing) setPricingMap(res.pricing);
-      } catch (_) { /* keep fallback */ }
+      const live = await fetchPlans(API_BASE);
+      if (!cancelled) setPlans(live);
     })();
     return () => { cancelled = true; };
   }, []);
 
-  const pricing = pricingMap[country] || pricingMap["India"] || PRICING_FALLBACK["India"];
-  const currencySymbol = (COUNTRY_OPTIONS.find(c => c.value == country) || COUNTRY_OPTIONS[0]).currency;
+  const countryOption = COUNTRY_OPTIONS.find(c => c.value == country) || COUNTRY_OPTIONS[0];
+  const currencySymbol = countryOption.currency;
+  const currencyCode = countryOption.currencyCode;
   const phoneInfo = COUNTRY_PHONE_MAP[country] || COUNTRY_PHONE_MAP["India"];
 
+  const activePlan = plans.find((p) => p.key === selectedPlan) || plans[0];
   const monthlyTotal = useMemo(() => {
-    let total = pricing.base;
-    if (modules.payroll)    total += (employeeCount || 0) * pricing.payroll_per_emp;
-    if (modules.attendance) total += (employeeCount || 0) * pricing.attendance_per_emp;
-    if (modules.leave)      total += (employeeCount || 0) * pricing.leave_per_emp;
-    if (modules.restaurant) total += pricing.restaurant;
-    if (modules.healthcare) total += pricing.healthcare;
-    return total;
-  }, [employeeCount, modules, pricing]);
+    const perEmployee = planPrice(activePlan, currencyCode);
+    return Math.round((employeeCount || 1) * perEmployee * 100) / 100;
+  }, [employeeCount, activePlan, currencyCode]);
 
   // Hostname availability (debounced)
   useEffect(() => {
@@ -310,6 +277,7 @@ export default function SignUpPage() {
         confirm_password:  confirmPassword,
         hostname:          slugify(orgName),
         country,
+        plan:              selectedPlan,
       });
       if (!validation.success) {
         toast.dismiss(t);
@@ -325,7 +293,7 @@ export default function SignUpPage() {
         admin_password:    adminPassword,
         confirm_password:  confirmPassword,
         employee_count:    employeeCount || 1,
-        selected_modules:  modules,
+        plan:              selectedPlan,
         seed_sample_data:  seedSampleData,
         hostname:          slugify(orgName),
         country,
@@ -491,16 +459,16 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* Plan summary */}
+          {/* Plan selection */}
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-4">
             <div className="flex items-baseline justify-between mb-2">
-              <span className="text-sm font-medium text-slate-700">Plan summary</span>
+              <span className="text-sm font-medium text-slate-700">Choose your plan</span>
               <span className="text-2xl font-bold text-slate-900">
-                {currencySymbol}{monthlyTotal}<span className="text-sm font-normal text-slate-500">/month</span>
+                {currencySymbol}{monthlyTotal.toLocaleString("en")}<span className="text-sm font-normal text-slate-500">/month</span>
               </span>
             </div>
             <div className="text-xs text-slate-500 mb-3">
-              Free for 14 days. Cancel anytime. Add modules below to fit your team.
+              14 days free with every module unlocked. Your chosen plan starts with your first payment — switch any time.
             </div>
 
             <div className="grid grid-cols-2 gap-2 mb-3">
@@ -515,50 +483,39 @@ export default function SignUpPage() {
             </div>
 
             <div className="space-y-2">
-              {[
-                { k: "payroll",    label: "Payroll",            price: `${currencySymbol}${pricing.payroll_per_emp}/emp` },
-                { k: "attendance", label: "Attendance",         price: `${currencySymbol}${pricing.attendance_per_emp}/emp` },
-                { k: "leave",     label: "Leave Management",    price: `${currencySymbol}${pricing.leave_per_emp}/emp` },
-                // Hidden for now — disabled by default (see `modules` state). Uncomment to re-enable.
-                // { k: "restaurant", label: "Restaurant (flat)",  price: `${currencySymbol}${pricing.restaurant}/mo` },
-                // { k: "healthcare", label: "Doctors / Healthcare", price: `${currencySymbol}${pricing.healthcare}/mo` },
-              ].map(({ k, label, price }) => (
-                <label key={k} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-slate-200 hover:border-indigo-300 cursor-pointer transition">
-                  <span className="flex items-center gap-3">
-                    <input
-                      type="checkbox" className="w-4 h-4 text-indigo-600"
-                      checked={modules[k]} onChange={(e) => setModules(prev => ({ ...prev, [k]: e.target.checked }))}
-                    />
-                    <span className="text-sm font-medium text-slate-800">{label}</span>
-                  </span>
-                  <span className="text-xs text-slate-500">{price}</span>
-                </label>
-              ))}
-            </div>
-
-            {/* HR modules — included free, enabled by default */}
-            <div className="mt-4 pt-3 border-t border-slate-200">
-              <div className="flex items-baseline justify-between mb-2">
-                <span className="text-sm font-medium text-slate-700">HR modules</span>
-                <span className="text-xs font-medium text-emerald-600">Included free</span>
-              </div>
-              <div className="space-y-2">
-                {HR_MODULES.map(({ k, label, desc }) => (
-                  <label key={k} className="flex items-center justify-between gap-3 p-3 rounded-lg border border-slate-200 hover:border-indigo-300 cursor-pointer transition">
-                    <span className="flex items-center gap-3">
+              {plans.map((plan) => {
+                const isSelected = selectedPlan === plan.key;
+                const perEmployee = planPrice(plan, currencyCode);
+                return (
+                  <label
+                    key={plan.key}
+                    className={`flex items-start justify-between gap-3 p-3 rounded-lg border cursor-pointer transition ${
+                      isSelected ? "border-indigo-500 bg-indigo-50/60 ring-1 ring-indigo-200" : "border-slate-200 hover:border-indigo-300"
+                    }`}
+                  >
+                    <span className="flex items-start gap-3">
                       <input
-                        type="checkbox" className="w-4 h-4 text-indigo-600"
-                        checked={!!modules[k]} onChange={(e) => setModules(prev => ({ ...prev, [k]: e.target.checked }))}
+                        type="radio" name="plan" className="mt-1 w-4 h-4 text-indigo-600"
+                        checked={isSelected} onChange={() => setSelectedPlan(plan.key)}
                       />
                       <span className="flex flex-col">
-                        <span className="text-sm font-medium text-slate-800">{label}</span>
-                        <span className="text-xs text-slate-500">{desc}</span>
+                        <span className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-slate-800">{plan.name}</span>
+                          {plan.highlighted && (
+                            <span className="rounded-full bg-indigo-600 px-2 py-0.5 text-[10px] font-semibold text-white">Most popular</span>
+                          )}
+                          <span className="text-xs text-slate-400">{plan.module_count} modules</span>
+                        </span>
+                        <span className="text-xs text-slate-500 mt-0.5">{plan.features.join(" · ")}</span>
                       </span>
                     </span>
-                    <span className="text-xs text-emerald-600">Included</span>
+                    <span className="text-right shrink-0">
+                      <span className="block text-sm font-bold text-slate-900">{currencySymbol}{perEmployee.toLocaleString("en")}</span>
+                      <span className="block text-[11px] text-slate-500">/employee/mo</span>
+                    </span>
                   </label>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
             {/* Sample data — opt in to a pre-populated demo workspace */}

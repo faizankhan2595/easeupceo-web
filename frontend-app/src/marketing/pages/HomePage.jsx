@@ -5,7 +5,9 @@ import ValueProposition from "../components/home/ValueProposition";
 import FeaturesOverview from "../components/home/FeaturesOverview";
 import UserJourneySection from "../components/home/UserJourneySection";
 import TestimonialsCarousel from "../components/home/TestimonialsCarousel";
-import PricingPreview from "../components/home/PricingPreview";
+// Same three-tier pricing section as the UK site — currency follows region
+// (₹ here), so both markets always show the identical plan catalog.
+import Pricing from "@/uk-components/Pricing";
 import HomeCTA from "../components/home/HomeCTA";
 
 export default function HomePage() {
@@ -23,7 +25,7 @@ export default function HomePage() {
       <UserJourneySection />
 
       <TestimonialsCarousel />
-      <PricingPreview />
+      <Pricing />
       <HomeCTA />
     </>
   );
