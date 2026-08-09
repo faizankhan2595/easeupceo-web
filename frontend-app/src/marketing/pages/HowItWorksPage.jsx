@@ -39,16 +39,16 @@ const steps = [
   {
     step: 5,
     icon: UserPlus,
-    title: "Add Modules as You Grow",
+    title: "Upgrade Your Plan as You Grow",
     description:
-      "Need payroll? Attendance tracking? Restaurant POS? Add optional modules anytime from your settings — pay only for what you use.",
+      "Start on Essentials and move up to Professional or Advanced whenever you need deeper workflows. Every plan is simple per-employee pricing — you only pay for your team size.",
   },
 ];
 
 const benefits = [
   { number: "5 min", label: "Average setup time" },
   { number: "14 days", label: "Free trial included" },
-  { number: "₹999", label: "Starting monthly price" },
+  { number: "₹600", label: "Per employee / month" },
   { number: "99.9%", label: "Uptime SLA" },
 ];
 

@@ -34,7 +34,7 @@ export default function HeroSection() {
                 All-in-One Business Platform
               </span>
               <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-semibold">
-                Starts at ₹999/mo →
+                Starts at ₹600/employee/mo →
               </span>
             </motion.div>
 
