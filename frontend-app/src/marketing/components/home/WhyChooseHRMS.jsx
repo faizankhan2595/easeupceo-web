@@ -51,7 +51,7 @@ export default function WhyChooseHRMS() {
           </p>
         </div>
 
-        {/* Aceternity UI Card Hover Effect with Glass Icons */}
+        {/* Aceternity UI Card Hover Effect */}
         <HoverEffect items={reasons} />
       </div>
     </section>
