@@ -49,16 +49,17 @@ export default function BusinessSolutionsSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight">
+
+
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
               One Platform.{" "}
-              <span className="italic font-serif bg-gradient-to-r from-brand-600 via-indigo-600 to-slate-800 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">
                 Multiple Business Solutions
-              </span>
-              .
+              </span>{" "}
             </h2>
 
-            <p className="mt-3 text-slate-600 text-sm sm:text-base">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-500 sm:text-base">
               Start with our flagship HRMS platform, then seamlessly add
               operational modules as your business scales.
             </p>

@@ -37,7 +37,7 @@ export default function Hero() {
 
           <h1 className="text-5xl font-semibold tracking-[-0.05em] text-slate-900 sm:text-6xl lg:text-7xl">
             Built for the way
-            <span className="block text-brand">
+            <span className="block text-indigo-700">
               businesses work.
             </span>
           </h1>
