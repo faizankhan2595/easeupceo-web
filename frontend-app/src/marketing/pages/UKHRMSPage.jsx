@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { 
-  Users, 
-  Clock, 
-  Calendar, 
-  UserCheck, 
-  Award, 
-  ShieldCheck, 
-  BarChart2, 
-  Smartphone, 
+import {
+  Users,
+  Clock,
+  Calendar,
+  UserCheck,
+  Award,
+  ShieldCheck,
+  BarChart2,
+  Smartphone,
   Lock,
   ArrowRight,
   Zap,
@@ -18,6 +18,11 @@ import {
   DollarSign
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Hero from "@/uk-components/Hero";
+import HeroLaptop from "@/uk-components/HeroLaptop";
+import DemoModal from "@/uk-components/DemoModal";
+import FeatureShowcaseCopy from "@/uk-components/FeatureShowcaseCopy";
+
 
 const hrmsFeatures = [
   {
@@ -88,18 +93,27 @@ export default function UKHRMSPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  const [demoOpen, setDemoOpen] = useState(false);
+
+
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-brand-600 selection:text-white">
-      
+
+      <section className="relative ">
+
+        <HeroLaptop onWatchDemo={() => setDemoOpen(true)} />
+        <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      </section>
+
       {/* Aceternity UI Style Hero Section */}
       <section className="relative pt-16 pb-20 overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 border-b border-slate-200/60">
-        
+
         {/* Subtle Radial Glow & Background Grid */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-tr from-brand-100/40 via-indigo-100/30 to-transparent blur-3xl opacity-70 pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          
+
           {/* Breadcrumb Ribbon */}
           <nav className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-slate-200/80 text-xs text-slate-600 shadow-xs mb-6 backdrop-blur-xs">
             <Link to="/" className="hover:text-slate-900 transition-colors">Products</Link>
@@ -209,6 +223,8 @@ export default function UKHRMSPage() {
 
         </div>
       </section>
+
+      <FeatureShowcaseCopy />
 
       {/* Feature Grid */}
       <section className="py-16 bg-slate-50/70 border-b border-slate-200/60">
