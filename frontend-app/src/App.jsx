@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import MarketingLayout from "./marketing/layouts/MarketingLayout";
+import UKLayout from "./marketing/layouts/UKLayout";
 import MarketingNavbar from "./marketing/components/navbar/MarketingNavbar";
 import UKNavbar from "./uk-components/Navbar";
 import { useCountryContext } from "./context/CountryContext";
@@ -59,11 +60,16 @@ const App = () => {
         {/* Home — location aware, brings its own navbar/footer per locale */}
         <Route path="/" element={<Suspense fallback={<Fallback />}><LocationAwareHomePage /></Suspense>} />
 
-        {/* Marketing Routes */}
-        <Route element={<MarketingLayout />}>
+        {/* UK Product Pages with UK Navbar & Footer */}
+        <Route element={<UKLayout />}>
           <Route path="/hrms" element={<Suspense fallback={<Fallback />}><UKHRMSPage /></Suspense>} />
           <Route path="/inventory-management" element={<Suspense fallback={<Fallback />}><UKInventoryPage /></Suspense>} />
           <Route path="/restaurant-management" element={<Suspense fallback={<Fallback />}><UKRestaurantPage /></Suspense>} />
+        </Route>
+
+        {/* Marketing Routes */}
+        <Route element={<MarketingLayout />}>
+
           <Route path="/features" element={<Suspense fallback={<Fallback />}><FeaturesPage /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<Fallback />}><PricingPage /></Suspense>} />
           <Route path="/about" element={<Suspense fallback={<Fallback />}><AboutPage /></Suspense>} />
