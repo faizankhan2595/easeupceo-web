@@ -68,6 +68,120 @@ export default function BusinessSolutionsSection() {
           {/* Cards */}
           <div className="hidden lg:flex gap-6 items-stretch">
 
+
+
+            {/* ================= INVENTORY ================= */}
+            <motion.div
+              layout
+              animate={{ flex: getFlex("inventory") }}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onMouseEnter={() => setActiveCard("inventory")}
+              className="min-w-0 rounded-2xl bg-slate-50 border border-slate-200 p-5 shadow-sm hover:border-amber-300 overflow-hidden cursor-pointer"
+            >
+              <div className="h-full flex flex-col">
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700">
+                    <Package className="w-5 h-5" />
+                  </div>
+
+                  <span className="text-[9px] font-semibold text-amber-800 bg-amber-100 px-2 py-1 rounded-full">
+                    Add-on
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-semibold text-slate-800 mb-2">
+                  Inventory Management
+                </h3>
+
+                <p className="text-xs text-slate-500 mt-1 mb-4">
+                  Smart stock and warehouse control.
+                </p>
+
+                <div className="h-40 rounded-xl overflow-hidden border border-slate-200">
+                  <img
+                    src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+                    alt="Inventory"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="mt-5">
+                  <Feature color="text-amber-600">
+                    Multi-Warehouse & Batch Tracking
+                  </Feature>
+                </div>
+
+                <Link
+                  to="/inventory-management"
+                  className="mt-auto pt-6"
+                >
+                  <ExploreButton>
+                    Explore Inventory
+                  </ExploreButton>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* ================= RESTAURANT ================= */}
+            <motion.div
+              layout
+              animate={{ flex: getFlex("restaurant") }}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onMouseEnter={() => setActiveCard("restaurant")}
+              className="min-w-0 rounded-2xl bg-slate-50 border border-slate-200 p-5 shadow-sm hover:border-rose-300 overflow-hidden cursor-pointer"
+            >
+              <div className="h-full flex flex-col">
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-700">
+                    <Utensils className="w-5 h-5" />
+                  </div>
+
+                  <span className="text-[9px] font-semibold text-rose-800 bg-rose-100 px-2 py-1 rounded-full">
+                    Add-on
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-semibold text-slate-800 mb-2">
+                  Restaurant Management
+                </h3>
+
+                <p className="text-xs text-slate-500 mt-1 mb-4">
+                  POS, QR ordering and kitchen control.
+                </p>
+
+                <div className="h-40 rounded-xl overflow-hidden border border-slate-200">
+                  <img
+                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
+                    alt="Restaurant"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="mt-5">
+                  <Feature color="text-rose-600">
+                    POS Billing & QR Ordering
+                  </Feature>
+                </div>
+
+                <Link
+                  to="/restaurant-management"
+                  className="mt-auto pt-6"
+                >
+                  <ExploreButton>
+                    Explore Restaurant
+                  </ExploreButton>
+                </Link>
+              </div>
+            </motion.div>
+
             {/* ================= HRMS ================= */}
             <motion.div
               layout
@@ -161,118 +275,6 @@ export default function BusinessSolutionsSection() {
                     Explore HRMS
                   </ExploreButton>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* ================= INVENTORY ================= */}
-            <motion.div
-              layout
-              animate={{ flex: getFlex("inventory") }}
-              transition={{
-                duration: 0.45,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              onMouseEnter={() => setActiveCard("inventory")}
-              className="min-w-0 rounded-2xl bg-slate-50 border border-slate-200 p-5 shadow-sm hover:border-amber-300 overflow-hidden cursor-pointer"
-            >
-              <div className="h-full flex flex-col">
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700">
-                    <Package className="w-5 h-5" />
-                  </div>
-
-                  <span className="text-[9px] font-semibold text-amber-800 bg-amber-100 px-2 py-1 rounded-full">
-                    Add-on
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-semibold text-slate-800">
-                  Inventory Management
-                </h3>
-
-                <p className="text-xs text-slate-500 mt-1 mb-4">
-                  Smart stock and warehouse control.
-                </p>
-
-                <div className="h-40 rounded-xl overflow-hidden border border-slate-200">
-                  <img
-                    src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                    alt="Inventory"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                <div className="mt-5">
-                  <Feature color="text-amber-600">
-                    Multi-Warehouse & Batch Tracking
-                  </Feature>
-                </div>
-
-                <Link
-                  to="/inventory-management"
-                  className="mt-auto pt-6"
-                >
-                  <ExploreButton>
-                    Explore Inventory
-                  </ExploreButton>
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* ================= RESTAURANT ================= */}
-            <motion.div
-              layout
-              animate={{ flex: getFlex("restaurant") }}
-              transition={{
-                duration: 0.45,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              onMouseEnter={() => setActiveCard("restaurant")}
-              className="min-w-0 rounded-2xl bg-slate-50 border border-slate-200 p-5 shadow-sm hover:border-rose-300 overflow-hidden cursor-pointer"
-            >
-              <div className="h-full flex flex-col">
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-700">
-                    <Utensils className="w-5 h-5" />
-                  </div>
-
-                  <span className="text-[9px] font-semibold text-rose-800 bg-rose-100 px-2 py-1 rounded-full">
-                    Add-on
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-semibold text-slate-800">
-                  Restaurant Management
-                </h3>
-
-                <p className="text-xs text-slate-500 mt-1 mb-4">
-                  POS, QR ordering and kitchen control.
-                </p>
-
-                <div className="h-40 rounded-xl overflow-hidden border border-slate-200">
-                  <img
-                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
-                    alt="Restaurant"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="mt-5">
-                  <Feature color="text-rose-600">
-                    POS Billing & QR Ordering
-                  </Feature>
-                </div>
-
-                <Link
-                  to="/restaurant-management"
-                  className="mt-auto pt-6"
-                >
-                  <ExploreButton>
-                    Explore Restaurant
-                  </ExploreButton>
-                </Link>
               </div>
             </motion.div>
 
