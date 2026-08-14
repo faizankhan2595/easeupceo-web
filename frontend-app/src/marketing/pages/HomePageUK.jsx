@@ -41,15 +41,15 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       <ProductShowcase />
 
 
-      <section className="relative overflow-hidden bg-[#f6f8f7] py-20 sm:py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24 lg:py-32">
         {/* Background glow */}
-        <div className="pointer-events-none absolute -right-40 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-[#dcece5] opacity-60 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-brand-50 opacity-60 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-12">
           {/* Image */}
           <div className="relative flex items-center justify-center">
             {/* Glow behind device */}
-            <div className="absolute h-[320px] w-[320px] rounded-full bg-[#1c6b4d]/10 blur-3xl sm:h-[450px] sm:w-[450px]" />
+            <div className="absolute h-[320px] w-[320px] rounded-full bg-brand-600/10 blur-3xl sm:h-[450px] sm:w-[450px]" />
 
             <img
               src="/pos.png"
@@ -60,7 +60,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
                             w-full
                             max-w-[480px]
                             object-contain
-                            drop-shadow-[0_30px_50px_rgba(27,61,47,0.18)]
+                            drop-shadow-[0_30px_50px_rgba(30,41,59,0.12)]
                             transition-transform
                             duration-700
                             hover:scale-[1.03]
@@ -70,24 +70,24 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
           {/* Text */}
           <div className="max-w-xl">
             <div className="mb-5 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1c6b4d] text-xs font-semibold text-white">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-xs font-semibold text-white">
                 02
               </span>
 
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1c6b4d]">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
                 Retail Management
               </span>
             </div>
 
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-[#15231d] sm:text-5xl lg:text-6xl">
+            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-5xl lg:text-6xl">
               Everything your
               <br />
-              <span className="text-[#1c6b4d]">
+              <span className="text-brand-600">
                 retail business needs.
               </span>
             </h2>
 
-            <p className="mt-6 max-w-lg text-base leading-7 text-[#68736e] sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
               Run your entire retail operation from one powerful
               platform. Manage sales, products, customers, and
               everyday operations with complete visibility.
@@ -103,12 +103,12 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
               ].map((feature) => (
                 <div
                   key={feature}
-                  className="flex items-center gap-3 text-sm font-medium text-[#34423b]"
+                  className="flex items-center gap-3 text-sm font-medium text-slate-700"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#dcece5]">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50">
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-3.5 w-3.5 text-[#1c6b4d]"
+                      className="h-3.5 w-3.5 text-brand-600"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="3"
@@ -127,7 +127,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
             </div>
 
             {/* CTA */}
-            <button className="group mt-9 inline-flex items-center gap-3 rounded-full bg-[#1c6b4d] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#155a40] hover:shadow-lg hover:shadow-[#1c6b4d]/20">
+            <button className="group mt-9 inline-flex items-center gap-3 rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-600/20">
               Explore RMS
 
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-1">
@@ -152,9 +152,9 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#f6f8f7] py-20 sm:py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24 lg:py-32">
         {/* Background glow */}
-        <div className="pointer-events-none absolute -right-40 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-[#dcece5] opacity-60 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-brand-50 opacity-60 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-12">
 
@@ -166,19 +166,19 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
             transition={{ duration: 0.7 }}
             className="max-w-xl"
           >
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#1c6b4d]">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
               Retail Management System
             </p>
 
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-[#15231d] sm:text-5xl lg:text-6xl">
+            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-5xl lg:text-6xl">
               Everything your
               <br />
-              <span className="text-[#1c6b4d]">
+              <span className="text-brand-600">
                 retail business needs.
               </span>
             </h2>
 
-            <p className="mt-6 max-w-lg text-base leading-7 text-[#68736e] sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
               Run your entire retail operation from one powerful
               platform. Manage sales, products, customers, and
               everyday operations with complete visibility.
@@ -189,13 +189,13 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
               {features.map((feature) => (
                 <div
                   key={feature}
-                  className="flex items-center gap-3 text-sm font-medium text-[#34423b]"
+                  className="flex items-center gap-3 text-sm font-medium text-slate-700"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#dcece5]">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50">
                     <Check
                       size={13}
                       strokeWidth={3}
-                      className="text-[#1c6b4d]"
+                      className="text-brand-600"
                     />
                   </span>
 
@@ -208,7 +208,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
             <motion.button
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="group mt-9 inline-flex items-center gap-3 rounded-full bg-[#1c6b4d] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#155a40] hover:shadow-lg hover:shadow-[#1c6b4d]/20"
+              className="group mt-9 inline-flex items-center gap-3 rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-600/20"
             >
               Explore RMS
 
@@ -233,7 +233,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
             className="relative flex items-center justify-center"
           >
             {/* Soft glow */}
-            <div className="absolute h-[280px] w-[280px] rounded-full bg-[#1c6b4d]/10 blur-3xl sm:h-[420px] sm:w-[420px]" />
+            <div className="absolute h-[280px] w-[280px] rounded-full bg-brand-600/10 blur-3xl sm:h-[420px] sm:w-[420px]" />
 
             <motion.img
               src="/pos.png"
@@ -252,7 +252,7 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
                             w-full
                             max-w-[480px]
                             object-contain
-                            drop-shadow-[0_30px_50px_rgba(27,61,47,0.18)]
+                            drop-shadow-[0_30px_50px_rgba(30,41,59,0.12)]
                         "
             />
           </motion.div>
