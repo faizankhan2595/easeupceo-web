@@ -326,7 +326,7 @@ export default function ProductShowcase() {
     return (
         <section
             ref={sectionRef}
-            className="relative bg-[#f6f8f7]"
+            className="relative bg-slate-50"
             style={{
                 height: `${products.length * 100}dvh`,
             }}
@@ -342,7 +342,7 @@ export default function ProductShowcase() {
                             h-[350px]
                             w-[350px]
                             rounded-full
-                            bg-[#dcece5]
+                            bg-brand-50
                             opacity-50
                             blur-3xl
                             sm:h-[450px]
@@ -360,7 +360,7 @@ export default function ProductShowcase() {
                             h-[350px]
                             w-[350px]
                             rounded-full
-                            bg-[#e7eee9]
+                            bg-indigo-50/40
                             opacity-60
                             blur-3xl
                             sm:h-[450px]
@@ -413,7 +413,7 @@ export default function ProductShowcase() {
                                 font-semibold
                                 leading-[1.05]
                                 tracking-[-0.04em]
-                                text-[#15231d]
+                                text-slate-900
 
                                 sm:text-[38px]
                                 md:text-[44px]
@@ -426,7 +426,7 @@ export default function ProductShowcase() {
                             Three systems.
                             <br />
 
-                            <span className="text-[#1c6b4d]">
+                            <span className="text-brand-600">
                                 One smarter business.
                             </span>
                         </h2>
@@ -555,7 +555,7 @@ function ProductSlide({
                                 items-center
                                 justify-center
                                 rounded-full
-                                bg-[#1c6b4d]
+                                bg-brand-600
                                 text-[10px]
                                 font-semibold
                                 text-white
@@ -576,7 +576,7 @@ function ProductSlide({
                                 text-[10px]
                                 font-bold
                                 tracking-[0.16em]
-                                text-[#1c6b4d]
+                                text-brand-600
 
                                 sm:text-xs
                             "
@@ -592,7 +592,7 @@ function ProductSlide({
                             font-semibold
                             leading-[1.06]
                             tracking-[-0.03em]
-                            text-[#16221d]
+                            text-slate-900
 
                             sm:text-3xl
                             md:text-4xl
@@ -611,7 +611,7 @@ function ProductSlide({
                             max-w-md
                             text-[13px]
                             leading-6
-                            text-[#68736e]
+                            text-slate-600
 
                             sm:mt-4
                             sm:text-sm
@@ -648,7 +648,7 @@ function ProductSlide({
                                     items-center
                                     gap-2.5
                                     text-xs
-                                    text-[#34423b]
+                                    text-slate-700
 
                                     sm:text-sm
                                 "
@@ -662,7 +662,7 @@ function ProductSlide({
                                         items-center
                                         justify-center
                                         rounded-full
-                                        bg-[#dcece5]
+                                        bg-brand-50
 
                                         max-[800px]:h-[18px]
                                         max-[800px]:w-[18px]
@@ -671,7 +671,7 @@ function ProductSlide({
                                     <Check
                                         size={11}
                                         strokeWidth={2.5}
-                                        className="text-[#1c6b4d]"
+                                        className="text-brand-600"
                                     />
                                 </span>
 
@@ -690,7 +690,7 @@ function ProductSlide({
                             gap-2
                             text-sm
                             font-semibold
-                            text-[#1c6b4d]
+                            text-brand-600
 
                             lg:mt-6
 
@@ -708,9 +708,9 @@ function ProductSlide({
                                 justify-center
                                 rounded-full
                                 border
-                                border-[#cbdad3]
+                                border-slate-200
                                 transition-all
-                                group-hover:bg-[#1c6b4d]
+                                group-hover:bg-brand-600
                                 group-hover:text-white
                             "
                         >
@@ -746,7 +746,7 @@ function ProductSlide({
                             border-white/80
                             bg-white
                             p-1.5
-                            shadow-[0_20px_60px_rgba(27,61,47,0.12)]
+                            shadow-[0_20px_60px_rgba(30,41,59,0.08)]
 
                             sm:rounded-[24px]
                             sm:p-2
@@ -765,7 +765,7 @@ function ProductSlide({
                                 aspect-[16/10]
                                 overflow-hidden
                                 rounded-[15px]
-                                bg-[#edf3f0]
+                                bg-slate-100
 
                                 sm:rounded-[19px]
                                 lg:rounded-[22px]
@@ -792,7 +792,7 @@ function ProductSlide({
                                     absolute
                                     inset-0
                                     bg-gradient-to-tr
-                                    from-[#0d4d38]/10
+                                    from-brand-600/10
                                     via-transparent
                                     to-white/10
                                 "
@@ -867,7 +867,7 @@ function ProgressIndicator({ progress }) {
                             h-1.5
                             w-1.5
                             rounded-full
-                            bg-[#1c6b4d]
+                            bg-brand-600
                         "
                     />
 
@@ -877,7 +877,7 @@ function ProgressIndicator({ progress }) {
                             font-semibold
                             uppercase
                             tracking-[0.15em]
-                            text-[#8a9690]
+                            text-slate-400
                         "
                     >
                         {item.label}
@@ -891,7 +891,7 @@ function ProgressIndicator({ progress }) {
                                 top-4
                                 h-5
                                 w-px
-                                bg-[#d6dfda]
+                                bg-slate-200
                             "
                         />
                     )}
