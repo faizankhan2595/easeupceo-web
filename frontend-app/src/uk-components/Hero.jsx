@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { ChevronDown, Sparkles } from "lucide-react";
 
 const modules = [
   {
@@ -52,66 +53,138 @@ const products = [
 ];
 
 export default function Hero() {
-  const [expanded, setExpanded] = useState(false);
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setExpanded(true);
+  // Track scroll position
+  const { scrollY } = useScroll();
+  const smoothY = useSpring(scrollY, { stiffness: 90, damping: 22, restDelta: 0.001 });
 
-      setTimeout(() => {
-        setExpanded(false);
-      }, 1700);
-    }, 7600);
+  // Transforms for transition from Initial Landing -> Full Hero Reveal
+  // Threshold 0 to 220px scroll
+  const planetaryScale = useTransform(smoothY, [0, 220], [1.3, 0.9]);
+  const orbitOpacity = useTransform(smoothY, [0, 160], [1, 0]);
+  const scrollCueOpacity = useTransform(smoothY, [0, 110], [1, 0]);
+  const scrollCueY = useTransform(smoothY, [0, 110], [0, 25]);
 
-    return () => clearInterval(interval);
-  }, []);
+  // Hero Content transforms (Header, CTAs, Modules, Product Cards)
+  const heroContentOpacity = useTransform(smoothY, [50, 220], [0, 1]);
+  const heroContentY = useTransform(smoothY, [50, 220], [45, 0]);
+
+  // Handle clicking "Scroll to explore"
+  const handleScrollExplore = () => {
+    window.scrollTo({
+      top: 260,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8]">
+    <section
+      ref={containerRef}
+      className="relative min-h-[110vh] overflow-hidden bg-[#f5f6f8]"
+    >
       {/* ------------------------------------------------
-          Background
+          Background Ambient Glow
       ------------------------------------------------ */}
-
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[38%] h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-white/80 blur-[120px]" />
-
-        <div className="absolute inset-x-0 top-0 h-[300px] bg-gradient-to-b from-white/70 to-transparent" />
+        <div className="absolute left-1/2 top-[32%] h-[600px] w-[850px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-brand-400/20 via-white/90 to-purple-300/20 blur-[130px]" />
+        <div className="absolute inset-x-0 top-0 h-[350px] bg-gradient-to-b from-white/80 to-transparent" />
       </div>
 
       {/* ------------------------------------------------
-          Hero Content
+          1. INITIAL PLANETARY WORKLYNX LANDING (First Arrive)
       ------------------------------------------------ */}
-
-      <div className="relative mx-auto flex min-h-screen max-w-[1440px] flex-col items-center px-6 pb-20 pt-28 sm:px-10 lg:px-16 lg:pt-16">
-
-        {/* Badge */}
-
+      <motion.div
+        style={{
+          opacity: orbitOpacity,
+          pointerEvents: useTransform(smoothY, [0, 100], ["auto", "none"]),
+        }}
+        className="pointer-events-none absolute inset-x-0 top-12 z-30 flex flex-col items-center justify-center pt-12 sm:pt-20"
+      >
+        {/* Planetary Orbit Container */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? -20 : 0,
-          }}
-          transition={{ duration: 0.5 }}
-          className="mb-7"
+          style={{ scale: planetaryScale }}
+          className="relative flex flex-col items-center justify-center py-10"
         >
+          {/* Outer Orbit Ring */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+            className="absolute h-[340px] w-[340px] sm:h-[440px] sm:w-[440px] rounded-full border border-dashed border-brand-500/40"
+          >
+            {/* Planet Node: HRMS */}
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full border border-blue-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-blue-600 shadow-md backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              HRMS
+            </div>
 
+            {/* Planet Node: Analytics */}
+            <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full border border-amber-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-amber-600 shadow-md backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+              Analytics
+            </div>
+          </motion.div>
+
+          {/* Inner Orbit Ring */}
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+            className="absolute h-[230px] w-[230px] sm:h-[290px] sm:w-[290px] rounded-full border border-slate-300/60"
+          >
+            {/* Planet Node: Inventory */}
+            <div className="absolute top-1/2 -left-4 -translate-y-1/2 flex items-center gap-1.5 rounded-full border border-emerald-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-emerald-600 shadow-md backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              Inventory
+            </div>
+
+            {/* Planet Node: RMS */}
+            <div className="absolute top-1/2 -right-4 -translate-y-1/2 flex items-center gap-1.5 rounded-full border border-purple-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-purple-600 shadow-md backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse" />
+              RMS
+            </div>
+          </motion.div>
+
+          {/* Big Center Worklynx Badge */}
+          <motion.div
+            whileHover={{ scale: 1.04 }}
+            className="relative z-20 flex h-[90px] w-[270px] sm:h-[105px] sm:w-[320px] items-center justify-center rounded-[36px] bg-[#202020] shadow-[0_30px_80px_rgba(0,0,0,0.3)] border border-slate-800"
+          >
+            <WorklynxMark large />
+
+            <span className="ml-4 text-3xl font-bold tracking-[-0.055em] text-white sm:text-4xl">
+              Worklynx
+            </span>
+          </motion.div>
         </motion.div>
 
-        {/* Heading */}
-
+        {/* Scroll To Explore Prompt */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? -35 : 0,
-          }}
-          transition={{
-            duration: 0.55,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="relative z-10 max-w-[900px] text-center"
+          style={{ opacity: scrollCueOpacity, y: scrollCueY }}
+          onClick={handleScrollExplore}
+          className="pointer-events-auto mt-12 sm:mt-16 flex flex-col items-center gap-2 cursor-pointer group"
         >
+          <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500 group-hover:text-slate-900 transition-colors">
+            Scroll to explore
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 shadow-sm group-hover:border-slate-800 transition-colors"
+          >
+            <ChevronDown className="h-4 w-4" />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* ------------------------------------------------
+          2. REVEALED HERO CONTENT (On Scroll Animation)
+      ------------------------------------------------ */}
+      <motion.div
+        style={{ opacity: heroContentOpacity, y: heroContentY }}
+        className="relative mx-auto flex min-h-screen max-w-[1440px] flex-col items-center px-6 pb-20 pt-28 sm:px-10 lg:px-16 lg:pt-16"
+      >
+        {/* Heading */}
+        <div className="relative z-10 max-w-[900px] text-center">
           <h1 className="text-[48px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#202124] sm:text-[64px] md:text-[76px] lg:text-[64px]">
             Everything your
             <br />
@@ -125,7 +198,6 @@ export default function Hero() {
           </p>
 
           {/* CTA */}
-
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button className="rounded-full bg-[#202020] px-7 py-3.5 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#303030]">
               Get started
@@ -135,33 +207,18 @@ export default function Hero() {
               Explore Worklynx
             </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* ------------------------------------------------
             Ecosystem Visual
         ------------------------------------------------ */}
-
-        <motion.div
-          animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? 30 : 0,
-            scale: expanded ? 0.88 : 1,
-          }}
-          transition={{
-            duration: 0.65,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="relative mt-20 w-full max-w-[1150px]"
-        >
+        <div className="relative mt-20 w-full max-w-[1150px]">
           {/* Desktop connection lines */}
-
           <div className="pointer-events-none absolute left-[17%] right-[17%] top-[65px] hidden h-px bg-gradient-to-r from-transparent via-[#d5d7db] to-transparent lg:block" />
 
           {/* Main ecosystem */}
-
           <div className="relative flex flex-col items-center lg:h-[210px]">
             {/* Left modules */}
-
             <div className="absolute left-0 top-0 hidden flex-col gap-4 lg:flex">
               {modules
                 .filter((item) => item.position === "left")
@@ -176,7 +233,6 @@ export default function Hero() {
             </div>
 
             {/* Right modules */}
-
             <div className="absolute right-0 top-0 hidden flex-col gap-4 lg:flex">
               {modules
                 .filter((item) => item.position === "right")
@@ -190,14 +246,10 @@ export default function Hero() {
                 ))}
             </div>
 
-            {/* Center */}
-
-            <Worklynx
-              onClick={() => setExpanded(true)}
-            />
+            {/* Center Worklynx in Ecosystem */}
+            <Worklynx onClick={handleScrollExplore} />
 
             {/* Mobile modules */}
-
             <div className="mt-8 grid w-full max-w-[600px] grid-cols-2 gap-3 lg:hidden">
               {modules.map((module, index) => (
                 <Module
@@ -211,18 +263,7 @@ export default function Hero() {
           </div>
 
           {/* Product previews */}
-
-          <motion.div
-            animate={{
-              opacity: expanded ? 0 : 1,
-              y: expanded ? 45 : 0,
-            }}
-            transition={{
-              duration: 0.5,
-              delay: expanded ? 0 : 0.05,
-            }}
-            className="grid grid-cols-1 gap-5 md:grid-cols-3"
-          >
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 mt-6">
             {products.map((product, index) => (
               <ProductCard
                 key={product.title}
@@ -230,47 +271,8 @@ export default function Hero() {
                 index={index}
               />
             ))}
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* ------------------------------------------------
-          Expanded Worklynx
-      ------------------------------------------------ */}
-
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: expanded ? 1 : 0,
-          scale: expanded ? 1 : 0.65,
-        }}
-        transition={{
-          duration: 0.75,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center"
-      >
-        <motion.div
-          animate={{
-            width: expanded
-              ? "min(80vw, 700px)"
-              : 210,
-            height: expanded
-              ? "min(24vw, 170px)"
-              : 68,
-          }}
-          transition={{
-            duration: 0.75,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="flex items-center justify-center rounded-[45px] bg-[#202020] px-8 shadow-[0_40px_100px_rgba(0,0,0,0.2)]"
-        >
-          <WorklynxMark large />
-
-          <span className="ml-4 text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl md:text-7xl">
-            Worklynx
-          </span>
-        </motion.div>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
