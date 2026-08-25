@@ -1,16 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
-import { Menu, X, ChevronDown, Globe ,ChevronRight} from "lucide-react";
+import { Menu, X, ChevronDown, Globe, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import worklynxLogo from "@/assets/worklynx-light.png";
 import { Link, useLocation } from "react-router-dom";
 import { useCountryContext } from "@/context/CountryContext";
 
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#why-us", label: "Why Worklynx" },
-  { href: "#how-it-works", label: "How It Works" },
+
   { href: "#pricing", label: "Pricing" },
   { href: "#contact-sales", label: "Contact Sales" },
 ];
@@ -73,8 +71,8 @@ function CountryDropdown({ align = "right" }) {
                 key={c.key}
                 onClick={() => handleSwitch(c.key)}
                 className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${country === c.key
-                    ? "bg-slate-50 text-slate-900 font-semibold"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-slate-50 text-slate-900 font-semibold"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
               >
                 <span className="text-base">{c.flag}</span>
@@ -187,9 +185,8 @@ export default function Navbar({ onContactClick }) {
           >
             <button
               onClick={() => setProductsOpen((prev) => !prev)}
-              className={`flex items-center gap-1 text-md font-medium transition-colors py-1 ${
-                productsOpen ? "text-brand-600 font-semibold" : "text-slate-700 hover:text-brand-600"
-              }`}
+              className={`flex items-center gap-1 text-md font-medium transition-colors py-1 ${productsOpen ? "text-brand-600 font-semibold" : "text-slate-700 hover:text-brand-600"
+                }`}
             >
               <span>Products</span>
               <ChevronDown
@@ -211,7 +208,7 @@ export default function Navbar({ onContactClick }) {
                     <div>
                       <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Worklynx UK Product Suites</h4>
                     </div>
-                    
+
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
@@ -394,8 +391,8 @@ export default function Navbar({ onContactClick }) {
                     key={c.key}
                     onClick={() => handleMobileSwitch(c.key)}
                     className={`w-full flex items-center gap-2.5 px-2 py-2.5 rounded-xl text-sm transition-colors ${country === c.key
-                        ? "bg-slate-100 text-slate-900 font-semibold"
-                        : "text-slate-600 hover:bg-slate-50"
+                      ? "bg-slate-100 text-slate-900 font-semibold"
+                      : "text-slate-600 hover:bg-slate-50"
                       }`}
                   >
                     <span className="text-base">{c.flag}</span>

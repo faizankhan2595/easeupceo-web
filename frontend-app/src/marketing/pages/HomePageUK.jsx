@@ -14,6 +14,8 @@ import Chatbot from "@/uk-components/Chatbot";
 import ProductShowcase from "@/uk-components/ProductShowcase";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
+import ProductsShowcaseNew from "@/uk-components/ProductShowcase copy 6";
+import ProductsShowcaseNew1 from "@/uk-components/ProductShowcase copy 7";
 
 const features = [
   "Point of sale",
@@ -32,14 +34,18 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
     <>
       {/* 1. Original Hero Section */}
       <Hero />
+      {/* 3. HRMS Features (The Biggest Section - 10 Pillars) */}
+      <ProductsShowcaseNew />
+      <ProductsShowcaseNew1 />
+
+
 
       {/* 2. Trusted Companies */}
       <LogoCloud />
 
       <BusinessSolutionsSection />
-      {/* 3. HRMS Features (The Biggest Section - 10 Pillars) */}
-      <ProductShowcase />
 
+      <ProductShowcase />
 
       <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24 lg:py-32">
         {/* Background glow */}
