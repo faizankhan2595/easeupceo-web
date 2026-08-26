@@ -22,6 +22,7 @@ import Hero from "@/uk-components/Hero";
 import HeroLaptop from "@/uk-components/HeroLaptop";
 import DemoModal from "@/uk-components/DemoModal";
 import FeatureShowcaseCopy from "@/uk-components/FeatureShowcaseCopy";
+import Pricing from "@/uk-components/Pricing";
 
 
 const hrmsFeatures = [
@@ -290,6 +291,10 @@ export default function UKHRMSPage() {
           </div>
         </div>
       </section>
+
+      <Pricing />
+
+
     </div>
   );
 }

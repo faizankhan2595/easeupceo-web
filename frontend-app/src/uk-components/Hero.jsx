@@ -3,30 +3,36 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import worklynxLogo from "@/assets/worklynx-light.png";
+import {
+  Package,
+  UtensilsCrossed,
+  Users,
+  BarChart3,
+} from "lucide-react";
 
 const modules = [
   {
     title: "Inventory",
     subtitle: "Stock & products",
-    icon: "▦",
+    Icon: Package,
     position: "left",
   },
   {
     title: "RMS",
     subtitle: "Restaurant operations",
-    icon: "◉",
+    Icon: UtensilsCrossed,
     position: "left",
   },
   {
     title: "HRMS",
     subtitle: "People & payroll",
-    icon: "♙",
+    Icon: Users,
     position: "right",
   },
   {
     title: "Analytics",
     subtitle: "Business insights",
-    icon: "⌁",
+    Icon: BarChart3,
     position: "right",
   },
 ];
@@ -51,6 +57,94 @@ const products = [
     type: "hrms",
   },
 ];
+
+function PenUnderline() {
+  return (
+    <motion.svg
+      viewBox="0 0 360 45"
+      className="
+        pointer-events-none
+        absolute
+        left-1/2
+        top-[92%]
+        z-[-1]
+        h-[15px]
+        w-[200px]
+        -translate-x-1/2
+        overflow-visible
+
+        sm:h-[25px]
+        sm:w-[260px]
+      "
+      fill="none"
+    >
+      <defs>
+        <linearGradient
+          id="pen-gradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="0%"
+        >
+          <stop offset="0%" stopColor="var(--color-brand-600)" />
+          <stop offset="100%" stopColor="var(--color-brand-500)" />
+        </linearGradient>
+      </defs>
+
+      {/* Main hand-drawn stroke */}
+      <motion.path
+        d="
+          M 8 22
+          C 65 21, 125 20, 185 19
+          C 245 18, 305 18, 350 14
+          C 356 14, 358 17, 352 19
+          C 290 24, 220 25, 150 26
+          C 95 27, 45 27, 10 28
+        "
+        stroke="url(#pen-gradient)"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{
+          pathLength: {
+            duration: 0.9,
+            ease: "easeOut",
+          },
+          opacity: {
+            duration: 0.15,
+          },
+        }}
+      />
+
+      {/* Small second stroke */}
+      <motion.path
+        d="
+          M 58 34
+          C 115 31, 175 31, 235 31
+          C 270 31, 298 30, 320 28
+        "
+        stroke="url(#pen-gradient)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.85 }}
+        transition={{
+          pathLength: {
+            duration: 0.55,
+            delay: 0.5,
+            ease: "easeOut",
+          },
+          opacity: {
+            duration: 0.15,
+            delay: 0.5,
+          },
+        }}
+      />
+    </motion.svg>
+  );
+}
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -101,8 +195,17 @@ export default function Hero() {
         >
 
 
-          <h1 className="text-[44px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
+          {/* <h1 className="text-[44px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
             Everything your
+            <br />
+            business needs.
+          </h1> */}
+          <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
+            Everything{" "}
+            <span className="relative inline-block">
+              your
+              <PenUnderline />
+            </span>
             <br />
             business needs.
           </h1>
@@ -151,18 +254,16 @@ export default function Hero() {
   "
           >
             <defs>
-              {/* recessed shadow */}
               <filter
                 id="etched-shadow"
-                x="-30%"
-                y="-30%"
-                width="160%"
-                height="160%"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
               >
-                <feGaussianBlur stdDeviation="1.1" />
+                <feGaussianBlur stdDeviation="0.7" />
               </filter>
 
-              {/* subtle scratch highlight */}
               <linearGradient
                 id="etched-highlight"
                 x1="0"
@@ -173,12 +274,12 @@ export default function Hero() {
                 <stop
                   offset="0%"
                   stopColor="#ffffff"
-                  stopOpacity="0.8"
+                  stopOpacity="0.35"
                 />
                 <stop
                   offset="100%"
                   stopColor="#ffffff"
-                  stopOpacity="0.25"
+                  stopOpacity="0.05"
                 />
               </linearGradient>
             </defs>
@@ -187,13 +288,14 @@ export default function Hero() {
       1. SOFT RECESSED SHADOW
   ===================================================== */}
 
+            {/* SOFT RECESSED SHADOW */}
             <g
               fill="none"
-              stroke="#c9cbd0"
-              strokeWidth="2.2"
+              stroke="#d5d6db"
+              strokeWidth="1.2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.42"
+              opacity="0.18"
               filter="url(#etched-shadow)"
             >
               {/* LEFT — INVENTORY */}
@@ -283,10 +385,11 @@ export default function Hero() {
       2. MAIN ETCHED LINE
   ===================================================== */}
 
+            {/* MAIN ETCHED LINE */}
             <g
               fill="none"
-              stroke="#d6d8dc"
-              strokeWidth="1.15"
+              stroke="#dfe0e4"
+              strokeWidth="0.75"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -380,10 +483,10 @@ export default function Hero() {
             <g
               fill="none"
               stroke="url(#etched-highlight)"
-              strokeWidth="0.7"
+              strokeWidth="0.4"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.7"
+              opacity="0.30"
             >
               {/* LEFT — INVENTORY */}
               <path
@@ -602,7 +705,7 @@ export default function Hero() {
 function Module({
   title,
   subtitle,
-  icon,
+  Icon,
   index,
   direction,
 }) {
@@ -642,8 +745,8 @@ function Module({
         hover:shadow-[0_14px_35px_rgba(30,30,40,0.1)]
       "
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f2f4] text-[16px] text-[#45474d]">
-        {icon}
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
+        <Icon size={17} strokeWidth={1.8} />
       </div>
 
       <div>
@@ -686,7 +789,7 @@ function Worklynx({ onClick }) {
       >
         <defs>
           <filter id="saturnGlowBack">
-            <feGaussianBlur stdDeviation="4" />
+            <feGaussianBlur stdDeviation="0.7" />
           </filter>
 
           <filter id="saturnGlowFront">
@@ -1057,10 +1160,10 @@ function ProductCard({
       "
     >
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f1f2f4] text-sm text-[#55575d]">
-          {type === "inventory" && "▦"}
-          {type === "rms" && "◉"}
-          {type === "hrms" && "♙"}
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
+          {type === "inventory" && <Package size={16} strokeWidth={1.8} />}
+          {type === "rms" && <UtensilsCrossed size={16} strokeWidth={1.8} />}
+          {type === "hrms" && <Users size={16} strokeWidth={1.8} />}
         </div>
 
         <div>

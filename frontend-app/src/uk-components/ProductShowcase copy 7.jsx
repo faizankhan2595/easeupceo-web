@@ -13,6 +13,7 @@ import {
     CalendarCheck,
     WalletCards,
 } from "lucide-react";
+import { href } from "react-router-dom";
 
 const products = [
     {
@@ -22,6 +23,7 @@ const products = [
         description:
             "Take complete control of your inventory from one intelligent workspace. Track stock, manage products, monitor movement and make better purchasing decisions.",
         image: "/posmachine.png",
+        href: "/inventory-management",
 
         features: [
             {
@@ -55,6 +57,7 @@ const products = [
         description:
             "Everything your restaurant needs to run smoothly. Connect orders, tables, billing and daily operations in one simple and powerful system.",
         image: "/rmspos.png",
+        href: "/restaurant-management",
 
         features: [
             {
@@ -88,6 +91,7 @@ const products = [
         description:
             "Bring your people and HR operations together. Manage employees, attendance, leave and payroll while giving your team a better workplace experience.",
         image: "/inventorypos.png",
+        href: "/hrms",
 
         features: [
             {
@@ -169,7 +173,7 @@ export default function ProductsShowcaseNew1() {
                         Powerful systems.
                         <br />
 
-                        <span className="text-neutral-400">
+                        <span className="text-brand-600">
                             Built around your business.
                         </span>
                     </motion.h2>
@@ -393,6 +397,9 @@ export default function ProductsShowcaseNew1() {
                                                 font-medium
                                                 text-neutral-900
                                             "
+                                            onClick={() => {
+                                                window.location.href = product.href;
+                                            }}
                                         >
 
                                             Explore {product.title}
