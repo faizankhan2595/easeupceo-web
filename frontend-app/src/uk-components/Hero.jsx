@@ -52,79 +52,63 @@ const products = [
 ];
 
 export default function Hero() {
-  const [expanded, setExpanded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setExpanded(true);
+    // Initial loader state: shows bigger Worklynx centered, then transitions into place after 900ms delay
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 900);
 
-      setTimeout(() => {
-        setExpanded(false);
-      }, 1700);
-    }, 7600);
-
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8]">
+    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8] pb-20 pt-28 sm:pt-32 lg:pt-24">
       {/* ------------------------------------------------
           Background
       ------------------------------------------------ */}
 
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[38%] h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-white/80 blur-[120px]" />
+        <div className="absolute left-1/2 top-[35%] h-[550px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 blur-[130px]" />
 
-        <div className="absolute inset-x-0 top-0 h-[300px] bg-gradient-to-b from-white/70 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-[320px] bg-gradient-to-b from-white/80 to-transparent" />
       </div>
 
       {/* ------------------------------------------------
-          Hero Content
+          Hero Content (Heading, Subtitle, CTAs)
+          Initially hidden during loader phase, animates in smoothly after delay
       ------------------------------------------------ */}
 
-      <div className="relative mx-auto flex min-h-screen max-w-[1440px] flex-col items-center px-6 pb-20 pt-28 sm:px-10 lg:px-16 lg:pt-16">
-
-        {/* Badge */}
+      <div className="relative mx-auto flex max-w-[1440px] flex-col items-center px-6 sm:px-10 lg:px-16">
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: -15 }}
           animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? -20 : 0,
-          }}
-          transition={{ duration: 0.5 }}
-          className="mb-7"
-        >
-
-        </motion.div>
-
-        {/* Heading */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? -35 : 0,
+            opacity: loaded ? 1 : 0,
+            y: loaded ? 0 : -15,
           }}
           transition={{
-            duration: 0.55,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 0.75,
+            delay: loaded ? 0.2 : 0,
+            ease: [0.16, 1, 0.3, 1],
           }}
           className="relative z-10 max-w-[900px] text-center"
         >
-          <h1 className="text-[48px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#202124] sm:text-[64px] md:text-[76px] lg:text-[64px]">
+
+
+          <h1 className="text-[44px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
             Everything your
             <br />
             business needs.
           </h1>
 
-          <p className="mx-auto mt-7 max-w-[620px] text-[15px] leading-7 text-[#73757c] sm:text-[17px]">
+          <p className="mx-auto mt-6 max-w-[620px] text-[15px] font-medium leading-7 text-[#62646a] sm:text-[17px]">
             Worklynx brings inventory, restaurant management and
-            human resources together in one powerful business
-            platform.
+            human resources together in one powerful business platform.
           </p>
 
-          {/* CTA */}
+          {/* CTA Buttons */}
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button className="rounded-full bg-[#202020] px-7 py-3.5 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#303030]">
@@ -138,31 +122,37 @@ export default function Hero() {
         </motion.div>
 
         {/* ------------------------------------------------
-            Ecosystem Visual
+            Ecosystem Visual with Worklynx Loader Transition
         ------------------------------------------------ */}
 
-        <motion.div
-          animate={{
-            opacity: expanded ? 0 : 1,
-            y: expanded ? 30 : 0,
-            scale: expanded ? 0.88 : 1,
-          }}
-          transition={{
-            duration: 0.65,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="relative mt-20 w-full max-w-[1150px]"
-        >
+        <div className="relative mt-16 w-full max-w-[1150px]">
           {/* Desktop connection lines */}
 
-          <div className="pointer-events-none absolute left-[17%] right-[17%] top-[65px] hidden h-px bg-gradient-to-r from-transparent via-[#d5d7db] to-transparent lg:block" />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: loaded ? 1 : 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="pointer-events-none absolute left-[17%] right-[17%] top-[65px] hidden h-px bg-gradient-to-r from-transparent via-[#d5d7db] to-transparent lg:block"
+          />
 
           {/* Main ecosystem */}
 
           <div className="relative flex flex-col items-center lg:h-[210px]">
-            {/* Left modules */}
+            {/* Left modules (Inventory, RMS) */}
 
-            <div className="absolute left-0 top-0 hidden flex-col gap-4 lg:flex">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{
+                opacity: loaded ? 1 : 0,
+                x: loaded ? 0 : -30,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute left-0 top-0 hidden flex-col gap-4 lg:flex"
+            >
               {modules
                 .filter((item) => item.position === "left")
                 .map((module, index) => (
@@ -173,11 +163,23 @@ export default function Hero() {
                     direction="left"
                   />
                 ))}
-            </div>
+            </motion.div>
 
-            {/* Right modules */}
+            {/* Right modules (HRMS, Analytics) */}
 
-            <div className="absolute right-0 top-0 hidden flex-col gap-4 lg:flex">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{
+                opacity: loaded ? 1 : 0,
+                x: loaded ? 0 : 30,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute right-0 top-0 hidden flex-col gap-4 lg:flex"
+            >
               {modules
                 .filter((item) => item.position === "right")
                 .map((module, index) => (
@@ -188,17 +190,37 @@ export default function Hero() {
                     direction="right"
                   />
                 ))}
-            </div>
+            </motion.div>
 
-            {/* Center */}
+            {/* 
+              SINGLE WORKLYNX LOADER BADGE:
+              Starts BIG in screen center as intro loader, then seamlessly
+              scales and glides into ecosystem hub position in ONE smooth animation!
+            */}
 
-            <Worklynx
-              onClick={() => setExpanded(true)}
-            />
+            <motion.div
+              initial={false}
+              animate={{
+                scale: loaded ? 1 : 2.1,
+                y: loaded ? 0 : -155,
+              }}
+              transition={{
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="relative z-30 my-6 lg:my-0"
+            >
+              <Worklynx />
+            </motion.div>
 
             {/* Mobile modules */}
 
-            <div className="mt-8 grid w-full max-w-[600px] grid-cols-2 gap-3 lg:hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loaded ? 1 : 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+              className="mt-8 grid w-full max-w-[600px] grid-cols-2 gap-3 lg:hidden"
+            >
               {modules.map((module, index) => (
                 <Module
                   key={module.title}
@@ -207,21 +229,23 @@ export default function Hero() {
                   direction={index % 2 === 0 ? "left" : "right"}
                 />
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          {/* Product previews */}
+          {/* Product cards below */}
 
           <motion.div
+            initial={{ opacity: 0, y: 35 }}
             animate={{
-              opacity: expanded ? 0 : 1,
-              y: expanded ? 45 : 0,
+              opacity: loaded ? 1 : 0,
+              y: loaded ? 0 : 35,
             }}
             transition={{
-              duration: 0.5,
-              delay: expanded ? 0 : 0.05,
+              duration: 0.7,
+              delay: 0.45,
+              ease: [0.16, 1, 0.3, 1],
             }}
-            className="grid grid-cols-1 gap-5 md:grid-cols-3"
+            className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3"
           >
             {products.map((product, index) => (
               <ProductCard
@@ -231,47 +255,8 @@ export default function Hero() {
               />
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* ------------------------------------------------
-          Expanded Worklynx
-      ------------------------------------------------ */}
-
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: expanded ? 1 : 0,
-          scale: expanded ? 1 : 0.65,
-        }}
-        transition={{
-          duration: 0.75,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center"
-      >
-        <motion.div
-          animate={{
-            width: expanded
-              ? "min(80vw, 700px)"
-              : 210,
-            height: expanded
-              ? "min(24vw, 170px)"
-              : 68,
-          }}
-          transition={{
-            duration: 0.75,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="flex items-center justify-center rounded-[45px] bg-[#202020] px-8 shadow-[0_40px_100px_rgba(0,0,0,0.2)]"
-        >
-          <WorklynxMark large />
-
-          <span className="ml-4 text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl md:text-7xl">
-            Worklynx
-          </span>
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
