@@ -34,8 +34,11 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
     <>
       {/* 1. Original Hero Section */}
       <Hero />
+
       {/* 3. HRMS Features (The Biggest Section - 10 Pillars) */}
-      <ProductsShowcaseNew />
+      {/* <ProductsShowcaseNew /> */}
+
+      {/* Finalize version */}
       <ProductsShowcaseNew1 />
 
 
