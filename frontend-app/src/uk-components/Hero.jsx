@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import worklynxLogo from "@/assets/worklynx-light.png";
 
 const modules = [
   {
@@ -70,6 +71,9 @@ export default function Hero() {
       ------------------------------------------------ */}
 
       <div className="pointer-events-none absolute inset-0">
+        {/* Subtle brand gradient ambient — covers ~15-20% of hero */}
+        <div className="absolute left-1/2 top-[28%] h-[420px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r from-brand-600 to-brand-500 opacity-[0.09] blur-[110px]" />
+
         <div className="absolute left-1/2 top-[35%] h-[550px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 blur-[130px]" />
 
         <div className="absolute inset-x-0 top-0 h-[320px] bg-gradient-to-b from-white/80 to-transparent" />
@@ -798,14 +802,19 @@ function Worklynx({ onClick }) {
           items-center
           justify-center
           rounded-[24px]
-          bg-[#202020]
-          shadow-[0_20px_45px_rgba(0,0,0,0.16)]
+          
+          bg-white
+          shadow-[0_20px_45px_rgba(99,102,241,0.35)]
         "
       >
-        <WorklynxMark />
+        <img
+          src={worklynxLogo}
+          alt="Worklynx"
+          className="h-[440px] w-auto object-contain"
+        />
 
-        <span className="ml-3 text-[22px] font-semibold tracking-[-0.055em] text-white">
-          Worklynx
+        <span className="ml-2.5 text-[22px] font-semibold tracking-[-0.055em] text-white">
+
         </span>
 
         <span className="absolute bottom-2.5 right-3 h-1 w-1 rounded-full bg-white/40" />
