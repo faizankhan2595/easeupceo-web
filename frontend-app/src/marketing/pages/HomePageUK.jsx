@@ -44,11 +44,11 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
 
 
       {/* 2. Trusted Companies */}
-      <LogoCloud />
+      {/* <LogoCloud /> */}
 
-      <BusinessSolutionsSection />
+      {/* <BusinessSolutionsSection /> */}
 
-      <ProductShowcase />
+      {/* <ProductShowcase /> */}
 
       <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24 lg:py-32">
         {/* Background glow */}
@@ -269,21 +269,21 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       </section>
 
 
-      <HRMSFeaturesSection />
+      {/* <HRMSFeaturesSection /> */}
 
       {/* 4. Why Choose Our HRMS */}
-      <WhyChooseHRMS />
+      {/* <WhyChooseHRMS /> */}
 
       {/* 5. Business Solutions Section (1 Platform, 3 Solutions - 70% HRMS, 20% Inventory, 10% Restaurant) */}
 
       {/* 6. Ecosystem Section (Employees -> HRMS -> Inventory -> Restaurant -> Reports -> Growth) */}
-      <EcosystemSection />
+      {/* <EcosystemSection /> */}
 
       {/* 7. Integrations */}
-      <IntegrationsSection />
+      {/* <IntegrationsSection /> */}
 
       {/* 8. Testimonials */}
-      <Testimonials />
+      {/* <Testimonials /> */}
 
       {/* 9. Original Pricing Section */}
       <Pricing />

@@ -64,7 +64,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8] pb-20 pt-28 sm:pt-32 lg:pt-24">
+    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8] pb-20 pt-28 sm:pt-32 lg:pt-20">
       {/* ------------------------------------------------
           Background
       ------------------------------------------------ */}
@@ -110,15 +110,7 @@ export default function Hero() {
 
           {/* CTA Buttons */}
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button className="rounded-full bg-[#202020] px-7 py-3.5 text-sm font-medium text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#303030]">
-              Get started
-            </button>
 
-            <button className="rounded-full border border-black/[0.08] bg-white px-7 py-3.5 text-sm font-medium text-[#333438] transition hover:-translate-y-0.5 hover:bg-[#fafafa]">
-              Explore Worklynx
-            </button>
-          </div>
         </motion.div>
 
         {/* ------------------------------------------------
@@ -127,13 +119,351 @@ export default function Hero() {
 
         <div className="relative mt-16 w-full max-w-[1150px]">
           {/* Desktop connection lines */}
+          {/* ========================================================
+    DESKTOP CONNECTION SYSTEM
+    Rounded etched connector network
+======================================================== */}
 
-          <motion.div
+          <motion.svg
             initial={{ opacity: 0 }}
             animate={{ opacity: loaded ? 1 : 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="pointer-events-none absolute left-[17%] right-[17%] top-[65px] hidden h-px bg-gradient-to-r from-transparent via-[#d5d7db] to-transparent lg:block"
-          />
+            transition={{
+              duration: 0.7,
+              delay: 0.35,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            viewBox="0 0 1150 470"
+            preserveAspectRatio="none"
+            className="
+    pointer-events-none
+    absolute
+    left-0
+    top-0
+    z-0
+    hidden
+    h-[470px]
+    w-full
+    lg:block
+  "
+          >
+            <defs>
+              {/* recessed shadow */}
+              <filter
+                id="etched-shadow"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
+                <feGaussianBlur stdDeviation="1.1" />
+              </filter>
+
+              {/* subtle scratch highlight */}
+              <linearGradient
+                id="etched-highlight"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="#ffffff"
+                  stopOpacity="0.8"
+                />
+                <stop
+                  offset="100%"
+                  stopColor="#ffffff"
+                  stopOpacity="0.25"
+                />
+              </linearGradient>
+            </defs>
+
+            {/* =====================================================
+      1. SOFT RECESSED SHADOW
+  ===================================================== */}
+
+            <g
+              fill="none"
+              stroke="#c9cbd0"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.42"
+              filter="url(#etched-shadow)"
+            >
+              {/* LEFT — INVENTORY */}
+              <path
+                d="
+        M 190 30
+        H 210
+        Q 225 30 225 45
+        V 93
+        Q 225 108 210 108
+        H 190
+      "
+              />
+
+              {/* LEFT — RMS → WORKLYNX */}
+              <path
+                d="
+        M 225 93
+        V 64
+        H 462
+      "
+              />
+
+              {/* RIGHT — HRMS */}
+              <path
+                d="
+        M 960 30
+        H 940
+        Q 925 30 925 45
+        V 93
+        Q 925 108 940 108
+        H 960
+      "
+              />
+
+              {/* RIGHT — ANALYTICS → WORKLYNX */}
+              <path
+                d="
+        M 925 93
+        V 64
+        H 688
+      "
+              />
+
+              {/* WORKLYNX → CENTER */}
+              <path
+                d="
+        M 575 100
+        V 210
+      "
+              />
+
+              {/* BOTTOM HORIZONTAL */}
+              <path
+                d="
+        M 185 210
+        H 965
+      "
+              />
+
+              {/* INVENTORY MANAGEMENT */}
+              <path
+                d="
+        M 185 210
+        V 258
+      "
+              />
+
+              {/* RESTAURANT MANAGEMENT */}
+              <path
+                d="
+        M 575 210
+        V 258
+      "
+              />
+
+              {/* HR MANAGEMENT */}
+              <path
+                d="
+        M 965 210
+        V 258
+      "
+              />
+            </g>
+
+            {/* =====================================================
+      2. MAIN ETCHED LINE
+  ===================================================== */}
+
+            <g
+              fill="none"
+              stroke="#d6d8dc"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* LEFT — INVENTORY */}
+              <path
+                d="
+        M 190 29
+        H 210
+        Q 225 29 225 44
+        V 92
+        Q 225 107 210 107
+        H 190
+      "
+              />
+
+              {/* LEFT → WORKLYNX */}
+              <path
+                d="
+        M 225 92
+        V 63
+        H 462
+      "
+              />
+
+              {/* RIGHT — HRMS */}
+              <path
+                d="
+        M 960 29
+        H 940
+        Q 925 29 925 44
+        V 92
+        Q 925 107 940 107
+        H 960
+      "
+              />
+
+              {/* RIGHT → WORKLYNX */}
+              <path
+                d="
+        M 925 92
+        V 63
+        H 688
+      "
+              />
+
+              {/* WORKLYNX → CENTER */}
+              <path
+                d="
+        M 575 100
+        V 210
+      "
+              />
+
+              {/* BOTTOM HORIZONTAL */}
+              <path
+                d="
+        M 185 210
+        H 965
+      "
+              />
+
+              {/* INVENTORY MANAGEMENT */}
+              <path
+                d="
+        M 185 210
+        V 258
+      "
+              />
+
+              {/* RESTAURANT MANAGEMENT */}
+              <path
+                d="
+        M 575 210
+        V 258
+      "
+              />
+
+              {/* HR MANAGEMENT */}
+              <path
+                d="
+        M 965 210
+        V 258
+      "
+              />
+            </g>
+
+            {/* =====================================================
+      3. THIN WHITE SCRATCH HIGHLIGHT
+  ===================================================== */}
+
+            <g
+              fill="none"
+              stroke="url(#etched-highlight)"
+              strokeWidth="0.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.7"
+            >
+              {/* LEFT — INVENTORY */}
+              <path
+                d="
+        M 190 28
+        H 210
+        Q 226 28 226 44
+        V 92
+        Q 226 108 210 108
+        H 190
+      "
+              />
+
+              {/* LEFT → WORKLYNX */}
+              <path
+                d="
+        M 226 92
+        V 62
+        H 462
+      "
+              />
+
+              {/* RIGHT — HRMS */}
+              <path
+                d="
+        M 960 28
+        H 940
+        Q 924 28 924 44
+        V 92
+        Q 924 108 940 108
+        H 960
+      "
+              />
+
+              {/* RIGHT → WORKLYNX */}
+              <path
+                d="
+        M 924 92
+        V 62
+        H 688
+      "
+              />
+
+              {/* CENTER */}
+              <path
+                d="
+        M 574 100
+        V 210
+      "
+              />
+
+              {/* BOTTOM */}
+              <path
+                d="
+        M 185 209
+        H 965
+      "
+              />
+
+              {/* INVENTORY MANAGEMENT */}
+              <path
+                d="
+        M 184 209
+        V 258
+      "
+              />
+
+              {/* RESTAURANT MANAGEMENT */}
+              <path
+                d="
+        M 574 209
+        V 258
+      "
+              />
+
+              {/* HR MANAGEMENT */}
+              <path
+                d="
+        M 964 209
+        V 258
+      "
+              />
+            </g>
+          </motion.svg>
 
           {/* Main ecosystem */}
 
@@ -330,39 +660,322 @@ function Module({
 /* ========================================================
    WORKLYNX
 ======================================================== */
-
 function Worklynx({ onClick }) {
   return (
-    <motion.button
-      onClick={onClick}
-      whileHover={{
-        scale: 1.035,
-      }}
-      whileTap={{
-        scale: 0.97,
-      }}
-      className="
-        relative
-        z-20
-        flex
-        h-[76px]
-        w-[225px]
-        items-center
-        justify-center
-        rounded-[24px]
-        bg-[#202020]
-        shadow-[0_20px_45px_rgba(0,0,0,0.16)]
-      "
-    >
-      <WorklynxMark />
+    <div className="relative">
+      {/* ============================================
+          SATURN RING — BACK HALF
+      ============================================ */}
 
-      <span className="ml-3 text-[22px] font-semibold tracking-[-0.055em] text-white">
-        Worklynx
-      </span>
+      <svg
+        viewBox="0 0 360 190"
+        className="
+          pointer-events-none
+          absolute
+          -left-[68px]
+          -top-[57px]
+          z-10
+          h-[190px]
+          w-[360px]
+          overflow-visible
+        "
+      >
+        <defs>
+          <filter id="saturnGlowBack">
+            <feGaussianBlur stdDeviation="4" />
+          </filter>
 
-      {/* tiny static accent */}
-      <span className="absolute bottom-2.5 right-3 h-1 w-1 rounded-full bg-white/40" />
-    </motion.button>
+          <filter id="saturnGlowFront">
+            <feGaussianBlur stdDeviation="2.5" />
+          </filter>
+        </defs>
+
+        {/* BACK GLOW */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="white"
+          strokeWidth="8"
+          strokeLinecap="round"
+          filter="url(#saturnGlowBack)"
+          opacity="0.12"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "100 100",
+            strokeDashoffset: 0,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDashoffset: [100, 0],
+            opacity: [0, 0.12, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+
+        {/* BACK RING */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="rgba(255,255,255,0.48)"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "100 100",
+            strokeDashoffset: 0,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDashoffset: [100, 0],
+            opacity: [0, 0.55, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+
+        {/* BACK RING HIGHLIGHT */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="white"
+          strokeWidth="5"
+          strokeLinecap="round"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "7 93",
+            strokeDashoffset: 100,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDashoffset: [100, 0],
+            opacity: [0, 0.9, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+      </svg>
+
+      {/* ============================================
+          ORIGINAL WORKLYNX CONTENT
+      ============================================ */}
+
+      <motion.button
+        onClick={onClick}
+        whileHover={{
+          scale: 1.035,
+        }}
+        whileTap={{
+          scale: 0.97,
+        }}
+        className="
+          relative
+          z-20 mt-5
+          flex
+          h-[76px]
+          w-[225px]
+          items-center
+          justify-center
+          rounded-[24px]
+          bg-[#202020]
+          shadow-[0_20px_45px_rgba(0,0,0,0.16)]
+        "
+      >
+        <WorklynxMark />
+
+        <span className="ml-3 text-[22px] font-semibold tracking-[-0.055em] text-white">
+          Worklynx
+        </span>
+
+        <span className="absolute bottom-2.5 right-3 h-1 w-1 rounded-full bg-white/40" />
+      </motion.button>
+
+      {/* ============================================
+          SATURN RING — FRONT HALF
+      ============================================ */}
+
+      <svg
+        viewBox="0 0 360 190"
+        className="
+          pointer-events-none
+          absolute
+          -left-[68px]
+          -top-[57px]
+          z-30
+          h-[190px]
+          w-[360px]
+          overflow-visible
+        "
+      >
+        <defs>
+          <filter id="saturnFrontGlow">
+            <feGaussianBlur stdDeviation="4" />
+          </filter>
+
+          <filter id="saturnPointGlow">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+        </defs>
+
+        {/* FRONT GLOW */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="white"
+          strokeWidth="9"
+          strokeLinecap="round"
+          filter="url(#saturnFrontGlow)"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "0 100",
+            strokeDashoffset: 0,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDasharray: [
+              "0 100",
+              "25 75",
+              "25 75",
+              "0 100",
+            ],
+            strokeDashoffset: [0, 0, -75, -100],
+            opacity: [0, 0.2, 0.25, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            times: [0, 0.25, 0.78, 1],
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+
+        {/* FRONT RING */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="white"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "0 100",
+            strokeDashoffset: 0,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDasharray: [
+              "0 100",
+              "25 75",
+              "25 75",
+              "0 100",
+            ],
+            strokeDashoffset: [0, 0, -75, -100],
+            opacity: [0, 0.7, 0.8, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            times: [0, 0.25, 0.78, 1],
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+
+        {/* BRIGHT GLASS SECTION */}
+        <motion.ellipse
+          cx="180"
+          cy="95"
+          rx="158"
+          ry="55"
+          fill="none"
+          stroke="white"
+          strokeWidth="6"
+          strokeLinecap="round"
+          filter="url(#saturnPointGlow)"
+          transform="rotate(-22 180 95)"
+          pathLength="100"
+          initial={{
+            strokeDasharray: "10 90",
+            strokeDashoffset: 100,
+            opacity: 0,
+          }}
+          animate={{
+            strokeDashoffset: [100, 0],
+            opacity: [0, 0.95, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            delay: 0.05,
+            ease: [0.12, 0.8, 0.2, 1],
+          }}
+        />
+
+        {/* FINISH GLOW */}
+        <motion.circle
+          cx="75"
+          cy="143"
+          r="8"
+          fill="white"
+          filter="url(#saturnPointGlow)"
+          initial={{
+            opacity: 0,
+            scale: 0.5,
+          }}
+          animate={{
+            opacity: [0, 0, 0.35, 0],
+            scale: [0.5, 0.9, 1.35, 1.7],
+          }}
+          transition={{
+            duration: 0.45,
+            delay: 1.18,
+            ease: "easeOut",
+          }}
+        />
+
+        {/* tiny particles */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.8, 0] }}
+          transition={{
+            duration: 0.65,
+            delay: 0.45,
+          }}
+        >
+          <circle cx="65" cy="146" r="1.2" fill="white" />
+          <circle cx="74" cy="151" r="0.8" fill="white" />
+          <circle cx="84" cy="148" r="1.1" fill="white" />
+          <circle cx="92" cy="143" r="0.7" fill="white" />
+        </motion.g>
+      </svg>
+    </div>
   );
 }
 
