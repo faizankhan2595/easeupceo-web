@@ -148,18 +148,28 @@ function PenUnderline() {
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     // Initial loader state: shows bigger Worklynx centered, then transitions into place after 900ms delay
     const timer = setTimeout(() => {
       setLoaded(true);
     }, 900);
 
-    return () => clearTimeout(timer);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#f5f6f8] pb-20 pt-28 sm:pt-32 lg:pt-20">
+    <section className="relative min-h-screen overflow-x-hidden bg-[#f5f6f8] pb-16 pt-20 sm:pb-20 sm:pt-20 lg:pt-20">
       {/* ------------------------------------------------
           Background
       ------------------------------------------------ */}
@@ -200,7 +210,7 @@ export default function Hero() {
             <br />
             business needs.
           </h1> */}
-          <h1 className="text-[44px] font-semibold leading-[1.05] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
+          <h1 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#1a1b1e] xs:text-[40px] sm:text-[64px] md:text-[76px] lg:text-[66px]">
             Everything{" "}
             <span className="relative inline-block">
               your
@@ -224,7 +234,7 @@ export default function Hero() {
             Ecosystem Visual with Worklynx Loader Transition
         ------------------------------------------------ */}
 
-        <div className="relative mt-16 w-full max-w-[1150px]">
+        <div className="relative mt-4 lg:mt-16 w-full max-w-[1150px]">
           {/* Desktop connection lines */}
           {/* ========================================================
     DESKTOP CONNECTION SYSTEM
@@ -638,14 +648,14 @@ export default function Hero() {
             <motion.div
               initial={false}
               animate={{
-                scale: loaded ? 1 : 2.1,
-                y: loaded ? 0 : -155,
+                scale: loaded ? 1 : (isMobile ? 1.35 : 2.0),
+                y: loaded ? 0 : (isMobile ? -90 : -150),
               }}
               transition={{
                 duration: 0.9,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="relative z-30 my-6 lg:my-0"
+              className="relative z-30 my-4 sm:my-6 lg:my-0 flex justify-center"
             >
               <Worklynx />
             </motion.div>
@@ -653,10 +663,17 @@ export default function Hero() {
             {/* Mobile modules */}
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: loaded ? 1 : 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
-              className="mt-8 grid w-full max-w-[600px] grid-cols-2 gap-3 lg:hidden"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{
+                opacity: loaded ? 1 : 0,
+                y: loaded ? 0 : 15,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="mt-6 sm:mt-8 grid w-full max-w-[600px] grid-cols-2 gap-2.5 sm:gap-3.5 lg:hidden"
             >
               {modules.map((module, index) => (
                 <Module
@@ -730,36 +747,35 @@ function Module({
       className="
         group
         flex
-        min-h-[62px]
-        min-w-[190px]
+        min-h-[58px] sm:min-h-[62px]
+        w-full min-w-0 lg:min-w-[190px] lg:w-auto
         items-center
-        gap-3
-        rounded-2xl
+        gap-2.5 sm:gap-3
+        rounded-xl sm:rounded-2xl
         border
         border-black/[0.06]
         bg-white
-        px-4
-        py-3
+        px-3 py-2.5 sm:px-4 sm:py-3
         shadow-[0_8px_30px_rgba(30,30,40,0.06)]
         transition-shadow
         hover:shadow-[0_14px_35px_rgba(30,30,40,0.1)]
       "
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
-        <Icon size={17} strokeWidth={1.8} />
+      <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
+        <Icon size={16} strokeWidth={1.8} className="sm:w-[17px] sm:h-[17px]" />
       </div>
 
-      <div>
-        <p className="text-[12px] font-semibold text-[#36383d]">
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[11px] sm:text-[12px] font-semibold text-[#36383d]">
           {title}
         </p>
 
-        <p className="mt-1 text-[10px] text-[#92949a]">
+        <p className="mt-0.5 sm:mt-1 truncate text-[9px] sm:text-[10px] text-[#92949a]">
           {subtitle}
         </p>
       </div>
 
-      <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#d3d5d9] transition-colors group-hover:bg-[#202020]" />
+      <div className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-[#d3d5d9] transition-colors group-hover:bg-[#202020]" />
     </motion.div>
   );
 }
@@ -779,11 +795,11 @@ function Worklynx({ onClick }) {
         className="
           pointer-events-none
           absolute
-          -left-[68px]
-          -top-[57px]
+          -left-[50px] sm:-left-[68px]
+          -top-[46px] sm:-top-[57px]
           z-10
-          h-[190px]
-          w-[360px]
+          h-[155px] sm:h-[190px]
+          w-[290px] sm:w-[360px]
           overflow-visible
         "
       >
@@ -898,14 +914,13 @@ function Worklynx({ onClick }) {
         }}
         className="
           relative
-          z-20 mt-5
+          z-20 mt-2 sm:mt-5
           flex
-          h-[76px]
-          w-[225px]
+          h-[62px] sm:h-[76px]
+          w-[190px] sm:w-[225px]
           items-center
           justify-center
-          rounded-[24px]
-          
+          rounded-[20px] sm:rounded-[24px]
           bg-white
           shadow-[0_20px_45px_rgba(99,102,241,0.35)]
         "
@@ -913,7 +928,7 @@ function Worklynx({ onClick }) {
         <img
           src={worklynxLogo}
           alt="Worklynx"
-          className="h-[440px] w-auto object-contain"
+          className="h-12 sm:h-16 w-auto  object-contain"
         />
 
         <span className="ml-2.5 text-[22px] font-semibold tracking-[-0.055em] text-white">
@@ -932,11 +947,11 @@ function Worklynx({ onClick }) {
         className="
           pointer-events-none
           absolute
-          -left-[68px]
-          -top-[57px]
+          -left-[50px] sm:-left-[68px]
+          -top-[46px] sm:-top-[57px]
           z-30
-          h-[190px]
-          w-[360px]
+          h-[155px] sm:h-[190px]
+          w-[290px] sm:w-[360px]
           overflow-visible
         "
       >
