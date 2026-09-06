@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
 import ProductsShowcaseNew from "@/uk-components/ProductShowcase copy 6";
 import ProductsShowcaseNew1 from "@/uk-components/ProductShowcase copy 7";
+import ContactSalesSection from "@/uk-components/ContactSalesSection";
 
 const features = [
   "Point of sale",
@@ -35,49 +36,19 @@ export default function HomePageUK({ chatbotOpen, setChatbotOpen, chatUserData, 
       {/* 1. Original Hero Section */}
       <Hero />
 
-      {/* 3. HRMS Features (The Biggest Section - 10 Pillars) */}
-      {/* <ProductsShowcaseNew /> */}
-
-      {/* Finalize version */}
+    
       <ProductsShowcaseNew1 />
 
 
-
-      {/* 2. Trusted Companies */}
-      {/* <LogoCloud /> */}
-
-      {/* <BusinessSolutionsSection /> */}
-
-      {/* <ProductShowcase /> */}
-
-
+      {/* Last section — Contact Sales */}
+      <ContactSalesSection
+        onStartChat={(userData) => {
+          if (userData) setChatUserData(userData);
+          setChatbotOpen(true);
+        }}
+      />
 
 
-      {/* <HRMSFeaturesSection /> */}
-
-      {/* 4. Why Choose Our HRMS */}
-      {/* <WhyChooseHRMS /> */}
-
-      {/* 5. Business Solutions Section (1 Platform, 3 Solutions - 70% HRMS, 20% Inventory, 10% Restaurant) */}
-
-      {/* 6. Ecosystem Section (Employees -> HRMS -> Inventory -> Restaurant -> Reports -> Growth) */}
-      {/* <EcosystemSection /> */}
-
-      {/* 7. Integrations */}
-      {/* <IntegrationsSection /> */}
-
-      {/* 8. Testimonials */}
-      {/* <Testimonials /> */}
-
-      {/* 9. Original Pricing Section */}
-
-      {/* 10. FAQ */}
-      {/* <HRMSFAQSection /> */}
-
-      {/* 11. Final CTA */}
-      {/* <FinalCTASection /> */}
-
-      {/* Interactive AI Chatbot */}
       <Chatbot open={chatbotOpen} setOpen={setChatbotOpen} userData={chatUserData} setUserData={setChatUserData} />
     </>
   );

@@ -152,10 +152,10 @@ export default function Navbar({ onContactClick }) {
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300
+      className={`fixed top-0 left-0 right-0 z-50 w-full border-b bg-[#f8faff]/95 backdrop-blur-md transition-all duration-300
         ${(scrolled || open || productsOpen)
-          ? "border-b border-slate-200/70 bg-white/90 backdrop-blur-md shadow-sm"
-          : "border-b border-transparent bg-transparent"
+          ? "border-brand-100 shadow-[0_4px_20px_-6px_rgba(15,23,42,0.10)]"
+          : "border-brand-100/70 shadow-[0_1px_12px_-6px_rgba(15,23,42,0.08)]"
         }
       `}
     >
@@ -311,7 +311,7 @@ export default function Navbar({ onContactClick }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
+            className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-brand-100/70 bg-[#f8faff] lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
               {/* Mobile Products Accordion */}

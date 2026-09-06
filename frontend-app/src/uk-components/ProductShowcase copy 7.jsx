@@ -17,12 +17,11 @@ import { href } from "react-router-dom";
 
 const products = [
     {
-        number: "01",
         eyebrow: "Inventory Management",
         title: "Inventory",
         description:
             "Take complete control of your inventory from one intelligent workspace. Track stock, manage products, monitor movement and make better purchasing decisions.",
-        image: "/posmachine2.png",
+        image: "/posmachine3.png",
         href: "/inventory-management",
 
         features: [
@@ -51,7 +50,6 @@ const products = [
     },
 
     {
-        number: "02",
         eyebrow: "Restaurant Management",
         title: "RMS",
         description:
@@ -85,8 +83,7 @@ const products = [
     },
 
     {
-        number: "03",
-        eyebrow: "Human Resource Management",
+        eyebrow: "Human Resource Management System",
         title: "HRMS",
         description:
             "Bring your people and HR operations together. Manage employees, attendance, leave and payroll while giving your team a better workplace experience.",
@@ -255,33 +252,16 @@ export default function ProductsShowcaseNew1() {
                                         }
                                     >
 
-                                        {/* Eyebrow */}
-
-                                        <div className="mb-7 flex items-center gap-4">
-
-                                            <span className="bg-linear-to-r from-brand-600 to-brand-500 bg-clip-text text-xs font-semibold text-transparent">
-                                                {product.number}
-                                            </span>
-
-                                            <span className="h-px w-10 bg-neutral-300" />
-
-                                            <span className="text-xs font-medium uppercase tracking-[0.15em] text-neutral-400">
-                                                {product.eyebrow}
-                                            </span>
-
-                                        </div>
-
-
                                         {/* Title */}
 
-                                        <h3 className="text-5xl font-semibold tracking-[-0.05em] text-neutral-900 md:text-6xl">
-                                            {product.title}
+                                        <h3 className="max-w-xl text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-neutral-900 sm:text-4xl md:text-5xl">
+                                            {product.eyebrow}
                                         </h3>
 
 
                                         {/* Description */}
 
-                                        <p className="mt-7 max-w-xl text-base leading-8 text-neutral-500 md:text-lg">
+                                        <p className="mt-5 max-w-xl text-base leading-7 text-neutral-500 md:mt-6 md:text-lg md:leading-8">
                                             {product.description}
                                         </p>
 
