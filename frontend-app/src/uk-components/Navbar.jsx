@@ -126,33 +126,23 @@ export default function Navbar({ onContactClick }) {
   const productSuites = [
     {
       id: "hrms",
-      title: "⭐ HRMS & HMRC Payroll",
-      badge: "⭐ Flagship Platform",
-      badgeBg: "bg-brand-50 text-brand-700 border-brand-200 font-bold",
-      iconBg: "from-brand-500 to-indigo-600",
-      desc: "Complete HR platform — attendance, payroll, leave, performance & employee self-service.",
-      highlights: ["GPS & Mobile Clock-In", "HMRC PAYE RTI Payroll", "Statutory Leave & OKRs"],
+      title: "HRMS",
+      desc: "Attendance, payroll, leave, performance and employee self-service.",
+      image: "/hrms.png",
       href: "/hrms",
-      featured: true,
     },
     {
       id: "inventory",
       title: "Inventory Management",
-      badge: "Expansion Module",
-      badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
-      iconBg: "from-amber-500 to-orange-600",
-      desc: "Multi-warehouse stock tracking, automated purchase orders & VAT invoices.",
-      highlights: ["Multi-Warehouse Control", "Supplier & PO Workflow", "Low Stock Alerts"],
+      desc: "Multi-warehouse stock tracking, purchase orders and VAT invoices.",
+      image: "/inventory.png",
       href: "/inventory-management",
     },
     {
       id: "restaurant",
       title: "Restaurant Management",
-      badge: "Expansion Module",
-      badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
-      iconBg: "from-rose-500 to-red-600",
-      desc: "High-speed POS billing, table QR ordering & Kitchen Display Systems (KDS).",
-      highlights: ["Table QR & Live Orders", "Kitchen KDS Sync", "POS Billing & Menu"],
+      desc: "POS billing, table QR ordering and Kitchen Display Systems.",
+      image: "/rms.png",
       href: "/restaurant-management",
     },
   ];
@@ -202,54 +192,51 @@ export default function Navbar({ onContactClick }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.98 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="absolute top-full -left-12 mt-2 w-[780px] rounded-2xl bg-white p-6 shadow-2xl border border-slate-200/90 z-50 overflow-hidden"
+                  className="absolute top-full -left-12 mt-2 w-[810px] rounded-2xl bg-white p-6 shadow-2xl border border-slate-200/90 z-50 overflow-hidden"
                 >
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Worklynx UK Product Suites</h4>
-                    </div>
+                <div className="border-b border-slate-100 pb-4 mb-4">
+  <h4 className="text-sm font-semibold text-slate-900">
+    Worklynx Product Suites
+  </h4>
+  <p className="mt-1 text-xs text-slate-400">
+    One platform. Three powerful systems.
+  </p>
+</div>
 
-                  </div>
+                 <div className="grid grid-cols-3 gap-4">
+  {productSuites.map((suite) => (
+   <a
+  key={suite.id}
+  href={suite.href}
+  onClick={() => setProductsOpen(false)}
+  className="group rounded-2xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
+>
+  <div className="relative h-32 overflow-hidden rounded-xl bg-slate-50">
+    <img
+      src={suite.image}
+      alt={suite.title}
+      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
 
-                  <div className="grid grid-cols-3 gap-4">
-                    {productSuites.map((suite) => (
-                      <a
-                        key={suite.id}
-                        href={suite.href}
-                        onClick={() => setProductsOpen(false)}
-                        className="group relative flex flex-col justify-between rounded-xl p-4 transition-all duration-200 hover:bg-slate-50 border border-transparent hover:border-slate-200/80"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <span className={`inline-block px-2 py-0.5 text-[10px] font-bold rounded-md border ${suite.badgeBg}`}>
-                              {suite.badge}
-                            </span>
-                          </div>
-                          <h5 className="text-sm font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
-                            {suite.title}
-                          </h5>
-                          <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
-                            {suite.desc}
-                          </p>
-                        </div>
+  <div className="px-1 pt-4">
+  
 
-                        <div className="mt-4 pt-3 border-t border-slate-100">
-                          <ul className="space-y-1">
-                            {suite.highlights.map((item, i) => (
-                              <li key={i} className="flex items-center gap-1.5 text-[11px] text-slate-600 font-medium">
-                                <span className="w-1 h-1 rounded-full bg-brand-500 shrink-0" />
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="mt-3 flex items-center text-xs font-semibold text-brand-600 group-hover:translate-x-0.5 transition-transform">
-                            <span>Explore Suite</span>
-                            <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                          </div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
+    <h5 className="mt-3 text-lg font-bold leading-tight tracking-tight text-slate-900 group-hover:text-brand-600">
+      {suite.title}
+    </h5>
+
+    <div className="mt-4 flex items-center justify-between">
+      <span className="text-xs font-medium text-slate-400">
+        View product
+      </span>
+
+      <ChevronRight className="h-4 w-4 text-slate-400 transition-all group-hover:translate-x-1 group-hover:text-brand-600" />
+    </div>
+  </div>
+</a>
+  ))}
+</div>
 
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-6 -mb-6 px-6 py-3.5 text-xs">
                     <span className="text-slate-600 font-medium">Need all 3 suites for your UK business?</span>
@@ -324,7 +311,7 @@ export default function Navbar({ onContactClick }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-slate-200 bg-white lg:hidden"
+            className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
               {/* Mobile Products Accordion */}
@@ -340,24 +327,45 @@ export default function Navbar({ onContactClick }) {
                   <ChevronDown className={`w-4 h-4 transition-transform ${mobileProductsOpen ? "rotate-180 text-brand-600" : ""}`} />
                 </button>
 
-                {mobileProductsOpen && (
-                  <div className="mt-2 space-y-2 pl-2 border-l-2 border-brand-100">
+                <AnimatePresence initial={false}>
+                  {mobileProductsOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="mt-3 grid gap-3 overflow-hidden sm:grid-cols-2"
+                  >
                     {productSuites.map((suite) => (
                       <a
                         key={suite.id}
                         href={suite.href}
                         onClick={() => setOpen(false)}
-                        className="block p-2 rounded-lg hover:bg-slate-50 transition-colors"
+                        className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-2.5 transition-colors hover:border-brand-200 hover:bg-slate-50"
                       >
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-800">{suite.title}</span>
-                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${suite.badgeBg}`}>{suite.badge}</span>
+                        <div className="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+                          <img
+                            src={suite.image}
+                            alt={suite.title}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
                         </div>
-                        <p className="text-[11px] text-slate-500 mt-0.5">{suite.desc}</p>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="truncate text-sm font-bold text-slate-900">
+                              {suite.title}
+                            </span>
+                            <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                          </div>
+                          <p className="mt-1 line-clamp-2 text-xs leading-snug text-slate-500">
+                            {suite.desc}
+                          </p>
+                        </div>
                       </a>
                     ))}
-                  </div>
-                )}
+                  </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <hr className="border-slate-200" />
@@ -420,4 +428,3 @@ export default function Navbar({ onContactClick }) {
     </motion.header>
   );
 }
-

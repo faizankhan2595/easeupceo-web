@@ -22,7 +22,7 @@ const products = [
         title: "Inventory",
         description:
             "Take complete control of your inventory from one intelligent workspace. Track stock, manage products, monitor movement and make better purchasing decisions.",
-        image: "/posmachine.png",
+        image: "/posmachine2.png",
         href: "/inventory-management",
 
         features: [
@@ -56,7 +56,7 @@ const products = [
         title: "RMS",
         description:
             "Everything your restaurant needs to run smoothly. Connect orders, tables, billing and daily operations in one simple and powerful system.",
-        image: "/rmspos.png",
+        image: "/rmspos1.png",
         href: "/restaurant-management",
 
         features: [
@@ -236,8 +236,8 @@ export default function ProductsShowcaseNew1() {
                                     className={`
                                         grid
                                         items-center
-                                        gap-14
-                                        py-20
+                                        gap-4
+                                        py-10
                                         md:grid-cols-2
                                         md:gap-16
                                         lg:gap-24
@@ -288,7 +288,7 @@ export default function ProductsShowcaseNew1() {
 
                                         {/* ================= FEATURES ================= */}
 
-                                        <div className="mt-10 grid gap-7 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+                                        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-7">
 
                                             {product.features.map(
                                                 (feature) => {
@@ -341,7 +341,7 @@ export default function ProductsShowcaseNew1() {
 
                                                             <h4 className="text-sm font-medium text-neutral-900">
                                                                 {
-                                                                    feature.title
+                                                                    feature.title 
                                                                 }
                                                             </h4>
 
@@ -459,24 +459,7 @@ export default function ProductsShowcaseNew1() {
                                             />
 
 
-                                            {/* Background number */}
-
-                                            <span
-                                                className="
-                                                    absolute
-                                                    bottom-0
-                                                    right-0
-                                                    select-none
-                                                    text-[140px]
-                                                    font-semibold
-                                                    leading-none
-                                                    tracking-[-0.08em]
-                                                    text-neutral-100
-                                                    md:text-[190px]
-                                                "
-                                            >
-                                                {product.number}
-                                            </span>
+                                           
 
 
                                             {/* Product image */}

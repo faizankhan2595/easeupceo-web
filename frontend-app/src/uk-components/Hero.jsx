@@ -65,16 +65,18 @@ function PenUnderline() {
       className="
         pointer-events-none
         absolute
-        left-1/2
-        top-[92%]
-        z-[-1]
-        h-[15px]
-        w-[200px]
-        -translate-x-1/2
+       
         overflow-visible
 
-        sm:h-[25px]
-        sm:w-[260px]
+        left-1/2
+top-[92%]
+z-[-1]
+h-[15px]
+w-[120%]
+-translate-x-1/2
+
+       sm:h-[28px]
+sm:w-[125%]
       "
       fill="none"
     >
@@ -183,6 +185,116 @@ export default function Hero() {
         <div className="absolute inset-x-0 top-0 h-[320px] bg-gradient-to-b from-white/80 to-transparent" />
       </div>
 
+      {/* Purple sunlight — ambient glow */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    left-[18%]
+    top-[30%]
+    h-[520px]
+    w-[520px]
+    -translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    bg-[#c9a8f5]/10
+    blur-[110px]
+  "
+/>
+
+{/* Purple 3D orb */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    left-[18%]
+    top-[30%]
+    h-[360px]
+    w-[360px]
+    -translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    opacity-60
+    [background:radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.98)_0%,rgba(245,238,255,0.9)_12%,rgba(220,201,249,0.65)_30%,rgba(194,163,239,0.28)_52%,rgba(165,125,225,0.08)_70%,transparent_78%)]
+    [box-shadow:inset_-35px_-25px_70px_rgba(130,80,200,0.08),inset_25px_20px_45px_rgba(255,255,255,0.35),0_0_80px_rgba(165,125,225,0.10)]
+  "
+/>
+
+{/* Tiny specular shine */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    left-[13%]
+    top-[25%]
+    h-16
+    w-16
+    -translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    bg-white/50
+    blur-[18px]
+  "
+/>
+{/* right side  */}
+{/* Purple sunlight — right side */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    hidden
+    md:block
+    right-[8%]
+    top-[18%]
+    h-[520px]
+    w-[520px]
+    translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    bg-[#c9a8f5]/10
+    blur-[110px]
+  "
+/>
+
+{/* Purple 3D light orb */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    hidden
+    md:block
+    right-[8%]
+    top-[18%]
+    h-[360px]
+    w-[360px]
+    translate-x-1/2
+    -translate-y-1/2
+    rounded-full
+    opacity-55
+    [background:radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.98)_0%,rgba(245,238,255,0.9)_12%,rgba(220,201,249,0.65)_30%,rgba(194,163,239,0.28)_52%,rgba(165,125,225,0.08)_70%,transparent_78%)]
+    [box-shadow:inset_-35px_-25px_70px_rgba(130,80,200,0.08),inset_25px_20px_45px_rgba(255,255,255,0.35),0_0_80px_rgba(165,125,225,0.10)]
+  "
+/>
+
+{/* Soft specular shine */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    hidden
+    md:block
+    right-[17%]
+    top-[11%]
+    h-16
+    w-16
+    rounded-full
+    bg-white/45
+    blur-[18px]
+  "
+/>
+{/*  */}
+
+
       {/* ------------------------------------------------
           Hero Content (Heading, Subtitle, CTAs)
           Initially hidden during loader phase, animates in smoothly after delay
@@ -210,17 +322,17 @@ export default function Hero() {
             <br />
             business needs.
           </h1> */}
-          <h1 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#1a1b1e] xs:text-[40px] sm:text-[64px] md:text-[76px] lg:text-[66px]">
-            Everything{" "}
+          <h1 className="text-[34px] font-semibold leading-[1.15] tracking-[-0.045em] text-[#1a1b1e] xs:text-[40px] sm:text-[64px] md:text-[76px] lg:text-[60px]">
+            Powering  {" "}
             <span className="relative inline-block">
-              your
+              every part
               <PenUnderline />
             </span>
             <br />
-            business needs.
+            of your business.
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[620px] text-[15px] font-medium leading-7 text-[#62646a] sm:text-[17px]">
+          <p className="mx-auto mt-6 max-w-[620px] text-[14px] font-base leading-7 text-[#62646a] sm:text-[16px]">
             Worklynx brings inventory, restaurant management and
             human resources together in one powerful business platform.
           </p>
@@ -1144,11 +1256,40 @@ function ProductCard({
   type,
   index,
 }) {
+  const styles = {
+    inventory: {
+      iconBg: "bg-indigo-50",
+      iconColor: "text-indigo-600",
+      badgeBg: "bg-indigo-50",
+      badgeText: "text-indigo-600",
+      border: "hover:border-indigo-200",
+      glow: "group-hover:shadow-indigo-100/60",
+    },
+    rms: {
+      iconBg: "bg-emerald-50",
+      iconColor: "text-emerald-600",
+      badgeBg: "bg-emerald-50",
+      badgeText: "text-emerald-600",
+      border: "hover:border-emerald-200",
+      glow: "group-hover:shadow-emerald-100/60",
+    },
+    hrms: {
+      iconBg: "bg-blue-50",
+      iconColor: "text-blue-600",
+      badgeBg: "bg-blue-50",
+      badgeText: "text-blue-600",
+      border: "hover:border-blue-200",
+      glow: "group-hover:shadow-blue-100/60",
+    },
+  };
+
+  const style = styles[type];
+
   return (
     <motion.div
       initial={{
         opacity: 0,
-        y: 30,
+        y: 24,
       }}
       animate={{
         opacity: 1,
@@ -1160,43 +1301,85 @@ function ProductCard({
         ease: [0.22, 1, 0.36, 1],
       }}
       whileHover={{
-        y: -6,
+        y: -4,
       }}
-      className="
+      className={`
         group
+        relative
         min-h-[250px]
         overflow-hidden
         rounded-[22px]
-        border
-        border-black/[0.05]
+        border border-[#E8E9ED]
         bg-white
         p-5
-        shadow-[0_12px_40px_rgba(30,30,40,0.06)]
-      "
+        transition-all duration-300
+        ${style.border}
+        hover:shadow-[0_18px_45px_rgba(20,20,30,0.07)]
+        ${style.glow}
+      `}
     >
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
-          {type === "inventory" && <Package size={16} strokeWidth={1.8} />}
-          {type === "rms" && <UtensilsCrossed size={16} strokeWidth={1.8} />}
-          {type === "hrms" && <Users size={16} strokeWidth={1.8} />}
+      {/* Very subtle SaaS accent */}
+      <div
+        className={`
+          pointer-events-none
+          absolute
+          -right-16
+          -top-16
+          h-32
+          w-32
+          rounded-full
+          blur-3xl
+          opacity-0
+          transition-opacity
+          duration-500
+          group-hover:opacity-40
+          ${type === "inventory"
+            ? "bg-indigo-400"
+            : type === "rms"
+              ? "bg-emerald-400"
+              : "bg-blue-400"
+          }
+        `}
+      />
+
+      {/* Header */}
+      <div className="relative flex items-center gap-3">
+        <div
+          className={`
+            flex h-10 w-10 shrink-0 items-center justify-center
+            rounded-xl
+            ${style.iconBg}
+            ${style.iconColor}
+          `}
+        >
+          {type === "inventory" && (
+            <Package size={17} strokeWidth={1.8} />
+          )}
+
+          {type === "rms" && (
+            <UtensilsCrossed size={17} strokeWidth={1.8} />
+          )}
+
+          {type === "hrms" && (
+            <Users size={17} strokeWidth={1.8} />
+          )}
         </div>
 
-        <div>
-          <h3 className="text-[13px] font-semibold text-[#34363b]">
+        <div className="min-w-0">
+          <h3 className="text-[13px] font-semibold tracking-[-0.01em] text-[#202124]">
             {title}
           </h3>
 
-          <span className="text-[9px] text-[#a0a2a7]">
-            Worklynx module
-          </span>
         </div>
       </div>
 
-      <p className="mt-3 max-w-[280px] text-[10px] leading-5 text-[#898b91]">
+      {/* Description */}
+      <p className="relative mt-3 max-w-[285px] text-[10px] leading-[1.7] text-[#73767C]">
         {description}
       </p>
 
-      <div className="mt-6">
+      {/* Preview */}
+      <div className="relative mt-5">
         {type === "inventory" && <InventoryPreview />}
         {type === "rms" && <RmsPreview />}
         {type === "hrms" && <HrmsPreview />}
@@ -1217,40 +1400,41 @@ function InventoryPreview() {
   ];
 
   return (
-    <div className="rounded-xl border border-[#eeeeef] bg-[#fafafa] p-4">
+    <div className="rounded-[15px] border border-indigo-100/80 bg-indigo-50/40 p-3.5">
       <div className="flex items-center justify-between">
-        <span className="text-[9px] font-medium text-[#74767c]">
+        <span className="text-[9px] font-semibold text-indigo-950/60">
           Inventory overview
         </span>
 
-        <span className="text-[8px] text-[#a0a2a7]">
+        <span className="flex items-center gap-1.5 text-[8px] font-medium text-indigo-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
           Live
         </span>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-3 gap-1.5">
         {products.map(([name, value], index) => (
           <div
             key={name}
-            className="rounded-lg bg-white p-2.5"
+            className="rounded-[9px] border border-indigo-100/70 bg-white px-2.5 py-2"
           >
-            <p className="text-[7px] text-[#999ba0]">
+            <p className="text-[7px] font-medium text-[#92959B]">
               {name}
             </p>
 
-            <p className="mt-1 text-sm font-medium text-[#45474d]">
+            <p className="mt-1 text-[13px] font-semibold tracking-[-0.02em] text-[#292B30]">
               {value}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#e9eaec]">
+      <div className="mt-3 h-1 overflow-hidden rounded-full bg-indigo-100">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: "78%" }}
           transition={{ duration: 1 }}
-          className="h-full rounded-full bg-[#707278]"
+          className="h-full rounded-full bg-indigo-500"
         />
       </div>
     </div>
@@ -1265,30 +1449,30 @@ function RmsPreview() {
   const bars = [35, 48, 42, 67, 55, 76, 63, 88, 72];
 
   return (
-    <div className="rounded-xl border border-[#eeeeef] bg-[#fafafa] p-4">
+    <div className="rounded-[15px] border border-emerald-100/80 bg-emerald-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[8px] text-[#999ba0]">
+          <p className="text-[8px] font-medium text-emerald-950/50">
             Today's revenue
           </p>
 
-          <p className="mt-1 text-xl font-medium text-[#44464b]">
+          <p className="mt-1 text-[19px] font-semibold tracking-[-0.035em] text-[#292B30]">
             ₹48.2K
           </p>
         </div>
 
         <div className="text-right">
-          <p className="text-[8px] text-[#999ba0]">
+          <p className="text-[8px] font-medium text-[#92959B]">
             Orders
           </p>
 
-          <p className="mt-1 text-sm font-medium text-[#44464b]">
+          <p className="mt-1 text-[13px] font-semibold text-[#292B30]">
             184
           </p>
         </div>
       </div>
 
-      <div className="mt-5 flex h-[35px] items-end gap-1.5">
+      <div className="mt-4 flex h-[34px] items-end gap-1.5">
         {bars.map((height, index) => (
           <motion.div
             key={index}
@@ -1300,7 +1484,14 @@ function RmsPreview() {
               duration: 0.6,
               delay: index * 0.05,
             }}
-            className="flex-1 rounded-t-[3px] bg-[#d2d4d7]"
+            className="
+              flex-1
+              rounded-t-[3px]
+              bg-emerald-200
+              transition-colors
+              duration-300
+              group-hover:bg-emerald-300
+            "
           />
         ))}
       </div>
@@ -1314,45 +1505,56 @@ function RmsPreview() {
 
 function HrmsPreview() {
   return (
-    <div className="rounded-xl border border-[#eeeeef] bg-[#fafafa] p-4">
+    <div className="rounded-[15px] border border-blue-100/80 bg-blue-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[8px] text-[#999ba0]">
+          <p className="text-[8px] font-medium text-blue-950/50">
             Employees
           </p>
 
-          <p className="mt-1 text-xl font-medium text-[#44464b]">
+          <p className="mt-1 text-[19px] font-semibold tracking-[-0.035em] text-[#292B30]">
             128
           </p>
         </div>
 
-        <div className="flex -space-x-2">
-          {[1, 2, 3, 4].map((item) => (
+        <div className="flex -space-x-1.5">
+          {["AK", "RS", "PM", "JD"].map((initials) => (
             <div
-              key={item}
-              className="h-7 w-7 rounded-full border-2 border-white bg-[#dfe1e4]"
-            />
+              key={initials}
+              className="
+        flex h-7 w-7
+        items-center justify-center
+        rounded-full
+        border-2 border-white
+        bg-blue-100
+        text-[8px]
+        font-semibold
+        text-blue-600
+      "
+            >
+              {initials}
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <div className="flex justify-between">
-          <span className="text-[8px] text-[#999ba0]">
+          <span className="text-[8px] font-medium text-[#92959B]">
             Attendance
           </span>
 
-          <span className="text-[8px] font-medium text-[#55575d]">
+          <span className="text-[8px] font-semibold text-blue-600">
             94%
           </span>
         </div>
 
-        <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#e7e8ea]">
+        <div className="mt-2 h-1 overflow-hidden rounded-full bg-blue-100">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "94%" }}
             transition={{ duration: 1 }}
-            className="h-full rounded-full bg-[#707278]"
+            className="h-full rounded-full bg-blue-500"
           />
         </div>
       </div>
