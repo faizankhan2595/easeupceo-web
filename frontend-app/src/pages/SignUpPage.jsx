@@ -340,7 +340,7 @@ export default function SignUpPage() {
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
             Start your <span className="text-gradient-brand">Worklynx</span> trial
           </h1>
-          <p className="text-slate-600">14 days free. No credit card. Setup in 5 minutes.</p>
+          <p className="text-slate-600">7 days free. No credit card. Setup in 5 minutes.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 space-y-5">
@@ -468,7 +468,7 @@ export default function SignUpPage() {
               </span>
             </div>
             <div className="text-xs text-slate-500 mb-3">
-              14 days free with every module unlocked. Your chosen plan starts with your first payment — switch any time.
+              7 days free with every module unlocked. Your chosen plan starts with your first payment — switch any time.
             </div>
 
             <div className="grid grid-cols-2 gap-2 mb-3">
@@ -536,7 +536,7 @@ export default function SignUpPage() {
             type="submit" disabled={submitting}
             className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold py-3.5 rounded-xl transition"
           >
-            {submitting ? "Creating workspace…" : "Start 14-Day Free Trial →"}
+            {submitting ? "Creating workspace…" : "Start 7-Day Free Trial →"}
           </button>
 
           <p className="text-xs text-slate-500 text-center">

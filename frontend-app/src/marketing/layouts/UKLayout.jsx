@@ -30,7 +30,7 @@ export default function UKLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <UKNavbar onContactClick={() => setContactOpen(true)} />
-      <main className="flex-1 overflow-x-clip pt-[4.5rem]">
+      <main className="flex-1 overflow-x-clip pt-[4rem] sm:pt-[4.5rem] lg:pt-[5rem]">
         <Outlet />
       </main>
       <UKFooter onContactClick={() => setContactOpen(true)} />

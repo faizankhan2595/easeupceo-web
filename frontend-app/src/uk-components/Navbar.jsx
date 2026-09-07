@@ -3,13 +3,13 @@
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Menu, X, ChevronDown, Globe, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import worklynxLogo from "@/assets/worklynx-light.png";
+import worklynxLogo from "@/assets/worklynx-light-nav.png";
 import { Link, useLocation } from "react-router-dom";
 import { useCountryContext } from "@/context/CountryContext";
 
 const navLinks = [
 
-  { href: "#pricing", label: "Pricing" },
+  // { href: "#pricing", label: "Pricing" }, 
   { href: "#contact-sales", label: "Contact Sales" },
 ];
 
@@ -128,14 +128,14 @@ export default function Navbar({ onContactClick }) {
       id: "hrms",
       title: "HRMS",
       desc: "Attendance, payroll, leave, performance and employee self-service.",
-      image: "/hrms.png",
+      image: "/hrms2.png",
       href: "/hrms",
     },
     {
       id: "inventory",
       title: "Inventory Management",
       desc: "Multi-warehouse stock tracking, purchase orders and VAT invoices.",
-      image: "/inventory.png",
+      image: "/inventory1.png",
       href: "/inventory-management",
     },
     {
@@ -159,9 +159,43 @@ export default function Navbar({ onContactClick }) {
         }
       `}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
-        <Link to="/" className="flex items-center shrink-0">
-          <img src={worklynxLogo} alt="Worklynx UK" className="h-13 w-auto" />
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-3 pb-6 lg:px-8">
+        <Link
+          to="/"
+          className="relative flex shrink-0 items-center leading-none"
+        >
+          <img
+            src={worklynxLogo}
+            alt="Worklynx UK"
+            className="h-6 w-auto sm:h-8 lg:h-9"
+          />
+
+          <span
+            className="
+              absolute
+              left-0
+              top-full
+              mt-1
+              flex
+              items-center
+              gap-1.5
+              whitespace-nowrap
+              text-[8px]
+              font-semibold
+              uppercase
+              tracking-[0.16em]
+              text-slate-800
+              sm:gap-2
+              sm:text-[10px]
+              sm:tracking-[0.2em]
+            "
+          >
+            <span>Simplify</span>
+            <span className="h-[3px] w-[3px] rounded-full bg-brand-500" />
+            <span>Automate</span>
+            <span className="h-[3px] w-[3px] rounded-full bg-brand-500" />
+            <span>Accelerate</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}
@@ -288,7 +322,7 @@ export default function Navbar({ onContactClick }) {
             whileTap={{ scale: 0.97 }}
             className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-600/25 transition-shadow hover:shadow-lg hover:shadow-brand-600/30"
           >
-            Start 14-Day Free Trial
+            Start 7-Day Free Trial
           </motion.a>
         </div>
 
@@ -301,17 +335,20 @@ export default function Navbar({ onContactClick }) {
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
+
+        
       </nav>
 
       {/* Mobile drawer */}
       <AnimatePresence>
+      
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-brand-100/70 bg-[#f8faff] lg:hidden"
+            className="max-h-[calc(100vh-76px)] overflow-y-auto border-t border-brand-100/70 bg-[#f8faff] lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
               {/* Mobile Products Accordion */}
@@ -419,7 +456,7 @@ export default function Navbar({ onContactClick }) {
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-linear-to-r from-brand-600 to-brand-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md"
               >
-                Start 14-Day Free Trial
+                Start 7-Day Free Trial
               </a>
             </div>
           </motion.div>

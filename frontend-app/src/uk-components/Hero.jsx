@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import worklynxLogo from "@/assets/worklynx-light.png";
 import {
   Package,
@@ -13,27 +13,51 @@ import {
 const modules = [
   {
     title: "Inventory",
-    subtitle: "Stock & products",
+    subtitle: "Stock & sales products",
     Icon: Package,
     position: "left",
+    targetId: "inventory",
+    taglines: [
+      "Stock control that never runs dry.",
+      "Know what you have, always.",
+      "From shelf to warehouse, in real time.",
+    ],
   },
   {
     title: "RMS",
     subtitle: "Restaurant operations",
     Icon: UtensilsCrossed,
     position: "left",
+    targetId: "rms",
+    taglines: [
+      "Kitchen to till, fully connected.",
+      "Run service without the chaos.",
+      "Every order, every table, under control.",
+    ],
   },
   {
     title: "HRMS",
     subtitle: "People & payroll",
     Icon: Users,
     position: "right",
+    targetId: "hrms",
+    taglines: [
+      "Payroll, attendance and people — sorted.",
+      "HR that runs itself.",
+      "Your workforce, fully in sync.",
+    ],
   },
   {
     title: "Analytics",
     subtitle: "Business insights",
     Icon: BarChart3,
     position: "right",
+    targetId: "products",
+    taglines: [
+      "Numbers that actually tell you something.",
+      "See your business, not just your data.",
+      "Insights that drive the next decision.",
+    ],
   },
 ];
 
@@ -58,99 +82,116 @@ const products = [
   },
 ];
 
-function PenUnderline() {
-  return (
-    <motion.svg
-      viewBox="0 0 360 45"
-      className="
-        pointer-events-none
-        absolute
-       
-        overflow-visible
 
-        left-1/2
-top-[92%]
-z-[-1]
-h-[15px]
-w-[120%]
--translate-x-1/2
 
-       sm:h-[28px]
-sm:w-[125%]
-      "
-      fill="none"
-    >
-      <defs>
-        <linearGradient
-          id="pen-gradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="0%"
-        >
-          <stop offset="0%" stopColor="var(--color-brand-600)" />
-          <stop offset="100%" stopColor="var(--color-brand-500)" />
-        </linearGradient>
-      </defs>
+/* ========================================================
+   CONNECTOR GEOMETRY
 
-      {/* Main hand-drawn stroke */}
-      <motion.path
-        d="
-          M 8 22
-          C 65 21, 125 20, 185 19
-          C 245 18, 305 18, 350 14
-          C 356 14, 358 17, 352 19
-          C 290 24, 220 25, 150 26
-          C 95 27, 45 27, 10 28
-        "
-        stroke="url(#pen-gradient)"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{
-          pathLength: {
-            duration: 0.9,
-            ease: "easeOut",
-          },
-          opacity: {
-            duration: 0.15,
-          },
-        }}
-      />
+   The desktop connector network has to terminate exactly on DOM elements
+   (the four module cards and the Worklynx badge) whose sizes come from
+   content, not from fixed values. Hard-coding SVG coordinates against an
+   assumed 1150px layout is what made the old paths drift, so instead we
+   measure the real elements and build the paths from those numbers.
+======================================================== */
 
-      {/* Small second stroke */}
-      <motion.path
-        d="
-          M 58 34
-          C 115 31, 175 31, 235 31
-          C 270 31, 298 30, 320 28
-        "
-        stroke="url(#pen-gradient)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 0.85 }}
-        transition={{
-          pathLength: {
-            duration: 0.55,
-            delay: 0.5,
-            ease: "easeOut",
-          },
-          opacity: {
-            duration: 0.15,
-            delay: 0.5,
-          },
-        }}
-      />
-    </motion.svg>
-  );
+// Layout position relative to `ancestor`, walking the offsetParent chain.
+// Deliberately uses offset* rather than getBoundingClientRect: offsets ignore
+// CSS transforms, so measurements stay correct while framer-motion is still
+// animating the cards and badge into place.
+function offsetWithin(el, ancestor) {
+  let x = 0;
+  let y = 0;
+  let node = el;
+
+  while (node && node !== ancestor) {
+    x += node.offsetLeft;
+    y += node.offsetTop;
+    node = node.offsetParent;
+  }
+
+  return { x, y };
+}
+
+// Vertical bands the connectors share with the layout below the hub.
+const HUB_ROW_BOTTOM = 210; // matches the ecosystem row's lg:h-[210px]
+const PRODUCT_ROW_TOP = 258; // HUB_ROW_BOTTOM + the product grid's mt-12
+const PRODUCT_GRID_GAP = 20; // the product grid's gap-5
+const BRACKET_GAP = 30; // breathing room between a card edge and its bracket
+const BRACKET_RADIUS = 15;
+const HUB_CLEARANCE = 4;
+
+// Three passes over the same paths produce the etched/embossed edge.
+const ETCH_LAYERS = [
+  {
+    key: "shadow",
+    dy: 0,
+    stroke: "#d5d6db",
+    strokeWidth: 1.2,
+    opacity: 0.18,
+    filter: "url(#etched-shadow)",
+  },
+  {
+    key: "base",
+    dy: -1,
+    stroke: "#dfe0e4",
+    strokeWidth: 0.75,
+    opacity: 1,
+  },
+  {
+    key: "highlight",
+    dy: -2,
+    stroke: "url(#etched-highlight)",
+    strokeWidth: 0.4,
+    opacity: 0.3,
+  },
+];
+
+function buildConnectorPaths(geo) {
+  const { w, left, right, hub } = geo;
+  const r = BRACKET_RADIUS;
+  const cx = w / 2;
+
+  // Product cards: three equal columns across the full width.
+  const productW = (w - PRODUCT_GRID_GAP * 2) / 3;
+  const px1 = productW / 2;
+  const px3 = w - px1;
+
+  // A card pair reduces to a rounded bracket: two stubs leaving the card edges
+  // at their vertical centres, joined by a spine, with a trunk to the hub.
+  const bracket = (side) => {
+    const outward = side.dir;
+    const edge = side.edge;
+    const spine = edge + BRACKET_GAP * outward;
+    const elbow = spine - r * outward;
+    const [m1, m2] = side.mids;
+
+    return [
+      `M ${edge} ${m1} H ${elbow} Q ${spine} ${m1} ${spine} ${m1 + r}` +
+        ` V ${m2 - r} Q ${spine} ${m2} ${elbow} ${m2} H ${edge}`,
+      `M ${spine} ${hub.midY} H ${side.hubEdge}`,
+    ];
+  };
+
+  return [
+    ...bracket({ dir: 1, edge: left.edge, mids: left.mids, hubEdge: hub.left }),
+    ...bracket({ dir: -1, edge: right.edge, mids: right.mids, hubEdge: hub.right }),
+    `M ${cx} ${hub.bottom + HUB_CLEARANCE} V ${HUB_ROW_BOTTOM}`,
+    `M ${px1} ${HUB_ROW_BOTTOM} H ${px3}`,
+    `M ${px1} ${HUB_ROW_BOTTOM} V ${PRODUCT_ROW_TOP}`,
+    `M ${cx} ${HUB_ROW_BOTTOM} V ${PRODUCT_ROW_TOP}`,
+    `M ${px3} ${HUB_ROW_BOTTOM} V ${PRODUCT_ROW_TOP}`,
+  ];
 }
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [connectors, setConnectors] = useState(null);
+
+  const diagramRef = useRef(null);
+  const leftColRef = useRef(null);
+  const rightColRef = useRef(null);
+  const hubRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -168,6 +209,64 @@ export default function Hero() {
       window.removeEventListener("resize", checkMobile);
       clearTimeout(timer);
     };
+  }, []);
+
+  // Re-measure the connector anchors whenever the diagram or its cards resize.
+  // Below lg the columns are display:none (offsetWidth 0) — we keep the last
+  // good geometry rather than writing zeros, since the SVG is hidden there too.
+  useEffect(() => {
+    const diagram = diagramRef.current;
+    if (!diagram) return undefined;
+
+    const measure = () => {
+      const leftCol = leftColRef.current;
+      const rightCol = rightColRef.current;
+      const hub = hubRef.current;
+      if (!leftCol || !rightCol || !hub) return;
+
+      const w = diagram.offsetWidth;
+      if (!w || !leftCol.offsetWidth || !rightCol.offsetWidth) return;
+
+      const midsOf = (col) => {
+        const base = offsetWithin(col, diagram).y;
+        return Array.from(col.children).map(
+          (card) => base + card.offsetTop + card.offsetHeight / 2,
+        );
+      };
+
+      const leftMids = midsOf(leftCol);
+      const rightMids = midsOf(rightCol);
+      if (leftMids.length < 2 || rightMids.length < 2) return;
+
+      const hubPos = offsetWithin(hub, diagram);
+
+      const geo = {
+        w,
+        left: {
+          edge: offsetWithin(leftCol, diagram).x + leftCol.offsetWidth,
+          mids: leftMids,
+        },
+        right: { edge: offsetWithin(rightCol, diagram).x, mids: rightMids },
+        hub: {
+          left: hubPos.x,
+          right: hubPos.x + hub.offsetWidth,
+          midY: hubPos.y + hub.offsetHeight / 2,
+          bottom: hubPos.y + hub.offsetHeight,
+        },
+      };
+
+      setConnectors({ w, paths: buildConnectorPaths(geo) });
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(diagram);
+    if (leftColRef.current) observer.observe(leftColRef.current);
+    if (rightColRef.current) observer.observe(rightColRef.current);
+    if (hubRef.current) observer.observe(hubRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -322,19 +421,64 @@ export default function Hero() {
             <br />
             business needs.
           </h1> */}
-          <h1 className="text-[34px] font-semibold leading-[1.15] tracking-[-0.045em] text-[#1a1b1e] xs:text-[40px] sm:text-[64px] md:text-[76px] lg:text-[60px]">
-            Powering  {" "}
-            <span className="relative inline-block">
-              every part
-              <PenUnderline />
-            </span>
+          <h1
+            className="
+              text-gradient-display
+              text-[34px]
+              font-semibold
+              leading-[1.12]
+              tracking-[-0.04em]
+              sm:text-[44px]
+              sm:tracking-[-0.045em]
+              md:text-[50px]
+              lg:text-[52px]
+              xl:text-[58px]
+            "
+          >
+            One Business.{" "}
+            {/* Inherits the h1's single continuous gradient ramp rather than
+                carrying one of its own. Must stay a plain inline box: giving it
+                position/transform/z-index (or inline-block) makes WebKit paint it
+                outside the h1's background-clip:text layer, so the glyphs render
+                with transparent fill and nothing behind them — invisible on iOS
+                Safari. whitespace-nowrap is safe; it creates no paint layer. */}
+            <span className="whitespace-nowrap">One Platform.</span>
             <br />
-            of your business.
+            Every operation.
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[620px] text-[14px] font-base leading-7 text-[#62646a] sm:text-[16px]">
-            Worklynx brings inventory, restaurant management and
-            human resources together in one powerful business platform.
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-[720px]
+              text-[16px]
+              font-medium
+              leading-[1.7]
+              tracking-normal
+              text-black
+              hyphens-none
+              sm:text-[18px]
+              md:text-[19px]
+              lg:max-w-[900px]
+              lg:text-[19px]
+              lg:leading-9
+            "
+          >
+            {/* Inverted pyramid on lg+: each span becomes its own centered line
+                (88 / 71 / 52 chars, so the taper steps ~17 chars each time).
+                Below lg the spans stay inline and the text wraps naturally. */}
+            <span className="lg:block">
+              Worklynx is a powerful, all-in-one ERP platform that brings HR,
+              inventory, warehouse and{" "}
+            </span>
+            <span className="lg:block">
+              restaurant management together—empowering you with complete
+              visibility,{" "}
+            </span>
+            <span className="lg:block">
+              smarter control and the tools to grow your business.
+            </span>
           </p>
 
           {/* CTA Buttons */}
@@ -346,410 +490,142 @@ export default function Hero() {
             Ecosystem Visual with Worklynx Loader Transition
         ------------------------------------------------ */}
 
-        <div className="relative mt-4 lg:mt-16 w-full max-w-[1150px]">
+        <div ref={diagramRef} className="relative mt-4 lg:mt-16 w-full max-w-[1150px]">
           {/* Desktop connection lines */}
           {/* ========================================================
     DESKTOP CONNECTION SYSTEM
     Rounded etched connector network
 ======================================================== */}
 
-          <motion.svg
-            initial={{ opacity: 0 }}
-            animate={{ opacity: loaded ? 1 : 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.35,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            viewBox="0 0 1150 470"
-            preserveAspectRatio="none"
-            className="
-    pointer-events-none
-    absolute
-    left-0
-    top-0
-    z-0
-    hidden
-    h-[470px]
-    w-full
-    lg:block
-  "
-          >
-            <defs>
-              <filter
-                id="etched-shadow"
-                x="-20%"
-                y="-20%"
-                width="140%"
-                height="140%"
-              >
-                <feGaussianBlur stdDeviation="0.7" />
-              </filter>
-
-              <linearGradient
-                id="etched-highlight"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop
-                  offset="0%"
-                  stopColor="#ffffff"
-                  stopOpacity="0.35"
-                />
-                <stop
-                  offset="100%"
-                  stopColor="#ffffff"
-                  stopOpacity="0.05"
-                />
-              </linearGradient>
-            </defs>
-
-            {/* =====================================================
-      1. SOFT RECESSED SHADOW
-  ===================================================== */}
-
-            {/* SOFT RECESSED SHADOW */}
-            <g
-              fill="none"
-              stroke="#d5d6db"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.18"
-              filter="url(#etched-shadow)"
+          {connectors && (
+            <motion.svg
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loaded ? 1 : 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              viewBox={`0 0 ${connectors.w} 470`}
+              className="
+                pointer-events-none
+                absolute
+                left-0
+                top-0
+                z-0
+                hidden
+                h-[470px]
+                w-full
+                lg:block
+              "
             >
-              {/* LEFT — INVENTORY */}
-              <path
-                d="
-        M 190 30
-        H 210
-        Q 225 30 225 45
-        V 93
-        Q 225 108 210 108
-        H 190
-      "
-              />
+              <defs>
+                <filter
+                  id="etched-shadow"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                >
+                  <feGaussianBlur stdDeviation="0.7" />
+                </filter>
 
-              {/* LEFT — RMS → WORKLYNX */}
-              <path
-                d="
-        M 225 93
-        V 64
-        H 462
-      "
-              />
+                <linearGradient
+                  id="etched-highlight"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0.05" />
+                </linearGradient>
+              </defs>
 
-              {/* RIGHT — HRMS */}
-              <path
-                d="
-        M 960 30
-        H 940
-        Q 925 30 925 45
-        V 93
-        Q 925 108 940 108
-        H 960
-      "
-              />
-
-              {/* RIGHT — ANALYTICS → WORKLYNX */}
-              <path
-                d="
-        M 925 93
-        V 64
-        H 688
-      "
-              />
-
-              {/* WORKLYNX → CENTER */}
-              <path
-                d="
-        M 575 100
-        V 210
-      "
-              />
-
-              {/* BOTTOM HORIZONTAL */}
-              <path
-                d="
-        M 185 210
-        H 965
-      "
-              />
-
-              {/* INVENTORY MANAGEMENT */}
-              <path
-                d="
-        M 185 210
-        V 258
-      "
-              />
-
-              {/* RESTAURANT MANAGEMENT */}
-              <path
-                d="
-        M 575 210
-        V 258
-      "
-              />
-
-              {/* HR MANAGEMENT */}
-              <path
-                d="
-        M 965 210
-        V 258
-      "
-              />
-            </g>
-
-            {/* =====================================================
-      2. MAIN ETCHED LINE
-  ===================================================== */}
-
-            {/* MAIN ETCHED LINE */}
-            <g
-              fill="none"
-              stroke="#dfe0e4"
-              strokeWidth="0.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* LEFT — INVENTORY */}
-              <path
-                d="
-        M 190 29
-        H 210
-        Q 225 29 225 44
-        V 92
-        Q 225 107 210 107
-        H 190
-      "
-              />
-
-              {/* LEFT → WORKLYNX */}
-              <path
-                d="
-        M 225 92
-        V 63
-        H 462
-      "
-              />
-
-              {/* RIGHT — HRMS */}
-              <path
-                d="
-        M 960 29
-        H 940
-        Q 925 29 925 44
-        V 92
-        Q 925 107 940 107
-        H 960
-      "
-              />
-
-              {/* RIGHT → WORKLYNX */}
-              <path
-                d="
-        M 925 92
-        V 63
-        H 688
-      "
-              />
-
-              {/* WORKLYNX → CENTER */}
-              <path
-                d="
-        M 575 100
-        V 210
-      "
-              />
-
-              {/* BOTTOM HORIZONTAL */}
-              <path
-                d="
-        M 185 210
-        H 965
-      "
-              />
-
-              {/* INVENTORY MANAGEMENT */}
-              <path
-                d="
-        M 185 210
-        V 258
-      "
-              />
-
-              {/* RESTAURANT MANAGEMENT */}
-              <path
-                d="
-        M 575 210
-        V 258
-      "
-              />
-
-              {/* HR MANAGEMENT */}
-              <path
-                d="
-        M 965 210
-        V 258
-      "
-              />
-            </g>
-
-            {/* =====================================================
-      3. THIN WHITE SCRATCH HIGHLIGHT
-  ===================================================== */}
-
-            <g
-              fill="none"
-              stroke="url(#etched-highlight)"
-              strokeWidth="0.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.30"
-            >
-              {/* LEFT — INVENTORY */}
-              <path
-                d="
-        M 190 28
-        H 210
-        Q 226 28 226 44
-        V 92
-        Q 226 108 210 108
-        H 190
-      "
-              />
-
-              {/* LEFT → WORKLYNX */}
-              <path
-                d="
-        M 226 92
-        V 62
-        H 462
-      "
-              />
-
-              {/* RIGHT — HRMS */}
-              <path
-                d="
-        M 960 28
-        H 940
-        Q 924 28 924 44
-        V 92
-        Q 924 108 940 108
-        H 960
-      "
-              />
-
-              {/* RIGHT → WORKLYNX */}
-              <path
-                d="
-        M 924 92
-        V 62
-        H 688
-      "
-              />
-
-              {/* CENTER */}
-              <path
-                d="
-        M 574 100
-        V 210
-      "
-              />
-
-              {/* BOTTOM */}
-              <path
-                d="
-        M 185 209
-        H 965
-      "
-              />
-
-              {/* INVENTORY MANAGEMENT */}
-              <path
-                d="
-        M 184 209
-        V 258
-      "
-              />
-
-              {/* RESTAURANT MANAGEMENT */}
-              <path
-                d="
-        M 574 209
-        V 258
-      "
-              />
-
-              {/* HR MANAGEMENT */}
-              <path
-                d="
-        M 964 209
-        V 258
-      "
-              />
-            </g>
-          </motion.svg>
+              {/* The etched look is the same network drawn three times, nudged
+                  up a pixel per pass: recessed shadow, base stroke, highlight. */}
+              {ETCH_LAYERS.map((layer) => (
+                <g
+                  key={layer.key}
+                  transform={`translate(0 ${layer.dy})`}
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  stroke={layer.stroke}
+                  strokeWidth={layer.strokeWidth}
+                  opacity={layer.opacity}
+                  filter={layer.filter}
+                >
+                  {connectors.paths.map((d, i) => (
+                    <path key={i} d={d} />
+                  ))}
+                </g>
+              ))}
+            </motion.svg>
+          )}
 
           {/* Main ecosystem */}
 
-          <div className="relative flex flex-col items-center lg:h-[210px]">
+          <div className="relative flex flex-col items-center lg:h-[210px] lg:justify-center">
             {/* Left modules (Inventory, RMS) */}
 
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{
-                opacity: loaded ? 1 : 0,
-                x: loaded ? 0 : -30,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 0.3,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="absolute left-0 top-0 hidden flex-col gap-4 lg:flex"
-            >
-              {modules
-                .filter((item) => item.position === "left")
-                .map((module, index) => (
-                  <Module
-                    key={module.title}
-                    {...module}
-                    index={index}
-                    direction="left"
-                  />
-                ))}
-            </motion.div>
+            <div className="absolute inset-y-0 left-0 hidden items-center lg:flex">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{
+                  opacity: loaded ? 1 : 0,
+                  x: loaded ? 0 : -30,
+                }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                ref={leftColRef}
+                className="flex flex-col gap-4"
+              >
+                {modules
+                  .filter((item) => item.position === "left")
+                  .map((module, index) => (
+                    <Module
+                      key={module.title}
+                      {...module}
+                      index={index}
+                      direction="left"
+                    />
+                  ))}
+              </motion.div>
+            </div>
 
             {/* Right modules (HRMS, Analytics) */}
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{
-                opacity: loaded ? 1 : 0,
-                x: loaded ? 0 : 30,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 0.3,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="absolute right-0 top-0 hidden flex-col gap-4 lg:flex"
-            >
-              {modules
-                .filter((item) => item.position === "right")
-                .map((module, index) => (
-                  <Module
-                    key={module.title}
-                    {...module}
-                    index={index}
-                    direction="right"
-                  />
-                ))}
-            </motion.div>
+            <div className="absolute inset-y-0 right-0 hidden items-center lg:flex">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{
+                  opacity: loaded ? 1 : 0,
+                  x: loaded ? 0 : 30,
+                }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                ref={rightColRef}
+                className="flex flex-col gap-4"
+              >
+                {modules
+                  .filter((item) => item.position === "right")
+                  .map((module, index) => (
+                    <Module
+                      key={module.title}
+                      {...module}
+                      index={index}
+                      direction="right"
+                    />
+                  ))}
+              </motion.div>
+            </div>
 
             {/* 
               SINGLE WORKLYNX LOADER BADGE:
@@ -757,6 +633,11 @@ export default function Hero() {
               scales and glides into ecosystem hub position in ONE smooth animation!
             */}
 
+            {/* lg:-mt-5 on this wrapper cancels the badge's own sm:mt-5 for
+                centring purposes. That margin has to stay — it positions the
+                badge inside its Saturn-ring frame — but it otherwise sits
+                inside the box lg:justify-center centres, which would leave the
+                visible badge 10px below the module columns' midline. */}
             <motion.div
               initial={false}
               animate={{
@@ -767,9 +648,9 @@ export default function Hero() {
                 duration: 0.9,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="relative z-30 my-4 sm:my-6 lg:my-0 flex justify-center"
+              className="relative z-30 my-4 sm:my-6 lg:my-0 lg:-mt-5 flex justify-center"
             >
-              <Worklynx />
+              <Worklynx badgeRef={hubRef} />
             </motion.div>
 
             {/* Mobile modules */}
@@ -785,7 +666,7 @@ export default function Hero() {
                 delay: 0.35,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-6 sm:mt-8 grid w-full max-w-[600px] grid-cols-2 gap-2.5 sm:gap-3.5 lg:hidden"
+              className="mt-6 grid w-full max-w-[600px] grid-cols-1 gap-3 min-[400px]:grid-cols-2 sm:mt-8 sm:gap-3.5 lg:hidden"
             >
               {modules.map((module, index) => (
                 <Module
@@ -831,15 +712,48 @@ export default function Hero() {
    MODULE
 ======================================================== */
 
+function scrollToSection(targetId) {
+  if (typeof document === "undefined") return;
+
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  target.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
 function Module({
   title,
   subtitle,
   Icon,
   index,
   direction,
+  targetId,
+  taglines = [],
 }) {
+  const [open, setOpen] = useState(false);
+
+  // Left-column cards float their bubble out to the left, right-column cards
+  // mirror it, so the callout always hangs off the outer edge of the diagram.
+  const fromLeft = direction === "left";
+
   return (
     <motion.div
+      onClick={() => scrollToSection(targetId)}
+      onHoverStart={() => setOpen(true)}
+      onHoverEnd={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={() => setOpen(false)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          scrollToSection(targetId);
+        }
+      }}
       initial={{
         opacity: 0,
         x: direction === "left" ? -25 : 25,
@@ -858,36 +772,169 @@ function Module({
       }}
       className="
         group
+        relative
+        z-10
+        cursor-pointer
+        hover:z-30
         flex
-        min-h-[58px] sm:min-h-[62px]
-        w-full min-w-0 lg:min-w-[190px] lg:w-auto
+        min-h-[76px] sm:min-h-[82px]
+        w-full min-w-0 lg:min-w-[235px] lg:w-auto
         items-center
         gap-2.5 sm:gap-3
         rounded-xl sm:rounded-2xl
         border
         border-black/[0.06]
         bg-white
-        px-3 py-2.5 sm:px-4 sm:py-3
+        px-3.5 py-3 sm:px-4 sm:py-3.5
         shadow-[0_8px_30px_rgba(30,30,40,0.06)]
-        transition-shadow
-        hover:shadow-[0_14px_35px_rgba(30,30,40,0.1)]
+        transition-[box-shadow,border-color]
+        hover:border-brand-500/30
+        hover:shadow-[0_14px_35px_rgba(79,70,229,0.14)]
       "
     >
-      <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-linear-to-br from-brand-600/15 to-brand-500/10 text-brand-600">
-        <Icon size={16} strokeWidth={1.8} className="sm:w-[17px] sm:h-[17px]" />
+      <div
+        className="
+          flex h-11 w-11 shrink-0 items-center justify-center
+          rounded-xl
+          bg-linear-to-br from-brand-600/20 to-brand-500/10
+          text-brand-600
+          transition-colors duration-300
+          group-hover:from-brand-600 group-hover:to-brand-500
+          group-hover:text-white
+          sm:h-12 sm:w-12
+        "
+      >
+        <Icon size={21} strokeWidth={1.9} />
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[11px] sm:text-[12px] font-semibold text-[#36383d]">
+        <p className="truncate text-[17px] font-bold tracking-[-0.015em] text-[#1c1e22] sm:text-[18px]">
           {title}
         </p>
 
-        <p className="mt-0.5 sm:mt-1 truncate text-[9px] sm:text-[10px] text-[#92949a]">
+        <p className="mt-1 text-[13px] font-medium leading-snug text-[#6b6e76] sm:text-[13.5px]">
           {subtitle}
         </p>
       </div>
 
-      <div className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-[#d3d5d9] transition-colors group-hover:bg-[#202020]" />
+      <div className="ml-auto h-2 w-2 shrink-0 rounded-full bg-[#d3d5d9] transition-colors group-hover:bg-brand-600" />
+
+      {/* Hover taglines — gradient chat bubble, popped up to the outer top corner */}
+
+      <AnimatePresence>
+        {open && taglines.length > 0 && (
+          <motion.div
+            key="taglines"
+            initial={{
+              opacity: 0,
+              scale: 0.7,
+              x: fromLeft ? 16 : -16,
+              y: 16,
+              rotate: fromLeft ? 6 : -6,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              y: 0,
+              rotate: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.85,
+              y: 10,
+              transition: { duration: 0.14 },
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 460,
+              damping: 20,
+              mass: 0.7,
+            }}
+            style={{
+              transformOrigin: fromLeft ? "bottom right" : "bottom left",
+            }}
+            className={`
+              pointer-events-none
+              absolute
+              bottom-[calc(100%+10px)]
+              z-50
+              flex
+              flex-col
+              gap-1
+              ${fromLeft
+                ? "left-0 items-start lg:-left-10 min-[1400px]:-left-20"
+                : "right-0 items-end lg:-right-10 min-[1400px]:-right-20"
+              }
+            `}
+          >
+            {/* Bubble */}
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className={`
+                w-[230px]
+                rounded-2xl
+                border border-white/20
+                bg-gradient-to-br from-brand-600 via-brand-500 to-brand-600
+                px-3.5 py-3
+                shadow-[0_18px_40px_-10px_rgba(79,70,229,0.65)]
+                ${fromLeft ? "rounded-br-md" : "rounded-bl-md"}
+              `}
+            >
+              <ul className="space-y-2">
+                {taglines.map((tagline, lineIndex) => (
+                  <motion.li
+                    key={tagline}
+                    initial={{ opacity: 0, x: fromLeft ? -8 : 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.06 + lineIndex * 0.07,
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="flex items-start gap-2 text-[14px] font-semibold leading-snug text-white"
+                  >
+                    <span className="mt-[6px] h-1 w-1 shrink-0 rounded-full bg-white/70" />
+                    <span>{tagline}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Messaging-style connector trailing back down to the card */}
+            <div
+              className={`
+                flex flex-col gap-[3px]
+                ${fromLeft
+                  ? "items-start pl-6 lg:pl-14 min-[1400px]:pl-24"
+                  : "items-end pr-6 lg:pr-14 min-[1400px]:pr-24"
+                }
+              `}
+            >
+              {[7, 4].map((size, dotIndex) => (
+                <motion.span
+                  key={size}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    delay: 0.04 + dotIndex * 0.06,
+                    type: "spring",
+                    stiffness: 600,
+                    damping: 18,
+                  }}
+                  style={{ height: size, width: size }}
+                  className="rounded-full bg-gradient-to-br from-brand-600 to-brand-500 shadow-[0_4px_10px_rgba(79,70,229,0.35)]"
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -895,7 +942,7 @@ function Module({
 /* ========================================================
    WORKLYNX
 ======================================================== */
-function Worklynx({ onClick }) {
+function Worklynx({ onClick, badgeRef }) {
   return (
     <div className="relative">
       {/* ============================================
@@ -1017,6 +1064,7 @@ function Worklynx({ onClick }) {
       ============================================ */}
 
       <motion.button
+        ref={badgeRef}
         onClick={onClick}
         whileHover={{
           scale: 1.035,
@@ -1306,12 +1354,12 @@ function ProductCard({
       className={`
         group
         relative
-        min-h-[250px]
+        min-h-[240px] sm:min-h-[250px]
         overflow-hidden
         rounded-[22px]
         border border-[#E8E9ED]
         bg-white
-        p-5
+        p-5 sm:p-6
         transition-all duration-300
         ${style.border}
         hover:shadow-[0_18px_45px_rgba(20,20,30,0.07)]
@@ -1346,7 +1394,7 @@ function ProductCard({
       <div className="relative flex items-center gap-3">
         <div
           className={`
-            flex h-10 w-10 shrink-0 items-center justify-center
+            flex h-11 w-11 shrink-0 items-center justify-center
             rounded-xl
             ${style.iconBg}
             ${style.iconColor}
@@ -1366,7 +1414,7 @@ function ProductCard({
         </div>
 
         <div className="min-w-0">
-          <h3 className="text-[13px] font-semibold tracking-[-0.01em] text-[#202124]">
+          <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-[#202124] sm:text-[16px]">
             {title}
           </h3>
 
@@ -1374,7 +1422,7 @@ function ProductCard({
       </div>
 
       {/* Description */}
-      <p className="relative mt-3 max-w-[285px] text-[10px] leading-[1.7] text-[#73767C]">
+      <p className="relative mt-3 text-[13px] leading-[1.7] text-[#73767C] sm:max-w-[285px]">
         {description}
       </p>
 
@@ -1402,11 +1450,11 @@ function InventoryPreview() {
   return (
     <div className="rounded-[15px] border border-indigo-100/80 bg-indigo-50/40 p-3.5">
       <div className="flex items-center justify-between">
-        <span className="text-[9px] font-semibold text-indigo-950/60">
+        <span className="text-[11px] font-semibold text-indigo-950/60">
           Inventory overview
         </span>
 
-        <span className="flex items-center gap-1.5 text-[8px] font-medium text-indigo-600">
+        <span className="flex items-center gap-1.5 text-[10px] font-medium text-indigo-600">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
           Live
         </span>
@@ -1418,11 +1466,11 @@ function InventoryPreview() {
             key={name}
             className="rounded-[9px] border border-indigo-100/70 bg-white px-2.5 py-2"
           >
-            <p className="text-[7px] font-medium text-[#92959B]">
+            <p className="text-[9px] font-medium text-[#92959B]">
               {name}
             </p>
 
-            <p className="mt-1 text-[13px] font-semibold tracking-[-0.02em] text-[#292B30]">
+            <p className="mt-1 text-[14px] font-semibold tracking-[-0.02em] text-[#292B30]">
               {value}
             </p>
           </div>
@@ -1452,21 +1500,21 @@ function RmsPreview() {
     <div className="rounded-[15px] border border-emerald-100/80 bg-emerald-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[8px] font-medium text-emerald-950/50">
+          <p className="text-[10px] font-medium text-emerald-950/50">
             Today's revenue
           </p>
 
-          <p className="mt-1 text-[19px] font-semibold tracking-[-0.035em] text-[#292B30]">
+          <p className="mt-1 text-[21px] font-semibold tracking-[-0.035em] text-[#292B30]">
             ₹48.2K
           </p>
         </div>
 
         <div className="text-right">
-          <p className="text-[8px] font-medium text-[#92959B]">
+          <p className="text-[10px] font-medium text-[#92959B]">
             Orders
           </p>
 
-          <p className="mt-1 text-[13px] font-semibold text-[#292B30]">
+          <p className="mt-1 text-[14px] font-semibold text-[#292B30]">
             184
           </p>
         </div>
@@ -1508,11 +1556,11 @@ function HrmsPreview() {
     <div className="rounded-[15px] border border-blue-100/80 bg-blue-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[8px] font-medium text-blue-950/50">
+          <p className="text-[10px] font-medium text-blue-950/50">
             Employees
           </p>
 
-          <p className="mt-1 text-[19px] font-semibold tracking-[-0.035em] text-[#292B30]">
+          <p className="mt-1 text-[21px] font-semibold tracking-[-0.035em] text-[#292B30]">
             128
           </p>
         </div>
@@ -1527,7 +1575,7 @@ function HrmsPreview() {
         rounded-full
         border-2 border-white
         bg-blue-100
-        text-[8px]
+        text-[9px]
         font-semibold
         text-blue-600
       "
@@ -1540,11 +1588,11 @@ function HrmsPreview() {
 
       <div className="mt-4">
         <div className="flex justify-between">
-          <span className="text-[8px] font-medium text-[#92959B]">
+          <span className="text-[10px] font-medium text-[#92959B]">
             Attendance
           </span>
 
-          <span className="text-[8px] font-semibold text-blue-600">
+          <span className="text-[10px] font-semibold text-blue-600">
             94%
           </span>
         </div>

@@ -17,6 +17,7 @@ import { href } from "react-router-dom";
 
 const products = [
     {
+        id: "inventory",
         eyebrow: "Inventory Management",
         title: "Inventory",
         description:
@@ -50,6 +51,7 @@ const products = [
     },
 
     {
+        id: "rms",
         eyebrow: "Restaurant Management",
         title: "RMS",
         description:
@@ -83,6 +85,7 @@ const products = [
     },
 
     {
+        id: "hrms",
         eyebrow: "Human Resource Management System",
         title: "HRMS",
         description:
@@ -118,7 +121,7 @@ const products = [
 
 export default function ProductsShowcaseNew1() {
     return (
-        <section className="bg-white py-24 md:py-32 lg:py-36">
+        <section id="products" className="scroll-mt-24 bg-white py-24 md:py-32 lg:py-36">
             <div className="mx-auto max-w-7xl px-6">
 
                 {/* ================= HEADER ================= */}
@@ -211,6 +214,7 @@ export default function ProductsShowcaseNew1() {
                         return (
                             <motion.article
                                 key={product.title}
+                                id={product.id}
                                 initial={{
                                     opacity: 0,
                                     y: 50,
@@ -226,7 +230,7 @@ export default function ProductsShowcaseNew1() {
                                 transition={{
                                     duration: 0.7,
                                 }}
-                                className="border-t border-neutral-200"
+                                className="scroll-mt-24 border-t border-neutral-200"
                             >
 
                                 <div

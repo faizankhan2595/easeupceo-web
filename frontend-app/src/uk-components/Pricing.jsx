@@ -298,7 +298,7 @@ export default function Pricing() {
               whileTap={{ scale: 0.97 }}
               className="relative inline-flex shrink-0 items-center gap-1.5 rounded-full bg-accent-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-500/25 transition-colors hover:bg-accent-600"
             >
-              Start 14-Day Free Trial
+              Start 7-Day Free Trial
               <ArrowRight className="h-4 w-4" />
             </motion.a>
           </div>

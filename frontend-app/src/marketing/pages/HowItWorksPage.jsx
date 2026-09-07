@@ -47,7 +47,7 @@ const steps = [
 
 const benefits = [
   { number: "5 min", label: "Average setup time" },
-  { number: "14 days", label: "Free trial included" },
+  { number: "7 days", label: "Free trial included" },
   { number: "₹600", label: "Per employee / month" },
   { number: "99.9%", label: "Uptime SLA" },
 ];

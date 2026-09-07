@@ -1,140 +1,195 @@
-import { Sparkles, ShieldCheck } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
+import worklynxLogo from "@/assets/worklynx-dark.png";
 
 const footerLinks = {
-  Product: [
-    { label: "Attendance", href: "#features" },
-    { label: "Leave Management", href: "#features" },
-    { label: "Payroll", href: "#features" },
-    { label: "Employee Management", href: "#features" },
-    { label: "Performance Management", href: "#features" },
+  Products: [
+    { label: "Inventory Management", to: "/inventory-management" },
+    { label: "Restaurant Management", to: "/restaurant-management" },
+    { label: "HR Management", to: "/hrms" },
+    { label: "Analytics", to: "/", hash: "products" },
   ],
   Company: [
-    { label: "Why Worklynx", href: "#why-us" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Contact", href: "#contact" },
+    { label: "About us", to: "/about" },
+    { label: "Pricing", to: "/pricing" },
+    { label: "Contact sales", action: "contact" },
+    { label: "Get started", to: "/signup" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "GDPR & Data Protection", href: "#" },
-    { label: "Cookie Policy", href: "#" },
+    { label: "Privacy Policy", to: "/privacy-policy" },
+    { label: "Terms of Service", to: "/terms-of-service" },
+    { label: "GDPR & Data Protection", to: "/gdpr" },
+    { label: "Cookie Policy", to: "/cookie-policy" },
   ],
 };
 
+const linkClass =
+  "text-sm text-slate-400 transition-colors hover:text-white";
+
 export default function Footer({ onContactClick }) {
+  const { pathname } = useLocation();
+
+  // Router navigation does not act on the URL fragment, so a hash link that
+  // targets a section on the page we are already on has to scroll itself.
+  const handleHashClick = (event, link) => {
+    if (link.to !== pathname) return;
+
+    const target = document.getElementById(link.hash);
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <footer className="bg-slate-900 text-slate-300">
+    // Matches the flat background baked into worklynx-dark.png, so the
+    // logo sits on the footer without a visible plate behind it.
+    <footer className="bg-[#01051C] text-slate-300">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-brand-500 to-brand-700 text-base font-bold text-white shadow-md shadow-brand-600/20">
-                <Sparkles className="h-4.5 w-4.5" strokeWidth={2.25} />
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+          {/* ================= BRAND ================= */}
+
+          <div className="sm:col-span-2">
+            <Link to="/" className="inline-flex flex-col items-start">
+              <img
+                src={worklynxLogo}
+                alt="Worklynx"
+                className="h-9 w-auto sm:h-14"
+              />
+
+              <span
+                className="
+                  mt-2
+                  flex
+                  items-center
+                  gap-2
+                  whitespace-nowrap
+                  text-[9px]
+                  font-medium
+                  uppercase
+                  tracking-[0.2em]
+                  text-slate-500
+                "
+              >
+                <span>Simplify</span>
+                <span className="h-[3px] w-[3px] rounded-full bg-brand-500" />
+                <span>Automate</span>
+                <span className="h-[3px] w-[3px] rounded-full bg-brand-500" />
+                <span>Accelerate</span>
               </span>
-              <span className="flex items-baseline gap-2">
-                <span className="text-xl font-bold text-white">Worklynx</span>
-                <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-slate-400">
-                  by Techtrade
-                </span>
-              </span>
-            </div>
-            <p className="mt-4 text-sm leading-6 text-slate-400">
-              All-in-one HR software for UK businesses — attendance, leave,
-              payroll, employee and performance management in one place.
+            </Link>
+
+            <p className="mt-6 max-w-sm text-sm leading-6 text-slate-400">
+              One platform for inventory, restaurant operations, people and
+              analytics — giving UK businesses complete visibility, smarter
+              control and the tools to grow.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-400">
+
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-slate-400">
               <ShieldCheck className="h-3.5 w-3.5 text-accent-500" />
               GDPR &amp; ICO compliant · Hosted in the UK
             </div>
+
             <div className="mt-6 flex items-center gap-3">
               <a
-                href="#"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
               >
                 <LinkedInIcon className="h-4 w-4" />
               </a>
+
               <a
-                href="#"
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="X (Twitter)"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
               >
                 <XIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
 
+          {/* ================= LINK COLUMNS ================= */}
+
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
               <h3 className="text-sm font-semibold text-white">{heading}</h3>
+
               <ul className="mt-4 space-y-3">
-                {links.map((link) => {
-                  const isContact = link.href === "#contact";
-                  return (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        onClick={(e) => {
-                          if (isContact && onContactClick) {
-                            e.preventDefault();
-                            onContactClick();
-                          }
-                        }}
-                        className="text-sm text-slate-400 transition-colors hover:text-white"
+                {links.map((link) => (
+                  <li key={link.label}>
+                    {link.action === "contact" ? (
+                      <button
+                        type="button"
+                        onClick={onContactClick}
+                        className={linkClass}
                       >
                         {link.label}
-                      </a>
-                    </li>
-                  );
-                })}
+                      </button>
+                    ) : (
+                      <Link
+                        to={link.hash ? `${link.to}#${link.hash}` : link.to}
+                        onClick={
+                          link.hash
+                            ? (event) => handleHashClick(event, link)
+                            : undefined
+                        }
+                        className={linkClass}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
         </div>
 
-       <div className="mt-12 border-t border-slate-800 pt-8">
-  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-    {/* Left */}
-    <p className="text-xs text-slate-500 leading-6 max-w-xl">
-      &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
-      <a
-        href="https://techtradeitsolutions.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
-      >
-        Techtrade IT Solutions
-      </a>
-      . Registered in England &amp; Wales. All rights reserved.
-    </p>
+        {/* ================= BOTTOM BAR ================= */}
 
-    {/* Right */}
-    <div className="flex flex-col gap-2 text-xs text-slate-500 md:items-end">
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
-        <p>
-          Birmingham | Email:{" "}
-          <a
-            href="mailto:sales@techtradeitsolutions.com"
-            className="text-slate-300 hover:text-white underline"
-          >
-            sales@techtradeitsolutions.com
-          </a>
-        </p>
+        <div className="mt-14 border-t border-white/10 pt-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <p className="max-w-xl text-xs leading-6 text-slate-500">
+              &copy; {new Date().getFullYear()} Worklynx is a product of{" "}
+              <a
+                href="https://techtradeitsolutions.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
+              >
+                Techtrade IT Solutions
+              </a>
+              . Registered in England &amp; Wales. All rights reserved.
+            </p>
 
-        <p>
-          Tel:{" "}
-          <a
-            href="tel:+447776839310"
-            className="text-slate-300 hover:text-white underline"
-          >
-            +44 7776839310
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+            <div className="flex flex-col gap-2 text-xs text-slate-500 sm:flex-row sm:gap-6 md:items-end">
+              <p>
+                Birmingham | Email:{" "}
+                <a
+                  href="mailto:sales@techtradeitsolutions.com"
+                  className="text-slate-300 underline hover:text-white"
+                >
+                  sales@techtradeitsolutions.com
+                </a>
+              </p>
+
+              <p>
+                Tel:{" "}
+                <a
+                  href="tel:+447776839310"
+                  className="text-slate-300 underline hover:text-white"
+                >
+                  +44 7776839310
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

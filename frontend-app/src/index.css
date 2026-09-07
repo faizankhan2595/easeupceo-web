@@ -184,6 +184,15 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  /* Display-scale variant of .text-gradient-brand: same 135deg blue/indigo family,
+     but anchored on brand-700 so the ramp stays legible at headline sizes and
+     spans enough range to actually read as a gradient across multiple lines. */
+  .text-gradient-display {
+    background: linear-gradient(135deg, #4338CA 0%, #6366F1 55%, #3B82F6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .shadow-brand {
     box-shadow: 0 20px 60px -10px rgba(59, 130, 246, 0.3);
   }
