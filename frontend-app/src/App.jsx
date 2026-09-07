@@ -7,11 +7,15 @@ import {
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import MarketingLayout from "./marketing/layouts/MarketingLayout";
+import UKLayout from "./marketing/layouts/UKLayout";
 import MarketingNavbar from "./marketing/components/navbar/MarketingNavbar";
 import UKNavbar from "./uk-components/Navbar";
 import { useCountryContext } from "./context/CountryContext";
 
 const LocationAwareHomePage = lazy(() => import("./marketing/pages/LocationAwareHomePage"));
+const UKHRMSPage = lazy(() => import("./marketing/pages/UKHRMSPage"));
+const UKInventoryPage = lazy(() => import("./marketing/pages/UKInventoryPage"));
+const UKRestaurantPage = lazy(() => import("./marketing/pages/UKRestaurantPage"));
 const FeaturesPage = lazy(() => import("./marketing/pages/FeaturesPage"));
 const PricingPage = lazy(() => import("./marketing/pages/PricingPage"));
 const AboutPage = lazy(() => import("./marketing/pages/AboutPage"));
@@ -56,8 +60,16 @@ const App = () => {
         {/* Home — location aware, brings its own navbar/footer per locale */}
         <Route path="/" element={<Suspense fallback={<Fallback />}><LocationAwareHomePage /></Suspense>} />
 
+        {/* UK Product Pages with UK Navbar & Footer */}
+        <Route element={<UKLayout />}>
+          <Route path="/hrms" element={<Suspense fallback={<Fallback />}><UKHRMSPage /></Suspense>} />
+          <Route path="/inventory-management" element={<Suspense fallback={<Fallback />}><UKInventoryPage /></Suspense>} />
+          <Route path="/restaurant-management" element={<Suspense fallback={<Fallback />}><UKRestaurantPage /></Suspense>} />
+        </Route>
+
         {/* Marketing Routes */}
         <Route element={<MarketingLayout />}>
+
           <Route path="/features" element={<Suspense fallback={<Fallback />}><FeaturesPage /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<Fallback />}><PricingPage /></Suspense>} />
           <Route path="/about" element={<Suspense fallback={<Fallback />}><AboutPage /></Suspense>} />

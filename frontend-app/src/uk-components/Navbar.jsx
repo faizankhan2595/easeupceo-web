@@ -1,16 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
-import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Globe, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import worklynxLogo from "@/assets/worklynx-light.png";
 import { Link, useLocation } from "react-router-dom";
 import { useCountryContext } from "@/context/CountryContext";
 
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#why-us", label: "Why Worklynx" },
-  { href: "#how-it-works", label: "How It Works" },
+
   { href: "#pricing", label: "Pricing" },
   { href: "#contact-sales", label: "Contact Sales" },
 ];
@@ -73,8 +71,8 @@ function CountryDropdown({ align = "right" }) {
                 key={c.key}
                 onClick={() => handleSwitch(c.key)}
                 className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors ${country === c.key
-                    ? "bg-slate-50 text-slate-900 font-semibold"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-slate-50 text-slate-900 font-semibold"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
               >
                 <span className="text-base">{c.flag}</span>
@@ -91,11 +89,14 @@ function CountryDropdown({ align = "right" }) {
   );
 }
 
-/** UK Navbar — self-contained, no props required for country switching. */
+/** UK Navbar — self-contained with 3-Product Megamenu & Region Switcher. */
 export default function Navbar({ onContactClick }) {
   const { country, setCountry } = useCountryContext();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(true);
+  const productsMenuRef = useRef(null);
   const { scrollY } = useScroll();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
@@ -112,24 +113,146 @@ export default function Navbar({ onContactClick }) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (productsMenuRef.current && !productsMenuRef.current.contains(e.target)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const productSuites = [
+    {
+      id: "hrms",
+      title: "HRMS",
+      desc: "Attendance, payroll, leave, performance and employee self-service.",
+      image: "/hrms.png",
+      href: "/hrms",
+    },
+    {
+      id: "inventory",
+      title: "Inventory Management",
+      desc: "Multi-warehouse stock tracking, purchase orders and VAT invoices.",
+      image: "/inventory.png",
+      href: "/inventory-management",
+    },
+    {
+      id: "restaurant",
+      title: "Restaurant Management",
+      desc: "POS billing, table QR ordering and Kitchen Display Systems.",
+      image: "/rms.png",
+      href: "/restaurant-management",
+    },
+  ];
+
   return (
     <motion.header
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300
-        ${(scrolled || open)
-          ? "border-b border-slate-200/70 bg-white/85 backdrop-blur-md shadow-sm"
-          : "border-b border-transparent bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 w-full border-b bg-[#f8faff]/95 backdrop-blur-md transition-all duration-300
+        ${(scrolled || open || productsOpen)
+          ? "border-brand-100 shadow-[0_4px_20px_-6px_rgba(15,23,42,0.10)]"
+          : "border-brand-100/70 shadow-[0_1px_12px_-6px_rgba(15,23,42,0.08)]"
         }
       `}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
         <Link to="/" className="flex items-center shrink-0">
-          <img src={worklynxLogo} alt="Worklynx" className="h-13 w-auto" />
+          <img src={worklynxLogo} alt="Worklynx UK" className="h-13 w-auto" />
         </Link>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        {/* Desktop Navigation Links */}
+        <div className="hidden items-center gap-7 lg:flex">
+          {/* Products Megamenu Trigger */}
+          <div
+            ref={productsMenuRef}
+            className="relative"
+            onMouseEnter={() => setProductsOpen(true)}
+            onMouseLeave={() => setProductsOpen(false)}
+          >
+            <button
+              onClick={() => setProductsOpen((prev) => !prev)}
+              className={`flex items-center gap-1 text-md font-medium transition-colors py-1 ${productsOpen ? "text-brand-600 font-semibold" : "text-slate-700 hover:text-brand-600"
+                }`}
+            >
+              <span>Products</span>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? "rotate-180 text-brand-600" : "text-slate-400"}`}
+              />
+            </button>
+
+            {/* Products Megamenu Popup */}
+            <AnimatePresence>
+              {productsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  className="absolute top-full -left-12 mt-2 w-[810px] rounded-2xl bg-white p-6 shadow-2xl border border-slate-200/90 z-50 overflow-hidden"
+                >
+                <div className="border-b border-slate-100 pb-4 mb-4">
+  <h4 className="text-sm font-semibold text-slate-900">
+    Worklynx Product Suites
+  </h4>
+  <p className="mt-1 text-xs text-slate-400">
+    One platform. Three powerful systems.
+  </p>
+</div>
+
+                 <div className="grid grid-cols-3 gap-4">
+  {productSuites.map((suite) => (
+   <a
+  key={suite.id}
+  href={suite.href}
+  onClick={() => setProductsOpen(false)}
+  className="group rounded-2xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
+>
+  <div className="relative h-32 overflow-hidden rounded-xl bg-slate-50">
+    <img
+      src={suite.image}
+      alt={suite.title}
+      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+
+  <div className="px-1 pt-4">
+  
+
+    <h5 className="mt-3 text-lg font-bold leading-tight tracking-tight text-slate-900 group-hover:text-brand-600">
+      {suite.title}
+    </h5>
+
+    <div className="mt-4 flex items-center justify-between">
+      <span className="text-xs font-medium text-slate-400">
+        View product
+      </span>
+
+      <ChevronRight className="h-4 w-4 text-slate-400 transition-all group-hover:translate-x-1 group-hover:text-brand-600" />
+    </div>
+  </div>
+</a>
+  ))}
+</div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-6 -mb-6 px-6 py-3.5 text-xs">
+                    <span className="text-slate-600 font-medium">Need all 3 suites for your UK business?</span>
+                    <a
+                      href="#pricing"
+                      onClick={() => setProductsOpen(false)}
+                      className="font-bold text-brand-600 hover:underline"
+                    >
+                      View All-in-One UK Suite Pricing &rarr;
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {navLinks.map((link) => {
             const isContact = link.href === "#contact-sales";
             const targetHref = isHomePage ? link.href : `/${link.href}`;
@@ -180,6 +303,7 @@ export default function Navbar({ onContactClick }) {
         </button>
       </nav>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -187,9 +311,65 @@ export default function Navbar({ onContactClick }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-slate-200 bg-white lg:hidden"
+            className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-brand-100/70 bg-[#f8faff] lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-4">
+              {/* Mobile Products Accordion */}
+              <div>
+                <button
+                  onClick={() => setMobileProductsOpen((prev) => !prev)}
+                  className="flex items-center justify-between w-full py-1 text-sm font-bold text-slate-900"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>Products</span>
+                    <span className="text-[10px] bg-brand-50 text-brand-700 px-2 py-0.5 rounded-full font-bold">3 Suites</span>
+                  </span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileProductsOpen ? "rotate-180 text-brand-600" : ""}`} />
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {mobileProductsOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="mt-3 grid gap-3 overflow-hidden sm:grid-cols-2"
+                  >
+                    {productSuites.map((suite) => (
+                      <a
+                        key={suite.id}
+                        href={suite.href}
+                        onClick={() => setOpen(false)}
+                        className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-2.5 transition-colors hover:border-brand-200 hover:bg-slate-50"
+                      >
+                        <div className="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+                          <img
+                            src={suite.image}
+                            alt={suite.title}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="truncate text-sm font-bold text-slate-900">
+                              {suite.title}
+                            </span>
+                            <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                          </div>
+                          <p className="mt-1 line-clamp-2 text-xs leading-snug text-slate-500">
+                            {suite.desc}
+                          </p>
+                        </div>
+                      </a>
+                    ))}
+                  </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <hr className="border-slate-200" />
+
               {navLinks.map((link) => {
                 const isContact = link.href === "#contact-sales";
                 const targetHref = isHomePage ? link.href : `/${link.href}`;
@@ -219,8 +399,8 @@ export default function Navbar({ onContactClick }) {
                     key={c.key}
                     onClick={() => handleMobileSwitch(c.key)}
                     className={`w-full flex items-center gap-2.5 px-2 py-2.5 rounded-xl text-sm transition-colors ${country === c.key
-                        ? "bg-slate-100 text-slate-900 font-semibold"
-                        : "text-slate-600 hover:bg-slate-50"
+                      ? "bg-slate-100 text-slate-900 font-semibold"
+                      : "text-slate-600 hover:bg-slate-50"
                       }`}
                   >
                     <span className="text-base">{c.flag}</span>
