@@ -28,7 +28,7 @@ const faqs = [
   { q: "Can I migrate data from my existing software?", a: "Yes. We provide free data migration assistance. Our team can import your existing business data from most popular accounting and management systems." },
   { q: "What kind of support do you offer?", a: "All plans include email support. We also provide priority support and dedicated assistance based on your needs." },
   { q: "How secure is our data on Worklynx?", a: "Worklynx is hosted on AWS with 256-bit encryption, daily backups, and SOC 2 compliance. We never share your data with third parties." },
-  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 14-day trial — no credit card needed. You can add or remove modules at any time." },
+  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 14-day trial with every module unlocked — no credit card needed. You can upgrade or change your plan at any time." },
   { q: "Do you offer training for our team?", a: "Yes! We offer free onboarding sessions for all plans, and recorded video tutorials are available 24/7 in our help center." },
 ];
 
@@ -135,13 +135,11 @@ export default function ContactPage() {
                           <SelectValue placeholder="Select a module..." />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="base">Base Plan (Accounting, Inventory, Sales)</SelectItem>
-                          <SelectItem value="payroll">Payroll Add-On</SelectItem>
-                          <SelectItem value="attendance">Attendance Add-On</SelectItem>
-                          <SelectItem value="leave">Leave Management Add-On</SelectItem>
-                          <SelectItem value="restaurant">Restaurant Management Add-On</SelectItem>
-                          <SelectItem value="healthcare">Doctors / Healthcare Add-On</SelectItem>
-                          <SelectItem value="all">Full Platform</SelectItem>
+                          <SelectItem value="essentials">Essentials plan (₹600/employee/mo)</SelectItem>
+                          <SelectItem value="professional">Professional plan (₹900/employee/mo)</SelectItem>
+                          <SelectItem value="advanced">Advanced plan (₹1200/employee/mo)</SelectItem>
+                          <SelectItem value="enterprise">Custom / Enterprise pricing</SelectItem>
+                          <SelectItem value="all">Full platform demo</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

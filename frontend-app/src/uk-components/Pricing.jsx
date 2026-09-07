@@ -4,68 +4,29 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Check, Sparkles, ArrowRight, Calculator, Users, ShieldCheck } from "lucide-react";
 import { FadeIn } from "@/uk-components/motion/FadeIn";
+import { PLANS, planPrice, currencyForCountry } from "@/lib/plans";
+import { useCountryContext } from "@/context/CountryContext";
 
-const tiers = [
-  {
-    name: "Essentials",
-    price: "£6",
-    priceValue: 6,
-    eyebrow: "Core suite",
-    bestFor: "Best for lean teams",
-    moduleCount: 6,
-    description: "For teams that need core operations, HR, finance, and stock tools.",
-    features: [
-      "Employee management",
-      "Leave management",
-      "Payroll",
-      "Sales and purchase",
-      "Inventory management",
-      "Accounting",
-    ],
-    highlighted: false,
-  },
-  {
-    name: "Professional",
-    price: "£9",
-    priceValue: 9,
-    eyebrow: "Most chosen",
-    bestFor: "Best for growing teams",
-    moduleCount: 9,
-    description: "For growing businesses that need deeper employee and asset workflows.",
-    features: [
-      "Everything in Essentials",
-      "Performance management",
-      "Letter management",
-      "Asset management",
-    ],
-    highlighted: true,
-  },
-  {
-    name: "Advanced",
-    price: "£12",
-    priceValue: 12,
-    eyebrow: "Complete suite",
-    bestFor: "Best for structured teams",
-    moduleCount: 12,
-    description: "For larger teams that need support, compliance, and hiring workflows.",
-    features: [
-      "Everything in Professional",
-      "Ticket management system (Help Desk)",
-      "Disciplinary action management",
-      "Recruitment",
-    ],
-    highlighted: false,
-  },
-];
-
-const calculatorPlans = tiers.filter((tier) => tier.priceValue);
 const billingHighlights = ["14-day free trial", "Cancel anytime", "Per active employee"];
 
+// The same three plans everywhere — the visitor's region only changes the
+// currency (UK £6/£9/£12, India ₹600/₹900/₹1200). Shared catalog: lib/plans.js.
 export default function Pricing() {
+  const { country } = useCountryContext();
+  const currency = currencyForCountry(country);
+
+  const tiers = PLANS.map((plan) => ({
+    ...plan,
+    priceValue: planPrice(plan, currency.code),
+    price: `${currency.symbol}${planPrice(plan, currency.code).toLocaleString(currency.locale)}`,
+    bestFor: plan.best_for,
+    moduleCount: plan.module_count,
+  }));
+
   const [employeeCount, setEmployeeCount] = useState(25);
   const [selectedPlan, setSelectedPlan] = useState("Professional");
 
-  const activePlan = calculatorPlans.find((plan) => plan.name === selectedPlan);
+  const activePlan = tiers.find((plan) => plan.name === selectedPlan);
   const monthlyTotal = activePlan.priceValue * employeeCount;
 
   return (
@@ -83,7 +44,7 @@ export default function Pricing() {
             Pick the plan that matches your team today
           </p>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Three simple UK plans with per-employee pricing, clear modules, and room to grow without surprise add-ons.
+            Three simple plans with per-employee pricing, clear modules, and room to grow without surprise add-ons.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             {billingHighlights.map((item) => (
@@ -179,7 +140,7 @@ export default function Pricing() {
                 </ul>
 
                 <motion.a
-                  href="/signup"
+                  href={`/signup?plan=${tier.key}`}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                   className={`relative mt-6 inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-center text-sm font-semibold shadow-sm transition-all ${
@@ -237,7 +198,7 @@ export default function Pricing() {
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-3">
-                  {calculatorPlans.map((plan) => {
+                  {tiers.map((plan) => {
                     const isSelected = selectedPlan === plan.name;
 
                     return (
@@ -284,7 +245,7 @@ export default function Pricing() {
                     transition={{ duration: 0.2 }}
                     className="mt-8 flex items-end gap-2"
                   >
-                    <span className="text-5xl font-bold tracking-tight sm:text-6xl">£{monthlyTotal.toLocaleString("en-GB")}</span>
+                    <span className="text-5xl font-bold tracking-tight sm:text-6xl">{currency.symbol}{monthlyTotal.toLocaleString(currency.locale)}</span>
                     <span className="mb-2 text-sm text-slate-300">/month</span>
                   </motion.div>
 
@@ -304,7 +265,7 @@ export default function Pricing() {
                   </div>
 
                   <motion.a
-                    href="/signup"
+                    href={`/signup?plan=${activePlan.key}`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand-700 shadow-lg transition-colors hover:bg-brand-50"
