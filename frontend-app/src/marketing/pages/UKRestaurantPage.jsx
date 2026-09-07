@@ -1,216 +1,163 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { 
-  Utensils, 
-  QrCode, 
-  Monitor, 
-  CreditCard, 
-  ChefHat, 
-  Clock, 
-  ArrowRight, 
-  ChevronRight,
-  TrendingUp,
-  Receipt
+import {
+    Utensils,
+    QrCode,
+    ChefHat,
+    CreditCard,
+    Clock,
+    LineChart,
 } from "lucide-react";
-import { motion } from "framer-motion";
 
-const restaurantFeatures = [
-  {
-    icon: Utensils,
-    title: "High-Speed POS Billing",
-    desc: "Lightning-fast touchscreen POS billing with offline mode, bill splitting, table transfer, and discount rules."
-  },
-  {
-    icon: QrCode,
-    title: "Table QR Code Ordering",
-    desc: "Dine-in guests scan QR codes on tables to browse digital menus, customize orders, and pay directly from smartphones."
-  },
-  {
-    icon: ChefHat,
-    title: "Kitchen Display System (KDS)",
-    desc: "Real-time kitchen order tickets (KOT) synced instantly across kitchen stations, bar counters, and expediter screens."
-  },
-  {
-    icon: CreditCard,
-    title: "Integrated Payments & VAT Receipts",
-    desc: "Accept cards, contactless Apple/Google Pay, QR payments, and print compliant VAT receipts automatically."
-  },
-  {
-    icon: Clock,
-    title: "Staff Shift & Tip Tracking",
-    desc: "Integrated with Worklynx HRMS for server clock-ins, tip distribution reporting, and shift scheduling."
-  },
-  {
-    icon: Monitor,
-    title: "Live Order Dashboard",
-    desc: "Track active tables, pending orders, takeaway fulfillment, and delivery app integrations from one screen."
-  }
+import ProductHero from "@/uk-components/product/ProductHero";
+import ModuleRows from "@/uk-components/product/ModuleRows";
+import FeatureGrid from "@/uk-components/product/FeatureGrid";
+import CrossSell from "@/uk-components/product/CrossSell";
+import ProductCta from "@/uk-components/product/ProductCta";
+import { Section, SectionHeader } from "@/uk-components/product/Section";
+
+const modules = [
+    {
+        title: "A counter your team can learn in a shift",
+        description:
+            "Take orders, split bills, transfer tables and apply discounts without hunting through menus. It keeps working when the internet does not.",
+        image: "/rms.png",
+        imageAlt: "Worklynx restaurant point of sale at a service counter",
+        points: [
+            "Fast touchscreen billing with offline mode",
+            "Table transfers, splits and merges",
+            "Discount and service charge rules",
+        ],
+    },
+    {
+        title: "Take payment wherever the guest is",
+        description:
+            "Card, contactless and QR payments at the table or the counter, with VAT-compliant receipts printed or emailed on the spot.",
+        image: "/rmspos.png",
+        imageAlt: "Handheld card terminal showing a Worklynx order summary",
+        points: [
+            "Card, Apple Pay and Google Pay",
+            "Pay-at-table and QR ordering",
+            "Automatic VAT receipts",
+        ],
+    },
+    {
+        title: "Kitchen and floor on the same ticket",
+        description:
+            "Orders reach the right station the moment they are sent, and the floor can see what is fired, plated and running late.",
+        image: "/posmachine1.png",
+        imageAlt: "Worklynx live order and sales dashboard",
+        points: [
+            "Kitchen display screens per station",
+            "Live order and table status",
+            "Daily sales and item performance",
+        ],
+    },
+];
+
+const features = [
+    {
+        icon: Utensils,
+        title: "High-speed POS billing",
+        desc: "Touchscreen billing with offline mode, bill splitting, table transfer and discount rules.",
+    },
+    {
+        icon: QrCode,
+        title: "Table QR ordering",
+        desc: "Guests scan to browse the menu, customise their order and pay from their own phone.",
+    },
+    {
+        icon: ChefHat,
+        title: "Kitchen display system",
+        desc: "Order tickets synced live across kitchen stations, bar counters and expediter screens.",
+    },
+    {
+        icon: CreditCard,
+        title: "Payments & VAT receipts",
+        desc: "Cards, contactless, Apple and Google Pay, with compliant VAT receipts printed automatically.",
+    },
+    {
+        icon: Clock,
+        title: "Shifts & tip tracking",
+        desc: "Server clock-ins, tip distribution and shift scheduling, shared with Worklynx HRMS.",
+    },
+    {
+        icon: LineChart,
+        title: "Live order dashboard",
+        desc: "Active tables, pending orders, takeaway fulfilment and delivery integrations on one screen.",
+    },
+];
+
+const crossSell = [
+    {
+        to: "/hrms",
+        title: "HRMS & Payroll",
+        description:
+            "Chefs, servers and bartenders clock in on the POS, and those hours flow straight into payroll.",
+    },
+    {
+        to: "/inventory-management",
+        title: "Inventory Management",
+        description:
+            "Recipes draw from the same stock ledger, so ingredient counts and purchasing stay honest.",
+    },
 ];
 
 export default function UKRestaurantPage() {
-  useEffect(() => {
-    document.title = "Restaurant POS & Kitchen Management System | Worklynx";
-    window.scrollTo(0, 0);
-  }, []);
+    useEffect(() => {
+        document.title = "Restaurant POS & Kitchen Management System | Worklynx";
+        window.scrollTo(0, 0);
+    }, []);
 
-  return (
-    <div className="min-h-screen bg-white text-slate-800 selection:bg-rose-600 selection:text-white">
-      
-      {/* Aceternity UI Style Hero Section */}
-      <section className="relative pt-16 pb-20 overflow-hidden bg-gradient-to-b from-rose-50/40 via-white to-slate-50/40 border-b border-slate-200/60">
-        
-        {/* Subtle Radial Glow & Background Grid */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-tr from-rose-100/50 via-pink-100/30 to-transparent blur-3xl opacity-70 pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60 pointer-events-none" />
+    return (
+        <div className="bg-white">
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          
-          {/* Breadcrumb Ribbon */}
-          <nav className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 border border-rose-200/80 text-xs text-rose-900 shadow-xs mb-6 backdrop-blur-xs">
-            <Link to="/" className="hover:text-rose-950 transition-colors">Products</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-rose-400" />
-            <span className="font-semibold text-rose-800">Restaurant Management</span>
-          </nav>
+            <ProductHero
+                breadcrumb="Restaurant Management"
+                title="Run every service"
+                highlight="without the chaos."
+                lead="Orders, tables, kitchen tickets and billing in one system — quick enough for a full house, and simple enough to train a new starter on."
+                image="/rmspos1.png"
+                imageAlt="Worklynx restaurant management running on a laptop, tablet and card terminal"
+                points={["Order & table management", "Kitchen display", "Card & contactless payments"]}
+                primaryCta={{ label: "Book a demo", href: "#contact-sales" }}
+                secondaryCta={{ label: "Start free trial", href: "/signup" }}
+            />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-800 max-w-4xl mx-auto leading-tight"
-          >
-            Modern Restaurant POS &amp;{" "}
-            <span className="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 bg-clip-text text-transparent italic font-serif">
-              Kitchen System
-            </span>
-          </motion.h1>
+            <Section>
+                <SectionHeader
+                    eyebrow="How it works"
+                    title="From the first order"
+                    highlight="to the closing till."
+                    lead="One flow from the table to the kitchen to the bill, so nothing is written twice and nothing gets lost between them."
+                />
 
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-5 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            Streamline billing, table QR ordering, kitchen display (KDS), and employee shift tracking in one integrated platform.
-          </motion.p>
+                <ModuleRows modules={modules} />
+            </Section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
-          >
-            <a
-              href="#contact"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 font-semibold text-white shadow-xs hover:scale-[1.01] transition-all flex items-center justify-center gap-2 text-sm"
-            >
-              <span>Book Restaurant Demo</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <Link
-              to="/live-order"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white border border-slate-200/80 hover:bg-slate-50 font-medium text-slate-700 transition-all text-center text-sm shadow-xs"
-            >
-              Preview Live QR Ordering
-            </Link>
-          </motion.div>
+            <Section>
+                <SectionHeader
+                    eyebrow="Capabilities"
+                    title="Built for restaurants,"
+                    highlight="cafés and bars."
+                />
 
-          {/* Aceternity UI POS Showcase Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="mt-12 max-w-5xl mx-auto rounded-2xl bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-xl p-6 sm:p-8 text-left space-y-6"
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-              <div>
-                <span className="text-xs text-slate-500 font-medium">Worklynx POS Terminal</span>
-                <h3 className="text-lg font-semibold text-slate-800">Covent Garden Bistro</h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-rose-50 text-rose-800 text-xs font-medium border border-rose-200 flex items-center gap-1">
-                  <ChefHat className="w-3.5 h-3.5 text-rose-700" /> KDS Synced
-                </span>
-              </div>
-            </div>
+                <FeatureGrid features={features} />
+            </Section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/60">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-                  <span>Today's Revenue</span>
-                  <TrendingUp className="w-4 h-4 text-rose-600" />
-                </div>
-                <p className="text-xl font-bold text-slate-900">£3,840.50</p>
-                <p className="text-[11px] text-emerald-600 font-medium mt-1">Contactless &amp; Card Sync</p>
-              </div>
+            <Section>
+                <SectionHeader
+                    eyebrow="One platform"
+                    title="Works with the rest"
+                    highlight="of Worklynx."
+                />
 
-              <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/60">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-                  <span>Active Tables</span>
-                  <Utensils className="w-4 h-4 text-rose-600" />
-                </div>
-                <p className="text-xl font-bold text-slate-900">18 Seated</p>
-                <p className="text-[11px] text-rose-700 font-medium mt-1">Table QR Ordering Active</p>
-              </div>
+                <CrossSell links={crossSell} />
+            </Section>
 
-              <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/60">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-                  <span>Avg Prep Time</span>
-                  <Receipt className="w-4 h-4 text-emerald-600" />
-                </div>
-                <p className="text-xl font-bold text-slate-900">11.4 Minutes</p>
-                <p className="text-[11px] text-slate-500 font-medium mt-1">KDS Kitchen Expediter</p>
-              </div>
-            </div>
-          </motion.div>
-
+            <ProductCta
+                title="See it running on your own menu."
+                lead="Bring your menu and floor plan — we will show you the flow your team would actually use on a busy service."
+            />
         </div>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="py-16 bg-slate-50/70 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-xl sm:text-3xl font-semibold tracking-tight text-slate-800">Built for Restaurants, Cafes &amp; Bars</h2>
-            <p className="mt-2 text-slate-600 text-sm sm:text-base">Fast, reliable POS &amp; order sync for high-volume hospitality venues.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {restaurantFeatures.map((feat, i) => {
-              const Icon = feat.icon;
-              return (
-                <div
-                  key={i}
-                  className="p-5 rounded-xl bg-white/90 border border-slate-200/70 shadow-xs hover:border-rose-300 hover:shadow-xs transition-all group"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-rose-100/80 border border-rose-200 flex items-center justify-center text-rose-700 mb-3 group-hover:bg-rose-600 group-hover:text-white transition-all">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-base font-semibold text-slate-800 mb-1.5">{feat.title}</h3>
-                  <p className="text-slate-600 text-xs leading-relaxed">{feat.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* HR Integration Callout */}
-      <section className="py-14 bg-white">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <div className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80 shadow-xs">
-            <h3 className="text-xl font-semibold text-slate-800">Seamless HRMS Workforce Connection</h3>
-            <p className="mt-2 text-slate-600 text-xs sm:text-sm">
-              Chefs, servers, and bartenders clock in on POS terminals, syncing attendance and tips directly into Worklynx HRMS payroll.
-            </p>
-            <div className="mt-5">
-              <Link to="/hrms" className="inline-flex items-center gap-1.5 text-brand-700 hover:text-brand-800 font-semibold text-xs">
-                <span>Discover Flagship HRMS Platform</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+    );
 }

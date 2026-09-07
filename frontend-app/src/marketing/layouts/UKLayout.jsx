@@ -18,6 +18,15 @@ export default function UKLayout() {
     return () => window.removeEventListener("hashchange", checkHash);
   }, []);
 
+  // Clearing the hash lets a second click on the same #contact-sales link
+  // fire hashchange again — otherwise the modal only ever opens once.
+  const closeContact = () => {
+    setContactOpen(false);
+    if (window.location.hash === "#contact-sales" || window.location.hash === "#contact") {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <UKNavbar onContactClick={() => setContactOpen(true)} />
@@ -27,7 +36,7 @@ export default function UKLayout() {
       <UKFooter onContactClick={() => setContactOpen(true)} />
       <ContactSalesModal
         open={contactOpen}
-        onClose={() => setContactOpen(false)}
+        onClose={closeContact}
       />
     </div>
   );
