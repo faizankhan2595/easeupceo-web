@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { BookOpen, Package, FileText, ShoppingCart, Users, BarChart3 } from "lucide-react";
-import SectionHeader from "../components/shared/SectionHeader";
-import FeatureBlock from "../components/features/FeatureBlock";
-import HomeCTA from "../components/home/HomeCTA";
+import SectionHeader from "@/marketing/shared/SectionHeader";
+import FeatureBlock from "@/marketing/shared/FeatureBlock";
+import HomeCTA from "@/marketing/shared/HomeCTA";
 
 const features = [
   {
@@ -125,9 +125,6 @@ const features = [
 export default function FeaturesPage() {
   const location = useLocation();
 
-  useEffect(() => {
-    document.title = "Features — Worklynx";
-  }, []);
 
   useEffect(() => {
     if (location.hash) {
@@ -149,14 +146,15 @@ export default function FeaturesPage() {
       <section className="pt-32 pb-16 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeader
+            as="h1"
             eyebrow="Platform Features"
             heading={
               <>
-                Every Business Tool You Need,{" "}
+                HR, Payroll, Inventory &amp; POS Features,{" "}
                 <span className="text-gradient-brand">In One Place</span>
               </>
             }
-            subtext="Worklynx delivers complete accounting, inventory, and sales management with optional HR modules — built for growing businesses."
+            subtext="Worklynx brings HR and payroll, inventory and EPOS, and restaurant POS together in one platform, built for growing businesses."
             className="mb-0"
           />
         </div>

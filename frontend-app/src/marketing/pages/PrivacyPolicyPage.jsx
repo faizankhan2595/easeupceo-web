@@ -18,7 +18,6 @@ function Section({ title, children }) {
 
 export default function PrivacyPolicyPage() {
   useEffect(() => {
-    document.title = "Privacy Policy — Worklynx";
     window.scrollTo(0, 0);
   }, []);
 

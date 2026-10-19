@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useCountryContext } from "@/context/CountryContext";
-import MarketingNavbar from "@/marketing/components/navbar/MarketingNavbar";
-import UKNavbar from "@/uk-components/Navbar";
+import IndiaNavbar from "@/marketing/india/layout/Navbar";
+import UKNavbar from "@/marketing/uk/layout/Navbar";
 
 /**
  * SignUpLayout
@@ -29,7 +29,7 @@ export default function SignUpLayout() {
           onSwitchCountry={handleSwitchCountry}
         />
       ) : (
-        <MarketingNavbar
+        <IndiaNavbar
           activeCountry={country === "uk" ? "uk" : "india"}
           onSwitchCountry={handleSwitchCountry}
         />

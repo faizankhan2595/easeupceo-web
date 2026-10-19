@@ -18,7 +18,6 @@ function Section({ title, children }) {
 
 export default function GDPRPage() {
   useEffect(() => {
-    document.title = "GDPR — Worklynx";
     window.scrollTo(0, 0);
   }, []);
 

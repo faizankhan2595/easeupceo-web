@@ -27,7 +27,6 @@ const cookieTable = [
 
 export default function CookiePolicyPage() {
   useEffect(() => {
-    document.title = "Cookie Policy — Worklynx";
     window.scrollTo(0, 0);
   }, []);
 

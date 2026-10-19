@@ -1,6 +1,6 @@
 import { HelpCircle } from "lucide-react";
-import Pricing from "@/uk-components/Pricing";
-import HomeCTA from "../components/home/HomeCTA";
+import Pricing from "@/marketing/shared/Pricing";
+import HomeCTA from "@/marketing/shared/HomeCTA";
 
 // The /pricing route now renders the same three-tier catalog as the rest of
 // the product (lib/plans.js — Essentials/Professional/Advanced, per employee
@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Is there a free trial?",
-    a: "Yes — every new organization starts with a 14-day free trial with every module unlocked. No card required to sign up.",
+    a: "Yes — every new organization starts with a 7-day free trial with every module unlocked. No card required to sign up.",
   },
   {
     q: "Can I switch plans later?",
@@ -36,7 +36,7 @@ const faqs = [
 export default function PricingPage() {
   return (
     <>
-      <Pricing />
+      <Pricing as="h1" title="Simple per-employee pricing for HR, payroll and POS" />
 
       <section className="py-14 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

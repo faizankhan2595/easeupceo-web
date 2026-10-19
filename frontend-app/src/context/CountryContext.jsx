@@ -91,15 +91,19 @@ export function CountryProvider({ children }) {
       return;
     }
 
-    detectCountryFromIP()
-      .then((detected) => {
+    // The IP lookup is async — a market URL (/ or /in) or the region switcher
+    // may have set the country meanwhile, and that choice wins.
+    const applyDetected = (detected) => {
+      setCountry((current) => {
+        if (current !== null) return current;
         setCachedCountry(detected);
-        setCountry(detected);
-      })
-      .catch(() => {
-        setCachedCountry("other");
-        setCountry("other");
+        return detected;
       });
+    };
+
+    detectCountryFromIP()
+      .then(applyDetected)
+      .catch(() => applyDetected("other"));
   }, []);
 
   return (

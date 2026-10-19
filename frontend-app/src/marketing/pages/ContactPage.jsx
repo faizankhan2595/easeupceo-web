@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,9 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import SectionHeader from "../components/shared/SectionHeader";
-import CTAButton from "../components/shared/CTAButton";
-import AnimatedSection from "../components/shared/AnimatedSection";
+import SectionHeader from "@/marketing/shared/SectionHeader";
+import CTAButton from "@/marketing/shared/CTAButton";
+import AnimatedSection from "@/marketing/shared/AnimatedSection";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -22,13 +22,13 @@ const schema = z.object({
 });
 
 const faqs = [
-  { q: "How do I get started with Worklynx?", a: "Simply sign up for our 14-day free trial — no credit card required. You'll be guided through a quick setup wizard that gets you running in under 5 minutes." },
+  { q: "How do I get started with Worklynx?", a: "Simply sign up for our 7-day free trial — no credit card required. You'll be guided through a quick setup wizard that gets you running in under 5 minutes." },
   { q: "Does Worklynx support biometric device integration?", a: "Yes! Worklynx integrates with all major biometric brands including ZKTeco, eSSL, Suprema, and Hikvision. Our support team assists with device configuration at no extra cost." },
   { q: "Does Worklynx support local compliance requirements?", a: "Yes. Worklynx supports region-specific tax configurations, statutory compliance, and regulatory requirements. We continuously update the platform as regulations change across supported regions." },
   { q: "Can I migrate data from my existing software?", a: "Yes. We provide free data migration assistance. Our team can import your existing business data from most popular accounting and management systems." },
   { q: "What kind of support do you offer?", a: "All plans include email support. We also provide priority support and dedicated assistance based on your needs." },
   { q: "How secure is our data on Worklynx?", a: "Worklynx is hosted on AWS with 256-bit encryption, daily backups, and SOC 2 compliance. We never share your data with third parties." },
-  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 14-day trial with every module unlocked — no credit card needed. You can upgrade or change your plan at any time." },
+  { q: "Can we try the platform before purchasing?", a: "Every new account starts with a free 7-day trial with every module unlocked — no credit card needed. You can upgrade or change your plan at any time." },
   { q: "Do you offer training for our team?", a: "Yes! We offer free onboarding sessions for all plans, and recorded video tutorials are available 24/7 in our help center." },
 ];
 
@@ -42,9 +42,6 @@ const contactInfo = [
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    document.title = "Contact — Worklynx";
-  }, []);
 
   const {
     register,
@@ -64,8 +61,9 @@ export default function ContactPage() {
       <section className="pt-32 pb-16 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeader
+            as="h1"
             eyebrow="Get in Touch"
-            heading={<>We're Here to <span className="text-gradient-brand">Help You</span></>}
+            heading={<>Contact <span className="text-gradient-brand">Worklynx</span></>}
             subtext="Have questions? Our team is ready to assist you. We typically respond within 2 business hours."
             className="mb-0"
           />

@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Worklynx — Modern HR platform for attendance tracking, payroll automation, and invoicing. Simplify your HR operations." />
-    <meta name="keywords" content="HRMS, HR software, attendance management, payroll automation, invoicing, employee management" />
-
-    <title>Worklynx — Modern HR Platform</title>
+    <!-- seo:start — replaced per route at build time (vite.config.js → seoPrerenderHead) -->
+    <title>Worklynx | HR, Payroll & EPOS Software for UK Businesses</title>
+    <meta name="description" content="One platform for HR and HMRC payroll, inventory and EPOS, and restaurant POS. Built and supported for UK small businesses. From £6 per employee per month." />
+    <!-- seo:end -->
+    <meta name="theme-color" content="#01051C" />
     <link rel="icon" type="image/png" href="/favicon-icon.png" sizes="64x64" />
     <link rel="apple-touch-icon" href="/favicon-icon.png" />
 
@@ -17,6 +18,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p>Worklynx is one platform for HR and HMRC PAYE payroll, inventory and EPOS, and restaurant POS for UK and Indian businesses.
+        <a href="/hrms">HR &amp; Payroll</a> · <a href="/inventory-management">Inventory &amp; EPOS</a> ·
+        <a href="/restaurant-management">Restaurant POS</a> · <a href="/pricing">Pricing</a> · <a href="/in">Worklynx India</a></p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

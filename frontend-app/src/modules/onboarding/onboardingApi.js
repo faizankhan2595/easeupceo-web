@@ -2,7 +2,7 @@
  * Thin client for the chat-mode onboarding API.
  *
  * `API_BASE` defaults to the production Node backend at
- * `https://alfabackend.inkapps.io` (same as `LiveOrderContext.jsx:8`).
+ * `https://alfabackend.inkapps.io`.
  * Override with `VITE_ONBOARDING_API_BASE` in `.env.local` for local dev.
  *
  * Auth: every request carries `Authorization: Bearer <token>` + an

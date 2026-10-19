@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { Target, Heart, Lightbulb, Shield, Globe, TrendingUp } from "lucide-react";
-import SectionHeader from "../components/shared/SectionHeader";
-import AnimatedSection, { StaggerContainer, StaggerItem } from "../components/shared/AnimatedSection";
-import HomeCTA from "../components/home/HomeCTA";
-import CTAButton from "../components/shared/CTAButton";
+import SectionHeader from "@/marketing/shared/SectionHeader";
+import AnimatedSection, { StaggerContainer, StaggerItem } from "@/marketing/shared/AnimatedSection";
+import HomeCTA from "@/marketing/shared/HomeCTA";
+import CTAButton from "@/marketing/shared/CTAButton";
 
 import khizarImg from "@/assets/team/khizar.jpg";
 import faizanImg from "@/assets/team/faizan.jpg";
@@ -29,9 +28,6 @@ const values = [
 ];
 
 export default function AboutPage() {
-  useEffect(() => {
-    document.title = "About Us — Worklynx";
-  }, []);
 
   return (
     <>

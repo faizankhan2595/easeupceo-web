@@ -3,19 +3,19 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import MarketingLayout from "./marketing/layouts/MarketingLayout";
-import UKLayout from "./marketing/layouts/UKLayout";
-import MarketingNavbar from "./marketing/components/navbar/MarketingNavbar";
-import UKNavbar from "./uk-components/Navbar";
+import IndiaLayout from "@/marketing/india/layout/IndiaLayout";
+import UKLayout from "@/marketing/uk/layout/UKLayout";
+import IndiaNavbar from "@/marketing/india/layout/Navbar";
+import UKNavbar from "@/marketing/uk/layout/Navbar";
 import { useCountryContext } from "./context/CountryContext";
+import RouteSeo from "./seo/RouteSeo";
 
-const LocationAwareHomePage = lazy(() => import("./marketing/pages/LocationAwareHomePage"));
-const UKHRMSPage = lazy(() => import("./marketing/pages/UKHRMSPage"));
-const UKInventoryPage = lazy(() => import("./marketing/pages/UKInventoryPage"));
-const UKRestaurantPage = lazy(() => import("./marketing/pages/UKRestaurantPage"));
+const MarketHomePage = lazy(() => import("@/marketing/MarketHomePage"));
+const UKHRMSPage = lazy(() => import("@/marketing/uk/pages/HRMSPage"));
+const UKInventoryPage = lazy(() => import("@/marketing/uk/pages/InventoryPage"));
+const UKRestaurantPage = lazy(() => import("@/marketing/uk/pages/RestaurantPage"));
 const FeaturesPage = lazy(() => import("./marketing/pages/FeaturesPage"));
 const PricingPage = lazy(() => import("./marketing/pages/PricingPage"));
 const AboutPage = lazy(() => import("./marketing/pages/AboutPage"));
@@ -24,12 +24,7 @@ const PrivacyPolicyPage = lazy(() => import("./marketing/pages/PrivacyPolicyPage
 const TermsOfServicePage = lazy(() => import("./marketing/pages/TermsOfServicePage"));
 const CookiePolicyPage = lazy(() => import("./marketing/pages/CookiePolicyPage"));
 const GDPRPage = lazy(() => import("./marketing/pages/GDPRPage"));
-
-const LiveOrderLayout = lazy(() => import("./live-order/LiveOrderLayout"));
-const CategoriesPage = lazy(() => import("./live-order/pages/CategoriesPage"));
-const ProductsPage = lazy(() => import("./live-order/pages/ProductsPage"));
-const SearchPage = lazy(() => import("./live-order/pages/SearchPage"));
-const ThankYouPage = lazy(() => import("./live-order/pages/ThankYouPage"));
+const NotFoundPage = lazy(() => import("./marketing/pages/NotFoundPage"));
 
 const StartOnboardingPage = lazy(() => import("./pages/StartOnboardingPage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
@@ -38,12 +33,13 @@ const Fallback = () => <div className="h-screen" />;
 
 const SignupNavbar = () => {
   const { country } = useCountryContext();
-  return country === "uk" ? <UKNavbar /> : <MarketingNavbar />;
+  return country === "uk" ? <UKNavbar /> : <IndiaNavbar />;
 };
 
 const App = () => {
   return (
     <Router>
+      <RouteSeo />
       <Toaster
         position="top-center"
         toastOptions={{
@@ -57,8 +53,9 @@ const App = () => {
         }}
       />
       <Routes>
-        {/* Home — location aware, brings its own navbar/footer per locale */}
-        <Route path="/" element={<Suspense fallback={<Fallback />}><LocationAwareHomePage /></Suspense>} />
+        {/* Market homepages — one URL per market (hreflang pairs), each brings its own navbar/footer */}
+        <Route path="/" element={<Suspense fallback={<Fallback />}><MarketHomePage market="uk" /></Suspense>} />
+        <Route path="/in" element={<Suspense fallback={<Fallback />}><MarketHomePage market="india" /></Suspense>} />
 
         {/* UK Product Pages with UK Navbar & Footer */}
         <Route element={<UKLayout />}>
@@ -68,7 +65,7 @@ const App = () => {
         </Route>
 
         {/* Marketing Routes */}
-        <Route element={<MarketingLayout />}>
+        <Route element={<IndiaLayout />}>
 
           <Route path="/features" element={<Suspense fallback={<Fallback />}><FeaturesPage /></Suspense>} />
           <Route path="/pricing" element={<Suspense fallback={<Fallback />}><PricingPage /></Suspense>} />
@@ -78,15 +75,6 @@ const App = () => {
           <Route path="/terms-of-service" element={<Suspense fallback={<Fallback />}><TermsOfServicePage /></Suspense>} />
           <Route path="/cookie-policy" element={<Suspense fallback={<Fallback />}><CookiePolicyPage /></Suspense>} />
           <Route path="/gdpr" element={<Suspense fallback={<Fallback />}><GDPRPage /></Suspense>} />
-        </Route>
-
-        {/* Live Order Routes (customer-facing, no marketing layout) */}
-        <Route path="/live-order" element={<Suspense fallback={<Fallback />}><LiveOrderLayout /></Suspense>}>
-          <Route index element={<Suspense fallback={<Fallback />}><CategoriesPage /></Suspense>} />
-          <Route path="products" element={<Suspense fallback={<Fallback />}><ProductsPage /></Suspense>} />
-          <Route path="search" element={<Suspense fallback={<Fallback />}><SearchPage /></Suspense>} />
-          <Route path="thank-you" element={<Suspense fallback={<Fallback />}><ThankYouPage /></Suspense>} />
-          <Route path="*" element={<Navigate to="/live-order" replace />} />
         </Route>
 
         {/* Sign up — navbar inlined directly, no wrapper component needed */}
@@ -111,6 +99,8 @@ const App = () => {
             </Suspense>
           }
         />
+
+        <Route path="*" element={<Suspense fallback={<Fallback />}><NotFoundPage /></Suspense>} />
       </Routes>
     </Router>
   );
