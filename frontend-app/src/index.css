@@ -251,3 +251,20 @@
 .blog-content table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
 .blog-content th, .blog-content td { border: 1px solid #e5e5e5; padding: 0.5em 0.75em; text-align: left; }
 .blog-content > :first-child { margin-top: 0; }
+
+/* Continuous left-scrolling strip (SolutionsInAction). The track holds the
+   items twice, so moving it by -50% loops seamlessly. Pauses on hover/focus. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}

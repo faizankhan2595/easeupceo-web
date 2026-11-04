@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 160" role="img" aria-label="UK Production House (test placeholder)">
+  <!-- DEV-ONLY test placeholder. Not the client's real logo; never ship. -->
+  <g transform="translate(18 34)">
+    <!-- factory roof outline -->
+    <path d="M0 92V40l26 16V40l26 16V40l26 16V8h18v84z" fill="#0F2A4A"/>
+    <rect x="12" y="66" width="12" height="12" rx="2" fill="#38BDF8"/>
+    <rect x="38" y="66" width="12" height="12" rx="2" fill="#38BDF8"/>
+    <rect x="64" y="66" width="12" height="12" rx="2" fill="#38BDF8"/>
+  </g>
+  <text x="130" y="78" font-family="'Helvetica Neue', Arial, sans-serif" font-size="44" font-weight="800" letter-spacing="1" fill="#0F2A4A">UK</text>
+  <text x="130" y="112" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15.5" font-weight="600" letter-spacing="1.5" fill="#38BDF8">PRODUCTION HOUSE</text>
+</svg>
