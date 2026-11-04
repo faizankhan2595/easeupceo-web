@@ -11,6 +11,7 @@ import { useMarketSwitch } from "@/seo/market";
 const navLinks = [
 
   // { href: "#pricing", label: "Pricing" }, 
+  { href: "/blogs", label: "Blog" },
   { href: "#contact-sales", label: "Contact Sales" },
 ];
 
@@ -288,7 +289,7 @@ export default function Navbar({ onContactClick }) {
 
           {navLinks.map((link) => {
             const isContact = link.href === "#contact-sales";
-            const targetHref = isHomePage ? link.href : `/${link.href}`;
+            const targetHref = isHomePage || !link.href.startsWith("#") ? link.href : `/${link.href}`;
             return (
               <a
                 key={link.href}
@@ -410,7 +411,7 @@ export default function Navbar({ onContactClick }) {
 
               {navLinks.map((link) => {
                 const isContact = link.href === "#contact-sales";
-                const targetHref = isHomePage ? link.href : `/${link.href}`;
+                const targetHref = isHomePage || !link.href.startsWith("#") ? link.href : `/${link.href}`;
                 return (
                   <a
                     key={link.href}

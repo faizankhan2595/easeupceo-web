@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Instagram, ShieldCheck } from "lucide-react";
+import { Facebook, Instagram, ShieldCheck } from "lucide-react";
 import { SOCIAL } from "@/seo/routes";
 import worklynxLogo from "@/assets/worklynx-dark.png";
 
@@ -13,6 +13,7 @@ const footerLinks = {
   Company: [
     { label: "About us", to: "/about" },
     { label: "Pricing", to: "/pricing" },
+    { label: "Blog", to: "/blogs" },
     { label: "Contact sales", action: "contact" },
     { label: "Get started", to: "/signup" },
     { label: "Worklynx India", to: "/in" },
@@ -111,6 +112,16 @@ export default function Footer({ onContactClick }) {
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
               >
                 <Instagram className="h-4 w-4" />
+              </a>
+
+              <a
+                href={SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-slate-400 transition-colors hover:border-brand-500 hover:text-white"
+              >
+                <Facebook className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -3,6 +3,7 @@ import ProductShowcase from "@/marketing/uk/components/ProductShowcase";
 import ContactSalesSection from "@/marketing/uk/components/ContactSalesSection";
 import Chatbot from "@/marketing/uk/components/Chatbot";
 import HomeFAQ from "@/marketing/uk/components/HomeFAQ";
+import LatestBlogs from "@/marketing/blog/LatestBlogs";
 
 export default function UKHomePage({ chatbotOpen, setChatbotOpen, chatUserData, setChatUserData }) {
 
@@ -13,6 +14,8 @@ export default function UKHomePage({ chatbotOpen, setChatbotOpen, chatUserData, 
 
     
       <ProductShowcase />
+
+      <LatestBlogs />
 
       <HomeFAQ />
 
