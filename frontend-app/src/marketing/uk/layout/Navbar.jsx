@@ -165,7 +165,7 @@ export default function Navbar({ onContactClick }) {
           <img
             src={worklynxLogo}
             alt="Worklynx UK"
-            className="h-6 w-auto sm:h-8 lg:h-9"
+            className="h-6 w-auto sm:h-6 lg:h-7"
           />
 
           <span
@@ -184,7 +184,7 @@ export default function Navbar({ onContactClick }) {
               tracking-[0.16em]
               text-slate-800
               sm:gap-2
-              sm:text-[10px]
+              sm:text-[8.5px]
               sm:tracking-[0.2em]
             "
           >

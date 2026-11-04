@@ -56,28 +56,14 @@ export default function BlogListPage() {
   return (
     <>
       <section className="border-b border-neutral-200 bg-neutral-50/60">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-14">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">Worklynx Blog</p>
           <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.035em] text-neutral-900 md:text-5xl">
             Guides for running a <span className="text-brand-600">smaller, smarter business</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-500">
-            Practical advice on HR, payroll, leave, onboarding and day-to-day operations for UK small businesses.
-          </p>
+          
 
-          <form onSubmit={(e) => e.preventDefault()} role="search" className="mt-8 max-w-lg">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search articles"
-                aria-label="Search articles"
-                className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 pl-10 pr-3 text-sm text-neutral-900 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
-              />
-            </div>
-          </form>
+     
         </div>
       </section>
 

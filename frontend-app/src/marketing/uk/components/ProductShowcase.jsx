@@ -124,7 +124,7 @@ const products = [
 
 export default function ProductShowcase() {
     return (
-        <section id="products" className="scroll-mt-24 bg-white py-24 md:py-32 lg:py-36">
+        <section id="products" className="scroll-mt-24 bg-white py-18 md:py-20 lg:py-20">
             <div className="mx-auto max-w-7xl px-6">
 
                 {/* ================= HEADER ================= */}
@@ -244,8 +244,8 @@ export default function ProductShowcase() {
                                         py-10
                                         md:grid-cols-2
                                         md:gap-16
-                                        lg:gap-24
-                                        lg:py-28
+                                        lg:gap-18
+                                        lg:py-20
                                     `}
                                 >
 

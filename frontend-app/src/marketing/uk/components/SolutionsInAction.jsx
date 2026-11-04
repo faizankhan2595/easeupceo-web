@@ -24,7 +24,7 @@ function ProjectCard({ project, hidden = false }) {
     <Link
       to={to}
       tabIndex={hidden ? -1 : undefined}
-      className="group flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl md:p-8"
+      className="group flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-300 hover:shadow-2xl hover:shadow-black/40 md:p-8"
     >
       <div className="flex h-12 items-center">
         <ClientLogo client={client} logo={logo} icon={Icon} />
@@ -38,7 +38,7 @@ function ProjectCard({ project, hidden = false }) {
 
       <div className="mt-auto flex items-center justify-between border-t border-neutral-100 pt-5 text-sm">
         <span className="font-semibold text-neutral-900">{client}</span>
-        <ArrowUpRight className="h-5 w-5 text-neutral-300 transition-colors group-hover:text-brand-600" />
+        <ArrowUpRight className="h-5 w-5 text-neutral-300 transition-colors group-hover:text-accent-500" />
       </div>
     </Link>
   );
@@ -46,12 +46,13 @@ function ProjectCard({ project, hidden = false }) {
 
 export default function SolutionsInAction() {
   return (
-    <Section id="solutions-in-action">
+    <Section id="solutions-in-action" dark>
       <SectionHeader
         eyebrow="Client projects"
         title="Our solutions"
         highlight="in action"
         lead="How businesses use Worklynx to run inventory, payroll, HR and restaurant operations."
+        dark
       />
 
       <Marquee

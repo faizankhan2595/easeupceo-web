@@ -2,12 +2,15 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import worklynxLogo from "@/assets/worklynx-light.png";
+import heroBg from "@/assets/hero-bg.webp";
 import {
   Package,
   UtensilsCrossed,
   Users,
   BarChart3,
+  ArrowRight,
 } from "lucide-react";
 
 const modules = [
@@ -275,123 +278,17 @@ export default function Hero() {
           Background
       ------------------------------------------------ */}
 
-      <div className="pointer-events-none absolute inset-0">
-        {/* Subtle brand gradient ambient — covers ~15-20% of hero */}
-        <div className="absolute left-1/2 top-[28%] h-[420px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r from-brand-600 to-brand-500 opacity-[0.09] blur-[110px]" />
-
-        <div className="absolute left-1/2 top-[35%] h-[550px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 blur-[130px]" />
-
-        <div className="absolute inset-x-0 top-0 h-[320px] bg-gradient-to-b from-white/80 to-transparent" />
+      {/* Background image: glass ribbons in the top corners, faded into the
+          section colour at the bottom so the ecosystem diagram sits on plain grey. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[520px] sm:h-[680px] lg:h-[760px]">
+        <img
+          src={heroBg}
+          alt=""
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover object-top [mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
+        />
       </div>
-
-      {/* Purple sunlight — ambient glow */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    left-[18%]
-    top-[30%]
-    h-[520px]
-    w-[520px]
-    -translate-x-1/2
-    -translate-y-1/2
-    rounded-full
-    bg-[#c9a8f5]/10
-    blur-[110px]
-  "
-/>
-
-{/* Purple 3D orb */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    left-[18%]
-    top-[30%]
-    h-[360px]
-    w-[360px]
-    -translate-x-1/2
-    -translate-y-1/2
-    rounded-full
-    opacity-60
-    [background:radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.98)_0%,rgba(245,238,255,0.9)_12%,rgba(220,201,249,0.65)_30%,rgba(194,163,239,0.28)_52%,rgba(165,125,225,0.08)_70%,transparent_78%)]
-    [box-shadow:inset_-35px_-25px_70px_rgba(130,80,200,0.08),inset_25px_20px_45px_rgba(255,255,255,0.35),0_0_80px_rgba(165,125,225,0.10)]
-  "
-/>
-
-{/* Tiny specular shine */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    left-[13%]
-    top-[25%]
-    h-16
-    w-16
-    -translate-x-1/2
-    -translate-y-1/2
-    rounded-full
-    bg-white/50
-    blur-[18px]
-  "
-/>
-{/* right side  */}
-{/* Purple sunlight — right side */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    hidden
-    md:block
-    right-[8%]
-    top-[18%]
-    h-[520px]
-    w-[520px]
-    translate-x-1/2
-    -translate-y-1/2
-    rounded-full
-    bg-[#c9a8f5]/10
-    blur-[110px]
-  "
-/>
-
-{/* Purple 3D light orb */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    hidden
-    md:block
-    right-[8%]
-    top-[18%]
-    h-[360px]
-    w-[360px]
-    translate-x-1/2
-    -translate-y-1/2
-    rounded-full
-    opacity-55
-    [background:radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.98)_0%,rgba(245,238,255,0.9)_12%,rgba(220,201,249,0.65)_30%,rgba(194,163,239,0.28)_52%,rgba(165,125,225,0.08)_70%,transparent_78%)]
-    [box-shadow:inset_-35px_-25px_70px_rgba(130,80,200,0.08),inset_25px_20px_45px_rgba(255,255,255,0.35),0_0_80px_rgba(165,125,225,0.10)]
-  "
-/>
-
-{/* Soft specular shine */}
-<div
-  className="
-    pointer-events-none
-    absolute
-    hidden
-    md:block
-    right-[17%]
-    top-[11%]
-    h-16
-    w-16
-    rounded-full
-    bg-white/45
-    blur-[18px]
-  "
-/>
-{/*  */}
 
 
       {/* ------------------------------------------------
@@ -415,6 +312,8 @@ export default function Hero() {
           className="relative z-10 max-w-[900px] text-center"
         >
 
+
+         
 
           {/* <h1 className="text-[44px] font-semibold leading-[0.98] tracking-[-0.055em] text-[#1a1b1e] sm:text-[64px] md:text-[76px] lg:text-[66px]">
             Everything your
@@ -456,7 +355,7 @@ export default function Hero() {
               font-medium
               leading-[1.7]
               tracking-normal
-              text-black
+              text-neutral-600
               hyphens-none
               sm:text-[18px]
               md:text-[19px]
@@ -482,7 +381,20 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              to="/signup"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-[15px] font-semibold text-white shadow-lg shadow-brand-600/25 transition-colors hover:bg-brand-700"
+            >
+              Get started <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              href="#contact-sales-section"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-[15px] font-semibold text-neutral-900 transition-colors hover:border-neutral-300 hover:bg-neutral-50"
+            >
+              Book a demo
+            </a>
+          </div>
 
         </motion.div>
 
@@ -1304,34 +1216,15 @@ function ProductCard({
   type,
   index,
 }) {
-  const styles = {
-    inventory: {
-      iconBg: "bg-indigo-50",
-      iconColor: "text-indigo-600",
-      badgeBg: "bg-indigo-50",
-      badgeText: "text-indigo-600",
-      border: "hover:border-indigo-200",
-      glow: "group-hover:shadow-indigo-100/60",
-    },
-    rms: {
-      iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-600",
-      badgeBg: "bg-emerald-50",
-      badgeText: "text-emerald-600",
-      border: "hover:border-emerald-200",
-      glow: "group-hover:shadow-emerald-100/60",
-    },
-    hrms: {
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
-      badgeBg: "bg-blue-50",
-      badgeText: "text-blue-600",
-      border: "hover:border-blue-200",
-      glow: "group-hover:shadow-blue-100/60",
-    },
+  // All three products share the brand colour (one primary + one accent site-wide).
+  const style = {
+    iconBg: "bg-brand-50",
+    iconColor: "text-brand-600",
+    badgeBg: "bg-brand-50",
+    badgeText: "text-brand-600",
+    border: "hover:border-brand-200",
+    glow: "group-hover:shadow-brand-100/60",
   };
-
-  const style = styles[type];
 
   return (
     <motion.div
@@ -1381,12 +1274,7 @@ function ProductCard({
           transition-opacity
           duration-500
           group-hover:opacity-40
-          ${type === "inventory"
-            ? "bg-indigo-400"
-            : type === "rms"
-              ? "bg-emerald-400"
-              : "bg-blue-400"
-          }
+          bg-brand-400
         `}
       />
 
@@ -1448,14 +1336,14 @@ function InventoryPreview() {
   ];
 
   return (
-    <div className="rounded-[15px] border border-indigo-100/80 bg-indigo-50/40 p-3.5">
+    <div className="rounded-[15px] border border-brand-100/80 bg-brand-50/40 p-3.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-semibold text-indigo-950/60">
+        <span className="text-[11px] font-semibold text-brand-900/60">
           Inventory overview
         </span>
 
-        <span className="flex items-center gap-1.5 text-[10px] font-medium text-indigo-600">
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+        <span className="flex items-center gap-1.5 text-[10px] font-medium text-brand-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
           Live
         </span>
       </div>
@@ -1464,7 +1352,7 @@ function InventoryPreview() {
         {products.map(([name, value], index) => (
           <div
             key={name}
-            className="rounded-[9px] border border-indigo-100/70 bg-white px-2.5 py-2"
+            className="rounded-[9px] border border-brand-100/70 bg-white px-2.5 py-2"
           >
             <p className="text-[9px] font-medium text-[#92959B]">
               {name}
@@ -1477,12 +1365,12 @@ function InventoryPreview() {
         ))}
       </div>
 
-      <div className="mt-3 h-1 overflow-hidden rounded-full bg-indigo-100">
+      <div className="mt-3 h-1 overflow-hidden rounded-full bg-brand-100">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: "78%" }}
           transition={{ duration: 1 }}
-          className="h-full rounded-full bg-indigo-500"
+          className="h-full rounded-full bg-brand-500"
         />
       </div>
     </div>
@@ -1497,10 +1385,10 @@ function RmsPreview() {
   const bars = [35, 48, 42, 67, 55, 76, 63, 88, 72];
 
   return (
-    <div className="rounded-[15px] border border-emerald-100/80 bg-emerald-50/40 p-3.5">
+    <div className="rounded-[15px] border border-brand-100/80 bg-brand-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[10px] font-medium text-emerald-950/50">
+          <p className="text-[10px] font-medium text-brand-900/50">
             Today's revenue
           </p>
 
@@ -1535,10 +1423,10 @@ function RmsPreview() {
             className="
               flex-1
               rounded-t-[3px]
-              bg-emerald-200
+              bg-brand-200
               transition-colors
               duration-300
-              group-hover:bg-emerald-300
+              group-hover:bg-brand-300
             "
           />
         ))}
@@ -1553,10 +1441,10 @@ function RmsPreview() {
 
 function HrmsPreview() {
   return (
-    <div className="rounded-[15px] border border-blue-100/80 bg-blue-50/40 p-3.5">
+    <div className="rounded-[15px] border border-brand-100/80 bg-brand-50/40 p-3.5">
       <div className="flex justify-between">
         <div>
-          <p className="text-[10px] font-medium text-blue-950/50">
+          <p className="text-[10px] font-medium text-brand-900/50">
             Employees
           </p>
 
@@ -1574,10 +1462,10 @@ function HrmsPreview() {
         items-center justify-center
         rounded-full
         border-2 border-white
-        bg-blue-100
+        bg-brand-100
         text-[9px]
         font-semibold
-        text-blue-600
+        text-brand-600
       "
             >
               {initials}
@@ -1592,17 +1480,17 @@ function HrmsPreview() {
             Attendance
           </span>
 
-          <span className="text-[10px] font-semibold text-blue-600">
+          <span className="text-[10px] font-semibold text-brand-600">
             94%
           </span>
         </div>
 
-        <div className="mt-2 h-1 overflow-hidden rounded-full bg-blue-100">
+        <div className="mt-2 h-1 overflow-hidden rounded-full bg-brand-100">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "94%" }}
             transition={{ duration: 1 }}
-            className="h-full rounded-full bg-blue-500"
+            className="h-full rounded-full bg-brand-500"
           />
         </div>
       </div>
