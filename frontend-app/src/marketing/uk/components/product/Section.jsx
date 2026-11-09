@@ -7,12 +7,10 @@ import { EASE, VIEWPORT, WordReveal, useTravel } from "@/marketing/uk/components
  * Keeps every band on the same container width, vertical rhythm and
  * hairline separator so the pages read as one system.
  */
-export function Section({ id, bordered = true, className = "", children }) {
+export function Section({ id, bordered = true, dark = false, className = "", children }) {
+    const tone = dark ? "bg-ink" : `bg-white ${bordered ? "border-t border-neutral-200" : ""}`;
     return (
-        <section
-            id={id}
-            className={`bg-white ${bordered ? "border-t border-neutral-200" : ""} py-20 md:py-28 ${className}`}
-        >
+        <section id={id} className={`${tone} py-20 md:py-28 ${className}`}>
             <div className="mx-auto max-w-7xl px-6">{children}</div>
         </section>
     );
@@ -22,7 +20,7 @@ export function Section({ id, bordered = true, className = "", children }) {
  * Small rule + label used above every heading on the site.
  * The rule draws itself out from the left — the first beat of the section.
  */
-export function Eyebrow({ children }) {
+export function Eyebrow({ dark = false, children }) {
     const travel = useTravel();
 
     return (
@@ -46,7 +44,7 @@ export function Eyebrow({ children }) {
             />
 
             <motion.span
-                className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400"
+                className={`text-xs font-medium uppercase tracking-[0.2em] ${dark ? "text-accent-300" : "text-neutral-400"}`}
                 variants={{
                     hidden: travel ? { opacity: 0, x: -8 } : { opacity: 0 },
                     visible: {
@@ -69,7 +67,7 @@ export function Eyebrow({ children }) {
  * The title reveals word by word and the lead follows it, so the eye is
  * walked through the block in reading order rather than shown all of it.
  */
-export function SectionHeader({ eyebrow, title, highlight, lead, className = "" }) {
+export function SectionHeader({ eyebrow, title, highlight, lead, dark = false, className = "" }) {
     const travel = useTravel();
 
     /* Roughly the time the title spends revealing, so the lead lands after. */
@@ -77,9 +75,9 @@ export function SectionHeader({ eyebrow, title, highlight, lead, className = "" 
 
     return (
         <div className={`max-w-2xl ${className}`}>
-            {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
+            {eyebrow ? <Eyebrow dark={dark}>{eyebrow}</Eyebrow> : null}
 
-            <h2 className="mt-6 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] text-neutral-900 sm:text-4xl md:text-[2.75rem]">
+            <h2 className={`mt-6 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-4xl md:text-[2.75rem] ${dark ? "text-white" : "text-neutral-900"}`}>
                 <WordReveal text={title} delay={0.15} />
 
                 {highlight ? (
@@ -88,7 +86,7 @@ export function SectionHeader({ eyebrow, title, highlight, lead, className = "" 
                         <WordReveal
                             text={highlight}
                             delay={0.15 + String(title || "").split(" ").length * 0.045}
-                            className="text-brand-600"
+                            className={dark ? "text-brand-300" : "text-brand-600"}
                         />
                     </>
                 ) : null}
@@ -96,7 +94,7 @@ export function SectionHeader({ eyebrow, title, highlight, lead, className = "" 
 
             {lead ? (
                 <motion.p
-                    className="mt-5 text-base leading-8 text-neutral-500"
+                    className={`mt-5 text-base leading-8 ${dark ? "text-slate-400" : "text-neutral-500"}`}
                     initial={{ opacity: 0, y: travel ? 14 : 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={VIEWPORT}

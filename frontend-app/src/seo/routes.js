@@ -11,6 +11,7 @@ export const DEFAULT_OG_IMAGE = "/og-image.jpg";
 export const SOCIAL = {
   linkedin: "https://www.linkedin.com/company/work-lynx/",
   instagram: "https://www.instagram.com/worklynx.io/",
+  facebook: "https://www.facebook.com/profile.php?id=61595504155955",
 };
 
 // Market homepages. Each one lists the other as an hreflang alternate.
@@ -82,13 +83,16 @@ function faqPage(faqs) {
   };
 }
 
-function breadcrumb(path, label) {
+function breadcrumb(path, label, parent) {
+  const trail = [{ name: "Home", path: "/" }, ...(parent ? [parent] : []), { name: label, path }];
   return {
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: label, item: `${SITE_URL}${path}` },
-    ],
+    itemListElement: trail.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.name,
+      item: absoluteUrl(t.path),
+    })),
   };
 }
 
@@ -192,6 +196,17 @@ export const ROUTES = [
       "Talk to the Worklynx team about HR, payroll, inventory or restaurant software. Book a demo, get pricing or ask for support.",
     priority: 0.6,
   },
+  {
+    path: "/blogs",
+    title: "Blog | HR, Payroll & Small Business Guides | Worklynx",
+    description:
+      "Practical guides for UK small businesses on HR, payroll, leave, onboarding and running a restaurant or shop, from the Worklynx team.",
+    schema: [
+      { "@type": "Blog", name: "Worklynx Blog", url: `${SITE_URL}/blogs`, publisher: { "@id": `${SITE_URL}/#organization` } },
+      breadcrumb("/blogs", "Blog"),
+    ],
+    priority: 0.7,
+  },
   { path: "/privacy-policy", title: "Privacy Policy | Worklynx", description: "How Worklynx collects, uses and protects personal data.", priority: 0.2 },
   { path: "/terms-of-service", title: "Terms of Service | Worklynx", description: "The terms that govern use of the Worklynx platform and website.", priority: 0.2 },
   { path: "/cookie-policy", title: "Cookie Policy | Worklynx", description: "Which cookies the Worklynx website uses and how to manage them.", priority: 0.2 },
@@ -211,10 +226,54 @@ export const NOT_FOUND = {
 
 const BY_PATH = new Map(ROUTES.map((r) => [r.path, r]));
 
+export const BLOG_POST_PATH = /^\/blogs\/[^/]+$/;
+
 export function seoForPath(pathname) {
   const clean = pathname !== "/" ? pathname.replace(/\/+$/, "") : "/";
   if (BY_PATH.has(clean)) return BY_PATH.get(clean);
+  // Blog posts set their own head once the post loads (BlogPostPage).
+  if (BLOG_POST_PATH.test(clean)) return { path: clean, pageManaged: true };
   return NOT_FOUND;
+}
+
+function parseSchema(value) {
+  if (!value) return null;
+  if (typeof value === "object") return value;
+  try { return JSON.parse(value); } catch { return null; }
+}
+
+// Head for one blog post. `seo` is the detail endpoint's seo object; list
+// items (used at build time) carry the same fields on the post itself.
+export function blogPostRoute(blog, seo = {}) {
+  const path = `/blogs/${blog.slug}`;
+  const title = seo.meta_title || blog.meta_title || blog.title;
+  const description = seo.meta_description || blog.meta_description || blog.short_description || "";
+  const image = seo.og_image || blog.og_image_url || blog.image_url;
+  const article = parseSchema(seo.schema_markup || blog.schema_markup) || {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: blog.title,
+    description: blog.short_description || description,
+    image: image || undefined,
+    datePublished: blog.published_at,
+    dateModified: blog.updated_at || blog.published_at,
+    author: { "@type": "Person", name: blog.author?.name || SITE_NAME },
+  };
+  return {
+    path,
+    title,
+    description,
+    keywords: seo.keywords || blog.keywords,
+    canonical: seo.canonical_url || blog.canonical_url || absoluteUrl(path),
+    robots: seo.meta_robots || blog.meta_robots,
+    ogType: seo.og_type || "article",
+    ogTitle: seo.og_title || title,
+    ogDescription: seo.og_description || description,
+    ogImage: image,
+    rawJsonLd: [article, { "@context": "https://schema.org", ...breadcrumb(path, blog.title, { name: "Blog", path: "/blogs" }) }],
+    lastmod: (blog.updated_at || blog.published_at || "").slice(0, 10) || undefined,
+    priority: 0.6,
+  };
 }
 
 export function absoluteUrl(path) {
@@ -229,31 +288,36 @@ export function jsonLd(schema) {
 // Builds the <head> tags for a route as an HTML string (build-time use).
 export function headHtml(route) {
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-  const url = route.path ? absoluteUrl(route.path) : null;
-  const image = `${SITE_URL}${DEFAULT_OG_IMAGE}`;
+  const url = route.canonical || (route.path ? absoluteUrl(route.path) : null);
+  const image = route.ogImage || `${SITE_URL}${DEFAULT_OG_IMAGE}`;
+  const ogTitle = route.ogTitle || route.title;
+  const ogDescription = route.ogDescription || route.description;
+  const robots = route.robots || (route.noindex ? "noindex, follow" : "index, follow, max-image-preview:large");
   const tags = [
     `<title>${esc(route.title)}</title>`,
     `<meta name="description" content="${esc(route.description)}" />`,
-    `<meta name="robots" content="${route.noindex ? "noindex, follow" : "index, follow, max-image-preview:large"}" />`,
+    `<meta name="robots" content="${esc(robots)}" />`,
   ];
-  if (url && !route.noindex) tags.push(`<link rel="canonical" href="${url}" />`);
+  if (route.keywords) tags.push(`<meta name="keywords" content="${esc(route.keywords)}" />`);
+  if (url && !route.noindex) tags.push(`<link rel="canonical" href="${esc(url)}" />`);
   for (const alt of route.alternates || []) {
     tags.push(`<link rel="alternate" hreflang="${alt.hreflang}" href="${absoluteUrl(alt.path)}" />`);
   }
   tags.push(
-    `<meta property="og:type" content="website" />`,
+    `<meta property="og:type" content="${esc(route.ogType || "website")}" />`,
     `<meta property="og:site_name" content="${SITE_NAME}" />`,
-    `<meta property="og:title" content="${esc(route.title)}" />`,
-    `<meta property="og:description" content="${esc(route.description)}" />`,
-    `<meta property="og:image" content="${image}" />`,
+    `<meta property="og:title" content="${esc(ogTitle)}" />`,
+    `<meta property="og:description" content="${esc(ogDescription)}" />`,
+    `<meta property="og:image" content="${esc(image)}" />`,
     `<meta property="og:locale" content="${(route.lang || "en-GB").replace("-", "_")}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
-    `<meta name="twitter:title" content="${esc(route.title)}" />`,
-    `<meta name="twitter:description" content="${esc(route.description)}" />`,
-    `<meta name="twitter:image" content="${image}" />`,
+    `<meta name="twitter:title" content="${esc(ogTitle)}" />`,
+    `<meta name="twitter:description" content="${esc(ogDescription)}" />`,
+    `<meta name="twitter:image" content="${esc(image)}" />`,
   );
-  if (url) tags.push(`<meta property="og:url" content="${url}" />`);
+  if (url) tags.push(`<meta property="og:url" content="${esc(url)}" />`);
   const ld = jsonLd(route.schema);
-  if (ld) tags.push(`<script type="application/ld+json">${ld.replace(/</g, "\\u003c")}</script>`);
+  const lds = [...(ld ? [ld] : []), ...(route.rawJsonLd || []).map((s) => JSON.stringify(s))];
+  for (const s of lds) tags.push(`<script type="application/ld+json">${s.replace(/</g, "\\u003c")}</script>`);
   return tags.join("\n    ");
 }
