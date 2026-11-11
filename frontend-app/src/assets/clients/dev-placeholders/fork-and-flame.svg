@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 160" role="img" aria-label="Fork &amp; Flame (test placeholder)">
+  <!-- DEV-ONLY test placeholder. Not a real client logo; never ship. -->
+  <g transform="translate(20 28)">
+    <!-- flame -->
+    <path d="M52 4c6 22 30 30 30 58a30 30 0 0 1-60 0c0-16 10-24 14-36 4 10 10 14 14 14 0-12-4-24 2-36z" fill="#F97316"/>
+    <path d="M52 52c4 10 14 14 14 26a14 14 0 0 1-28 0c0-8 6-12 8-18 2 4 4 6 6 6 0-6-2-10 0-14z" fill="#FDBA74"/>
+    <!-- fork -->
+    <g fill="#1F2937">
+      <rect x="2" y="10" width="4" height="34" rx="2"/>
+      <rect x="10" y="10" width="4" height="34" rx="2"/>
+      <rect x="18" y="10" width="4" height="34" rx="2"/>
+      <path d="M2 40h20v6a10 10 0 0 1-7 9.5V100a3 3 0 0 1-6 0V55.5A10 10 0 0 1 2 46z"/>
+    </g>
+  </g>
+  <text x="118" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700" fill="#1F2937">Fork</text>
+  <text x="118" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700" fill="#F97316">&amp; Flame</text>
+</svg>

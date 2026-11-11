@@ -16,6 +16,8 @@ const MarketHomePage = lazy(() => import("@/marketing/MarketHomePage"));
 const UKHRMSPage = lazy(() => import("@/marketing/uk/pages/HRMSPage"));
 const UKInventoryPage = lazy(() => import("@/marketing/uk/pages/InventoryPage"));
 const UKRestaurantPage = lazy(() => import("@/marketing/uk/pages/RestaurantPage"));
+const BlogListPage = lazy(() => import("@/marketing/blog/BlogListPage"));
+const BlogPostPage = lazy(() => import("@/marketing/blog/BlogPostPage"));
 const FeaturesPage = lazy(() => import("./marketing/pages/FeaturesPage"));
 const PricingPage = lazy(() => import("./marketing/pages/PricingPage"));
 const AboutPage = lazy(() => import("./marketing/pages/AboutPage"));
@@ -62,6 +64,8 @@ const App = () => {
           <Route path="/hrms" element={<Suspense fallback={<Fallback />}><UKHRMSPage /></Suspense>} />
           <Route path="/inventory-management" element={<Suspense fallback={<Fallback />}><UKInventoryPage /></Suspense>} />
           <Route path="/restaurant-management" element={<Suspense fallback={<Fallback />}><UKRestaurantPage /></Suspense>} />
+          <Route path="/blogs" element={<Suspense fallback={<Fallback />}><BlogListPage /></Suspense>} />
+          <Route path="/blogs/:slug" element={<Suspense fallback={<Fallback />}><BlogPostPage /></Suspense>} />
         </Route>
 
         {/* Marketing Routes */}

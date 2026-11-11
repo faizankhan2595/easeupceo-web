@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import worklynxLogo from "@/assets/worklynx-dark.png";
 import { useCountryContext } from "@/context/CountryContext";
 import { MARKET_HOME } from "@/seo/market";
@@ -48,6 +48,9 @@ export default function IndiaFooter() {
               </a>
               <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-colors" aria-label="Instagram">
                 <Instagram className="w-4 h-4" />
+              </a>
+              <a href={SOCIAL.facebook} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-colors" aria-label="Facebook">
+                <Facebook className="w-4 h-4" />
               </a>
             </div>
             <div className="space-y-2 text-sm">

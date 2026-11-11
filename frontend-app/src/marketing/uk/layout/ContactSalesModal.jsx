@@ -113,7 +113,7 @@ export default function ContactSalesModal({ open, onClose, onStartChat }) {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
                   >
-                    <CheckCircle className="h-16 w-16 text-accent-500" />
+                    <CheckCircle className="h-16 w-16 text-emerald-500" />
                     <h4 className="mt-4 text-lg font-semibold text-slate-900">Message Sent Successfully!</h4>
                     <p className="mt-2 max-w-sm text-sm text-slate-500">
                       Our UK-based business development team will review your details and call/email you within 2 hours.
